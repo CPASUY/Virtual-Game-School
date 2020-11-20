@@ -5,8 +5,8 @@ and your objective is to pass the semester defeating the homeworks(PDF’S FILES
 Is a game with different stages, each stage has a different quantity of enemies (PDF’S).<br>
 
 <strong>DOCUMENTATION</strong><br>
-[REQUERIMENTS](docs/FUNCTIONALANDNON-FUNCTIONALREQUIREMENTS.pdf)<br>
-[MOCKUPS](docs/Mockps.pdf)
+[REQUERIMENTS](docs/FUNCTIONAL-AND-NON-FUNCTIONAL-REQUIREMENTS.pdf)<br>
+[MOCKUPS](docs/Mockups.pdf)
 
 
 
