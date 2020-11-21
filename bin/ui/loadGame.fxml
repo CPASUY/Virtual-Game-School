@@ -15,7 +15,14 @@
          </image>
       </ImageView>
       <Button layoutX="428.0" layoutY="443.0" mnemonicParsing="false" onAction="#loadSaveGame" prefHeight="39.0" prefWidth="69.0" text="Load" />
-      <Button layoutX="428.0" layoutY="504.0" mnemonicParsing="false" onAction="#backLoadToMenu" prefHeight="39.0" prefWidth="69.0" text="Back" />
+      <Button layoutX="428.0" layoutY="504.0" mnemonicParsing="false" onAction="#backLoadToMenu" prefHeight="39.0" prefWidth="69.0" text="Back">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="339.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/imagesUI/Buttons/Back_Mesa%20de%20trabajo%201.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <TableView layoutX="359.0" layoutY="207.0" prefHeight="200.0" prefWidth="218.0">
         <columns>
             <TableColumn prefWidth="75.0" text="Nickname" />
