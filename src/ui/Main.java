@@ -12,9 +12,13 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("VirtualSchoolGameGUI.fxml"));
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("BasePane.fxml"));
+		VirtualGameGUIController vgc=new VirtualGameGUIController(primaryStage);
+		fxmload.setController(vgc);
+		Parent root=fxmload.load();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		vgc.startMenu() ;
 	}
 }
