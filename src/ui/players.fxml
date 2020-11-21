@@ -22,6 +22,9 @@
                <image>
                   <Image url="@../../images/imagesUI/Buttons/Players/Choose_Mesa%20de%20trabajo%201.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic></Button>
       <Button layoutX="546.0" layoutY="560.0" mnemonicParsing="false" onAction="#chooseBoy" prefHeight="48.0" prefWidth="113.0">
@@ -33,6 +36,9 @@
                <image>
                   <Image url="@../../images/imagesUI/Buttons/Players/ChooseMen_Mesa%20de%20trabajo%201.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic></Button>
       <Button layoutX="399.0" layoutY="625.0" mnemonicParsing="false" onAction="#backPlayerToMenu" prefHeight="45.0" prefWidth="147.0">
