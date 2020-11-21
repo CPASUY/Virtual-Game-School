@@ -31,13 +31,13 @@ public class VirtualGameGUIController {
 	}
 
 	@FXML
-	void loadGame(ActionEvent event) {
-
+	void loadGame(ActionEvent event) throws IOException {
+		startLoadGame();
 	}
 
 	@FXML
-	void newGame(ActionEvent event) {
-
+	void newGame(ActionEvent event) throws IOException {
+		starChoosePlayers();
 	}
 
 	@FXML
@@ -79,8 +79,8 @@ public class VirtualGameGUIController {
     private TextField searchPosition;
 
     @FXML
-    void backScoreToMenu(ActionEvent event) {
-
+    void backScoreToMenu(ActionEvent event) throws IOException {
+    	startMenu();
     }
 
     @FXML
@@ -127,8 +127,45 @@ public class VirtualGameGUIController {
     private Label coinsShop;
 
     @FXML
-    void backShopToGame(ActionEvent event) {
-
+    void backShopToGame(ActionEvent event) throws IOException {
+    	startScenary();
     }
-    
+    public void startLoadGame() throws IOException {
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadGame.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
+    @FXML
+    void backLoadToMenu(ActionEvent event) throws IOException {
+    	startMenu();
+    }
+
+    @FXML
+    void loadSaveGame(ActionEvent event) throws IOException {
+    	startScenary();
+    }
+    public void starChoosePlayers() throws IOException {
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
+
+    @FXML
+    void backPlayerToMenu(ActionEvent event) throws IOException {
+    	startMenu();
+    }
+
+    @FXML
+    void chooseBoy(ActionEvent event) throws IOException {
+    	startScenary();
+    }
+
+    @FXML
+    void chooseGirl(ActionEvent event) throws IOException {
+    	startScenary();
+    }
 }
