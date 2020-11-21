@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="688.0" fitWidth="935.0" pickOnBounds="true">
          <image>
-            <Image url="@1b58cea1-79cf-47b4-a1bc-ccce943da3ff.jpg" />
+            <Image url="@../../images/imagesUI/Backgrounds/PlayersWITHOU_Mesa%20de%20trabajo%201.png" />
          </image>
       </ImageView>
       <Button layoutX="314.0" layoutY="566.0" mnemonicParsing="false" onAction="#chooseGirl" text="Choose" />

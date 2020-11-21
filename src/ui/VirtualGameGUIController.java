@@ -27,7 +27,7 @@ public class VirtualGameGUIController {
 	}
 	@FXML
 	void exit(ActionEvent event) {
-
+		System.exit(0);
 	}
 
 	@FXML
