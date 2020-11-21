@@ -18,10 +18,25 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ImageView>
+<<<<<<< HEAD
       <Button layoutX="424.0" layoutY="443.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadSaveGame" prefHeight="26.0" prefWidth="69.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+=======
+<<<<<<< HEAD
+      <Button layoutX="428.0" layoutY="443.0" mnemonicParsing="false" onAction="#loadSaveGame" prefHeight="39.0" prefWidth="69.0" text="Load" />
+      <Button layoutX="428.0" layoutY="504.0" mnemonicParsing="false" onAction="#backLoadToMenu" prefHeight="39.0" prefWidth="69.0" text="Back">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="339.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/imagesUI/Buttons/Back_Mesa%20de%20trabajo%201.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+=======
+      <Button layoutX="428.0" layoutY="443.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadSaveGame" prefHeight="39.0" prefWidth="69.0">
+>>>>>>> 633d7d18df2cede6ac2e2790c89be3a52f6d87e0
          <graphic>
             <ImageView fitHeight="89.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -39,7 +54,15 @@
                   <Image url="@../../images/imagesUI/Buttons/Load/Back_Mesa%20de%20trabajo%201.png" />
                </image>
             </ImageView>
+<<<<<<< HEAD
          </graphic></Button>
+=======
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+>>>>>>> 5fc37a64008bd92ef7b96b8743babbf9448c609f
+>>>>>>> 633d7d18df2cede6ac2e2790c89be3a52f6d87e0
       <TableView layoutX="359.0" layoutY="207.0" prefHeight="200.0" prefWidth="218.0">
         <columns>
             <TableColumn prefWidth="75.0" text="Nickname" />
