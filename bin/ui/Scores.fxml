@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="688.0" fitWidth="935.0" pickOnBounds="true">
          <image>
-            <Image url="@images/scoresImage.jpg" />
+            <Image url="@../../images/imagesUI/Backgrounds/Score_Mesa%20de%20trabajo%201.png" />
          </image>
       </ImageView>
       <TreeTableView layoutX="237.0" layoutY="206.0" prefHeight="336.0" prefWidth="461.0">
@@ -45,5 +45,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
+      <Button layoutX="717.0" layoutY="206.0" mnemonicParsing="false" text="Refresh" />
    </children>
 </Pane>

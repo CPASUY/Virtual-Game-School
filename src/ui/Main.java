@@ -16,8 +16,10 @@ public class Main extends Application {
 		VirtualGameGUIController vgc=new VirtualGameGUIController(primaryStage);
 		fxmload.setController(vgc);
 		Parent root=fxmload.load();
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root,935,688);
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("Virtual School Game");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 		vgc.startMenu() ;
 	}
