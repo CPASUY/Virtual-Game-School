@@ -14,7 +14,7 @@
             <Image url="@../daec96a3-5334-4696-9909-c79571d70861.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="428.0" layoutY="443.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="39.0" prefWidth="69.0" text="Load" />
+      <Button layoutX="428.0" layoutY="443.0" mnemonicParsing="false" onAction="#loadSaveGame" prefHeight="39.0" prefWidth="69.0" text="Load" />
       <Button layoutX="428.0" layoutY="504.0" mnemonicParsing="false" onAction="#backLoadToMenu" prefHeight="39.0" prefWidth="69.0" text="Back" />
       <TableView layoutX="359.0" layoutY="207.0" prefHeight="200.0" prefWidth="218.0">
         <columns>

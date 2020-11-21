@@ -56,8 +56,8 @@ public class VirtualGameGUIController {
     private Label coinsGame;
 
     @FXML
-    void buyItems(ActionEvent event) {
-
+    void buyItems(ActionEvent event) throws IOException {
+    	startShop();
     }
 
     @FXML
