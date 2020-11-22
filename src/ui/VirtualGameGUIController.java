@@ -2,16 +2,20 @@ package ui;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Player;
 import javafx.scene.control.Button;
 public class VirtualGameGUIController {
 	//Atributes
 	private Stage stage;
+	private Player player;
 	@FXML
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
@@ -19,6 +23,7 @@ public class VirtualGameGUIController {
 	}
 	//Menu
 	public void startMenu() throws IOException {
+		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameMenu.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
@@ -51,6 +56,30 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+		basePane.setOnKeyPressed(new EventHandler<KeyEvent>(){
+			public void handle(KeyEvent event) {
+			switch(event.getCode().toString()) {
+			case "RIGHT":
+				System.out.println("PARA LA DERECHA");
+				break;
+				
+			case "LEFT":
+				
+				break;
+				
+			case "UP":
+				
+				break;
+				
+			case "DOWN":
+				
+				break;
+				
+			default:
+				break;
+			}
+			}
+		});
 	}
 	@FXML
     private Label coinsGame;
@@ -66,7 +95,8 @@ public class VirtualGameGUIController {
     }
     
     public void startScores() throws IOException {
-		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Scores.fxml"));
+    	basePane.setOnKeyPressed(null);
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Scores.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
@@ -109,7 +139,8 @@ public class VirtualGameGUIController {
 
     }
     public void startShop() throws IOException {
-		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Shop.fxml"));
+		basePane.setOnKeyPressed(null);
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Shop.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
@@ -132,7 +163,7 @@ public class VirtualGameGUIController {
     	startScenary();
     }
     public void startLoadGame() throws IOException {
-		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadGame.fxml"));
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadGame.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
@@ -148,7 +179,7 @@ public class VirtualGameGUIController {
     	startScenary();
     }
     public void starChoosePlayers() throws IOException {
-		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
@@ -168,5 +199,9 @@ public class VirtualGameGUIController {
     @FXML
     void chooseGirl(ActionEvent event) throws IOException {
     	startScenary();
+    }
+    
+    void eventsManagement() {
+    	
     }
 }
