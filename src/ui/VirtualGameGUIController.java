@@ -64,6 +64,7 @@ public class VirtualGameGUIController {
     void pauseGame(ActionEvent event) {
 
     }
+    
     public void startScores() throws IOException {
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Scores.fxml"));
 		fxmload.setController(this);
