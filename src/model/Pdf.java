@@ -27,7 +27,7 @@ public class Pdf extends Entity implements Motion,Attack {
 	}
 
 	@Override
-	public void move(int posX, int posY) {
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}

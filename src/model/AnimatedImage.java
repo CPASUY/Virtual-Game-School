@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 	double duration;
 	double width;
 	double height;
+	Image currentFrame;
 	
 	public AnimatedImage(double duration, double width, double height) {
 		this.duration = duration;
@@ -17,13 +18,16 @@ import javafx.scene.image.Image;
 		this.height = height;
 	}
 	
-	public Image getFrame(double time) {
-		return null;
-		
+	public Image getCurrentFrame() {
+		return currentFrame;
 	}
 	
 	public Image[] getFrames() {
 		return frames;
+	}
+	
+	public void setCurrentFrame(Image frame) {
+		currentFrame = frame;
 	}
 	
 	public void fillFrames(String[] paths,int QuantityOFSprites) {
@@ -33,7 +37,7 @@ import javafx.scene.image.Image;
 	    	Image imload = new Image(file.toURI().toString());
 	    	frames[i] = imload;
 		}
-	
+		currentFrame = getFrames()[0];
 	}
 
 	

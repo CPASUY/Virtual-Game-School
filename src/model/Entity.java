@@ -2,26 +2,26 @@ package model;
 
 public class Entity extends AnimatedImage {
 	
-	private int posX;
-	private int posY;
+	private double posX;
+	private double posY;
 	private double health;
 	
-	public Entity(int posX, int posY, double health,double duration, double width, double height) {
+	public Entity(double posX, double posY, double health,double duration, double width, double height) {
 		super(duration,width,height);
 		this.posX = posX;
 		this.posY = posY;
 		this.health = health;
 	}
 	
-	public void setPosX(int posX) {
+	public void setPosX(double posX) {
 		this.posX = posX;
 	}
 	
-	public int getPosX() {
+	public double getPosX() {
 		return posX;
 	}
 	
-	public int getPosY() {
+	public double getPosY() {
 		return posY;
 	}
 	
@@ -29,7 +29,7 @@ public class Entity extends AnimatedImage {
 		return health;
 	}
 	
-	public void setPosY(int posY) {
+	public void setPosY(double posY) {
 		this.posY = posY;
 	}
 	

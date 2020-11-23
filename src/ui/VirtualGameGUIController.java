@@ -26,6 +26,11 @@ public class VirtualGameGUIController {
 	private Player player;
 	private GraphicsContext graphics;
 	private Image scenaryGame;
+	public static boolean up;
+	public static boolean down;
+	public static boolean left;
+	public static boolean right;
+	public static boolean attack;
 	@FXML
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
@@ -65,32 +70,54 @@ public class VirtualGameGUIController {
 	
 	public void startScenary() throws IOException {
 		initScenary();
+		eventManager();
 		draw();
     	loopGame();
-		
+	}
+	
+	public void eventManager() {
 		basePane.setOnKeyPressed(new EventHandler<KeyEvent>(){
 			public void handle(KeyEvent event) {
 			switch(event.getCode().toString()) {
 			case "RIGHT":
-				player.move(-10,0);
+				right = true;
 				break;
-				
 			case "LEFT":
-				
-				player.move(10, 0);
-				
+				left = true;
 				break;
-				
 			case "UP":
-				player.move(0, 10);
+				up = true;
 				break;
-				
 			case "DOWN":
-				player.move(0,-10);
+				down = true;
+				break;
+			case "Z":
+				attack =true;
 				break;
 				
+			default:
+				break;
+			}
+			}
+		});
+		
+		basePane.setOnKeyReleased(new EventHandler<KeyEvent>(){
+			public void handle(KeyEvent event) {
+			switch(event.getCode().toString()) {
+			case "RIGHT":
+				right = false;
+				break;
+			case "LEFT":
+				left = false;
+				break;
+			case "UP":
+				up = false;
+				break;
+			case "DOWN":
+				down = false;
+				break;
 			case "Z":
-				System.out.println("Z");
+				attack =false;
 				break;
 				
 			default:
@@ -101,7 +128,7 @@ public class VirtualGameGUIController {
 	}
 	
 	public void updateState() {
-		
+		player.move();
 	}
 	
 	public void initScenary() throws IOException {
@@ -117,12 +144,11 @@ public class VirtualGameGUIController {
 		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/ScenaryGame.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
-    	draw();
 	}
 	
 	public void draw() {
 		graphics.drawImage(scenaryGame, 0, 0);
-		graphics.drawImage(player.getFrames()[0], player.getPosX(), player.getPosY());
+		player.draw(graphics);
 	}
 	
 	public void loopGame() {
