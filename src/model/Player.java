@@ -8,18 +8,22 @@ public class Player extends Entity implements Motion,Attack {
 	
 	
 	private int score;
-	private final double MAX_HEALTH = 100;
+	private final static double MAX_HEALTH = 100;
+	private final int QUANTITY_SPRITES = 1;
+	private final String[] paths = {"E:\\MyProjects\\Virtual-Game-School\\src\\model\\file.png"};
 	private LocalDate Date;
 	private boolean lose;
 	private boolean paused;
 	private Gun gun;
 	
-	public Player(){
+	public Player(double duration, double width, double height){
 		
+		super(467,344,MAX_HEALTH,duration,width,height);
+		fillFrames(paths,QUANTITY_SPRITES);
 	}
 
 	@Override
-	public void attack(Character character) {
+	public void attack(Entity character) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,7 +36,8 @@ public class Player extends Entity implements Motion,Attack {
 
 	@Override
 	public void move(int posX, int posY) {
-		// TODO Auto-generated method stub
+		setPosX(getPosX()-posX);
+		setPosY(getPosY()-posY);
 		
 	}
 	

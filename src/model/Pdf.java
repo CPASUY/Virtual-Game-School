@@ -1,11 +1,21 @@
 package model;
 
+import javafx.scene.image.Image;
+
 public class Pdf extends Entity implements Motion,Attack {
 	
 	private double damage;
+	private final int QUANTITY_SPRITES = 5;
+	
+	
+	public Pdf(String[] paths,int posX, int posY, double health,double duration, double width, double height,double damage) {
+		super(posX, posY, health,duration, width, height);
+		this.damage = damage;
+		fillFrames(paths,QUANTITY_SPRITES);
+	}
 
 	@Override
-	public void attack(Character character) {
+	public void attack(Entity character) {
 		// TODO Auto-generated method stub
 		
 	}
