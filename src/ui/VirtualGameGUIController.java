@@ -14,7 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Player;
 import javafx.scene.control.Button;
@@ -106,18 +108,16 @@ public class VirtualGameGUIController {
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameScenary.fxml"));
 		fxmload.setController(this);
 		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
 		Canvas canva  = new Canvas(935,688);
-		canva.toFront();
 		player = new Player(50,20,100);
+		basePane.getChildren().clear();
 		basePane.getChildren().add(canva);
+		basePane.setCenter(root);
 		graphics = canva.getGraphicsContext2D();
-		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/scenaryff-01.png");
+		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/ScenaryGame.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
-		
-		
+    	draw();
 	}
 	
 	public void draw() {
