@@ -2,7 +2,7 @@ package model;
 
 public interface Attack {
 	
-	public void attack(Character character);
+	public void attack(Entity character);
 	
 	public double getDamage();
 }
