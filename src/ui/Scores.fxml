@@ -86,14 +86,14 @@
          </graphic></Button>
       <TextField fx:id="searchNickname" layoutX="211.0" layoutY="150.0" />
       <TextField fx:id="searchPosition" layoutX="620.0" layoutY="150.0" />
-      <Button layoutX="373.0" layoutY="146.0" mnemonicParsing="false" onAction="#searchByNickname" prefHeight="25.0" prefWidth="68.0" text="Search" textFill="WHITE">
+      <Button layoutX="373.0" layoutY="149.0" mnemonicParsing="false" onAction="#searchByNickname" prefHeight="25.0" prefWidth="68.0" text="Search" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="777.0" layoutY="146.0" mnemonicParsing="false" onAction="#searchByPosition" prefHeight="31.0" prefWidth="68.0" text="Search" textFill="WHITE">
+      <Button layoutX="791.0" layoutY="150.0" mnemonicParsing="false" onAction="#searchByPosition" prefHeight="31.0" prefWidth="68.0" text="Search" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

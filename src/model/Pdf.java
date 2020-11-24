@@ -1,6 +1,6 @@
 package model;
 
-public class Pdf extends Entity implements Motion,Attack {
+public abstract class Pdf extends Entity implements Motion,Attack {
 	
 	private double damage;
 
