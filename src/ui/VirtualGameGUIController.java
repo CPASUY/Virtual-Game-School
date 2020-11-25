@@ -35,7 +35,6 @@ public class VirtualGameGUIController {
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
-		player = new Player(50,20,100);
 	}
 	//Menu
 	public void startMenu() throws IOException {
@@ -58,6 +57,7 @@ public class VirtualGameGUIController {
 
 	@FXML
 	void newGame(ActionEvent event) throws IOException {
+		player = new Player(50,20,100);
 		starChoosePlayers();
 	}
 
