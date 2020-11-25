@@ -12,7 +12,7 @@ public class Player extends Entity implements Motion,Attack {
 	private int score;
 	private final static double MAX_HEALTH = 100;
 	private final int QUANTITY_SPRITES = 1;
-	private final String[] paths = {"E:\\MyProjects\\Virtual-Game-School\\src\\model\\file.png"};
+	private final String[] paths = {"E:\\MyProjects\\Virtual-Game-School\\sprites\\BoyGunDefect\\L1_Mesa de trabajo 1.png"};
 	private LocalDate Date;
 	private boolean lose;
 	private boolean paused;
