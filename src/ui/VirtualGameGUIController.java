@@ -144,6 +144,7 @@ public class VirtualGameGUIController {
 		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/ScenaryGame.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
+
 	}
 	
 	public void draw() {
