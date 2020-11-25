@@ -142,7 +142,7 @@ public class VirtualGameGUIController {
 		basePane.getChildren().add(canva);
 		basePane.setCenter(root);
 		graphics = canva.getGraphicsContext2D();
-		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/Scenary.jpg");
+		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
 	}
