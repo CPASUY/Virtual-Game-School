@@ -20,12 +20,11 @@ public class Player extends Entity implements Motion,Attack {
 	private boolean paused;
 	private boolean woman;
 	private Gun gun;
-	private final int VELOCITY;
+	private final int VELOCITY = 4;
 	
 	public Player(double duration, double width, double height){
 		super(467,344,MAX_HEALTH,duration,width,height);
 		woman = false;
-		VELOCITY = 3;
 	}
 
 	@Override
@@ -59,18 +58,22 @@ public class Player extends Entity implements Motion,Attack {
 		}
 		
 		if(VirtualGameGUIController.right) {
+			currentFrame = getFrames()[3];
 			setPosX(getPosX()+VELOCITY);
 		}
 		if(VirtualGameGUIController.left) {
+			currentFrame = getFrames()[1];
 			setPosX(getPosX()-VELOCITY);
 		}
 		if(VirtualGameGUIController.up) {
+			currentFrame = getFrames()[3];
 			setPosY(getPosY()-VELOCITY);
 		}
 		if(VirtualGameGUIController.down) {
+			currentFrame = getFrames()[1];
 			setPosY(getPosY()+VELOCITY);
 		}
-		currentFrame = getFrames()[0];
+		//currentFrame = getFrames()[0];
 	}
 	
 	public void setPaths() {

@@ -35,7 +35,6 @@ public class VirtualGameGUIController {
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
-		player = new Player(50,20,100);
 	}
 	//Menu
 	public void startMenu() throws IOException {
@@ -58,6 +57,7 @@ public class VirtualGameGUIController {
 
 	@FXML
 	void newGame(ActionEvent event) throws IOException {
+		player = new Player(50,20,100);
 		starChoosePlayers();
 	}
 
@@ -142,7 +142,7 @@ public class VirtualGameGUIController {
 		basePane.getChildren().add(canva);
 		basePane.setCenter(root);
 		graphics = canva.getGraphicsContext2D();
-		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/Scenary.jpg");
+		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
 	}
