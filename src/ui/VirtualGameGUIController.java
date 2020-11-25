@@ -35,6 +35,7 @@ public class VirtualGameGUIController {
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
+		player = new Player(50,20,100);
 	}
 	//Menu
 	public void startMenu() throws IOException {
@@ -136,7 +137,7 @@ public class VirtualGameGUIController {
 		fxmload.setController(this);
 		Parent root=fxmload.load();
 		Canvas canva  = new Canvas(935,688);
-		player = new Player(50,20,100);
+		player.setPaths();
 		basePane.getChildren().clear();
 		basePane.getChildren().add(canva);
 		basePane.setCenter(root);
@@ -144,7 +145,6 @@ public class VirtualGameGUIController {
 		File file = new File("E:/MyProjects/Virtual-Game-School/images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
-
 	}
 	
 	public void draw() {
@@ -277,11 +277,13 @@ public class VirtualGameGUIController {
 
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
+    	player.setWoman(false);
     	startScenary();
     }
 
     @FXML
     void chooseGirl(ActionEvent event) throws IOException {
+    	player.setWoman(true);
     	startScenary();
     }
     

@@ -11,18 +11,20 @@ public class Player extends Entity implements Motion,Attack {
 	
 	private int score;
 	private final static double MAX_HEALTH = 100;
-	private final int QUANTITY_SPRITES = 1;
-	private final String[] paths = {"E:\\MyProjects\\Virtual-Game-School\\sprites\\BoyGunDefect\\L1_Mesa de trabajo 1.png"};
+	private final int QUANTITY_SPRITES = 5;
+	private String[] paths = new String[QUANTITY_SPRITES];
+	private String pathBoy = "sprites/BoyGunDefect/";
+	private String pathGirl = "sprites/GirlGunDefect/";
 	private LocalDate Date;
 	private boolean lose;
 	private boolean paused;
+	private boolean woman;
 	private Gun gun;
 	private final int VELOCITY;
 	
 	public Player(double duration, double width, double height){
-		
 		super(467,344,MAX_HEALTH,duration,width,height);
-		fillFrames(paths,QUANTITY_SPRITES);
+		woman = false;
 		VELOCITY = 3;
 	}
 
@@ -69,6 +71,27 @@ public class Player extends Entity implements Motion,Attack {
 			setPosY(getPosY()+VELOCITY);
 		}
 		currentFrame = getFrames()[0];
+	}
+	
+	public void setPaths() {
+		
+		if(woman) {
+			String[] girl = {pathGirl+"static.png",pathGirl+"left0.png",pathGirl+"left1.png",pathGirl+"right0.png",pathGirl+"right1.png"};
+			paths = girl;
+		}
+		else {
+			String[] boy = {pathBoy+"static.png",pathBoy+"left0.png",pathBoy+"left1.png",pathBoy+"right0.png",pathBoy+"right1.png"};
+			paths = boy;
+		}
+		fillFrames(paths,QUANTITY_SPRITES);
+	}
+
+	public boolean isWoman() {
+		return woman;
+	}
+
+	public void setWoman(boolean woman) {
+		this.woman = woman;
 	}
 	
 	
