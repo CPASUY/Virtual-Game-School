@@ -1,12 +1,7 @@
 package model;
-
-<<<<<<< HEAD
-public abstract class Pdf extends Entity implements Motion,Attack {
-=======
 import javafx.scene.image.Image;
 
-public class Pdf extends Entity implements Motion,Attack {
->>>>>>> 21a85d22b7c5c9d3d64f3453fb4e64a6c860ca6f
+public abstract class Pdf extends Entity implements Motion,Attack {
 	
 	private double damage;
 	private final int QUANTITY_SPRITES = 5;
