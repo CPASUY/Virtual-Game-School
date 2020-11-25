@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class Entity extends AnimatedImage {
 	
 	private double posX;
@@ -31,6 +33,10 @@ public class Entity extends AnimatedImage {
 	
 	public void setPosY(double posY) {
 		this.posY = posY;
+	}
+	
+	public void draw(GraphicsContext graphics) {
+		graphics.drawImage(currentFrame,getPosX(),getPosY());
 	}
 	
 }

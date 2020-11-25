@@ -71,9 +71,6 @@ public class Player extends Entity implements Motion,Attack {
 		currentFrame = getFrames()[0];
 	}
 	
-	public void draw(GraphicsContext graphics) {
-		graphics.drawImage(currentFrame,getPosX(),getPosY());
-	}
 	
 
 }
