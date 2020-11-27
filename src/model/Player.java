@@ -38,10 +38,13 @@ public class Player extends Entity implements Motion,Attack {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public int cont(int n) {
+		int cont=+n;
+		return cont;
+	}
 	@Override
 	public void move() {
-		
+		int cont=cont(1);
 		
 		if(getPosX()<0) {
 			setPosX(0);
@@ -58,19 +61,47 @@ public class Player extends Entity implements Motion,Attack {
 		}
 		
 		if(VirtualGameGUIController.right) {
-			currentFrame = getFrames()[3];
+			if(cont%2==0) {
+				currentFrame = getFrames()[3];
+				System.out.println("sprite 1");
+			}
+			else {
+				currentFrame = getFrames()[4];
+				System.out.println("sprite 2");
+			}
 			setPosX(getPosX()+VELOCITY);
 		}
 		if(VirtualGameGUIController.left) {
-			currentFrame = getFrames()[1];
+			long startTime = System.currentTimeMillis();
+			if(startTime<1000) {
+				currentFrame = getFrames()[1];
+			}
+			else {
+				currentFrame = getFrames()[2];
+				startTime=0;
+			}
 			setPosX(getPosX()-VELOCITY);
 		}
 		if(VirtualGameGUIController.up) {
-			currentFrame = getFrames()[3];
+			long startTime = System.currentTimeMillis();
+			if(startTime<1000) {
+				currentFrame = getFrames()[3];
+			}
+			else {
+				currentFrame = getFrames()[4];
+				startTime=0;
+			}
 			setPosY(getPosY()-VELOCITY);
 		}
 		if(VirtualGameGUIController.down) {
-			currentFrame = getFrames()[1];
+			long startTime = System.currentTimeMillis();
+			if(startTime<1000) {
+				currentFrame = getFrames()[1];
+			}
+			else {
+				currentFrame = getFrames()[2];
+				startTime=0;
+			}
 			setPosY(getPosY()+VELOCITY);
 		}
 		//currentFrame = getFrames()[0];
