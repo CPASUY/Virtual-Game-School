@@ -1,4 +1,5 @@
 package model;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Pdf extends Entity implements Motion,Attack {
@@ -14,7 +15,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	}
 
 	@Override
-	public void attack(Entity character) {
+	public void attack() {
 		// TODO Auto-generated method stub
 		
 	}

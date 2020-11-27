@@ -24,13 +24,12 @@ public class VirtualGameGUIController {
 	//Atributes
 	private Stage stage;
 	private Player player;
-	private GraphicsContext graphics;
+	public static GraphicsContext graphics;
 	private Image scenaryGame;
 	public static boolean up;
 	public static boolean down;
 	public static boolean left;
 	public static boolean right;
-	public static boolean attack;
 	@FXML
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
@@ -93,7 +92,7 @@ public class VirtualGameGUIController {
 				down = true;
 				break;
 			case "Z":
-				attack =true;
+				player.attack();
 				break;
 				
 			default:
@@ -117,10 +116,6 @@ public class VirtualGameGUIController {
 			case "DOWN":
 				down = false;
 				break;
-			case "Z":
-				attack =false;
-				break;
-				
 			default:
 				break;
 			}
@@ -150,7 +145,7 @@ public class VirtualGameGUIController {
 	public void draw() {
 		graphics.drawImage(scenaryGame, 0, 0);
 		player.draw(graphics);
-	}
+		}
 	
 	public void loopGame() {
 		

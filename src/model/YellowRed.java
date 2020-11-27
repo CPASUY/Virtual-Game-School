@@ -15,7 +15,7 @@ public class YellowRed extends Pdf {
 	}
 
 	@Override
-	public void attack(Entity character) {
+	public void attack() {
 		// TODO Auto-generated method stub
 		
 	}

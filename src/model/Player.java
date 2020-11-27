@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import ui.VirtualGameGUIController;
@@ -16,6 +17,8 @@ public class Player extends Entity implements Motion,Attack {
 	private String pathBoy = "sprites/BoyGunDefect/";
 	private String pathGirl = "sprites/GirlGunDefect/";
 	private LocalDate Date;
+	private double bulletPosX;
+	private double bulletPosY;
 	private boolean lose;
 	private boolean paused;
 	private boolean woman;
@@ -25,13 +28,22 @@ public class Player extends Entity implements Motion,Attack {
 	public Player(double duration, double width, double height){
 		super(467,344,MAX_HEALTH,duration,width,height);
 		woman = false;
+		gun = new Gun(getPosX(),getPosY());
+		bulletPosX = gun.getBullet().getPosX();
+		bulletPosY = gun.getBullet().getPosY();
 	}
 
 	@Override
-	public void attack(Entity character) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void attack() {
+				gun.setBullet(new Bullet(getPosX(),getPosY()));
+				
+				if(currentFrame == getFrames()[1]) {
+				 gun.getBullet().setDirection("left");	
+				}else {
+				 gun.getBullet().setDirection("right");	
+				}
+				gun.getBullet().draw();
+			}
 
 	@Override
 	public double getDamage() {
@@ -44,7 +56,10 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	@Override
 	public void move() {
+<<<<<<< HEAD
 		int cont=cont(1);
+=======
+>>>>>>> f75eb24a2050a3c0e2f39411d3a498f43a0a4898
 		
 		if(getPosX()<0) {
 			setPosX(0);
@@ -128,6 +143,12 @@ public class Player extends Entity implements Motion,Attack {
 		this.woman = woman;
 	}
 	
+	public Gun getGun() {
+		return gun;
+	}
 	
+	public void setGun(Gun gun) {
+		this.gun = gun;
+	}
 
 }
