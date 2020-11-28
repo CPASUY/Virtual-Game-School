@@ -2,11 +2,13 @@ package ui;
 import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.animation.AnimationTimer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.GameManagement;
 import model.Player;
+import model.User;
 import javafx.scene.control.Button;
 public class VirtualGameGUIController {
 	//Atributes
@@ -30,10 +34,32 @@ public class VirtualGameGUIController {
 	public static boolean down;
 	public static boolean left;
 	public static boolean right;
+	private GameManagement gm;
 	@FXML
+    private TableView<User> tableScore;
+
+    @FXML
+    private TableColumn<User,Integer> idPosition;
+
+    @FXML
+    private TableColumn<User,String> idNickname;
+
+    @FXML
+    private TableColumn<User, Double> idScore;
+
+    @FXML
+    private TableColumn<User,Integer> idDefeats;
+
+    @FXML
+    private TableColumn<User,Integer> idLastStage;
+
+    @FXML
+    private TableColumn<User,Double> idMoodleCoins;
+
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
+		gm=new GameManagement();
 	}
 	//Menu
 	public void startMenu() throws IOException {
@@ -200,22 +226,58 @@ public class VirtualGameGUIController {
 
     @FXML
     void searchByPosition(ActionEvent event) {
-
+    	
     }
 
     @FXML
+    /**
+  	 * Sort by defeats
+  	 * @param ActionEvent event
+  	 */
     void sortByDefeats(ActionEvent event) {
-
+    	ObservableList<User> user= FXCollections.observableArrayList(gm.insertionSortByDefeats());
+		tableScore.setItems(user);
+		
+		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
 
     @FXML
+    /**
+  	 * Sort by last stage
+  	 * @param ActionEvent event
+  	 */
     void sortByLastStage(ActionEvent event) {
-
+    	ObservableList<User> user= FXCollections.observableArrayList(gm.bubbleSortByLastStage());
+		tableScore.setItems(user);
+		
+		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
 
     @FXML
+    /**
+	 * Sort by moodleCoins
+	 * @param ActionEvent event
+	 */
     void sortByMoodleCoins(ActionEvent event) {
-
+    	ObservableList<User> user= FXCollections.observableArrayList(gm.selectionSortByMoodleCoins());
+		tableScore.setItems(user);
+		
+		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
     public void startShop() throws IOException {
 		basePane.setOnKeyPressed(null);
