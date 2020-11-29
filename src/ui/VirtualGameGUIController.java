@@ -66,7 +66,10 @@ public class VirtualGameGUIController {
 	private BorderPane basePane;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private AnimationTimer animationTimer;
+=======
+>>>>>>> 5d30de93e4a582c4fb1f8e8a3aeb4ad037624e87
 =======
 >>>>>>> 5d30de93e4a582c4fb1f8e8a3aeb4ad037624e87
 	public VirtualGameGUIController(Stage s) {
