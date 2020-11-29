@@ -33,15 +33,18 @@ public class Player extends Entity implements Motion,Attack {
 
 	@Override
 	public void attack() {
-				gun.setBullet(new Bullet(getPosX(),getPosY()));
+				
+			if(paused == false) {
+				 gun.setBullet(new Bullet(getPosX(),getPosY()));
 				
 				if(currentFrame == getFrames()[1]) {
 				 gun.getBullet().setDirection("left");	
 				}else {
 				 gun.getBullet().setDirection("right");	
 				}
-				gun.getBullet().draw();
+				gun.getBullet().draw(paused);
 			}
+	}
 
 	@Override
 	public double getDamage() {
@@ -54,6 +57,10 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	@Override
 	public void move() {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 905675d21ffbae06d6c30c0049dbd193d2364fc9
 		int cont=cont(1);
 		
 		if(getPosX()<0) {
@@ -71,47 +78,19 @@ public class Player extends Entity implements Motion,Attack {
 		}
 		
 		if(VirtualGameGUIController.right) {
-			if(cont%2==0) {
-				currentFrame = getFrames()[3];
-				System.out.println("sprite 1");
-			}
-			else {
-				currentFrame = getFrames()[4];
-				System.out.println("sprite 2");
-			}
+			currentFrame = getFrames()[3];
 			setPosX(getPosX()+VELOCITY);
 		}
 		if(VirtualGameGUIController.left) {
-			long startTime = System.currentTimeMillis();
-			if(startTime<1000) {
-				currentFrame = getFrames()[1];
-			}
-			else {
-				currentFrame = getFrames()[2];
-				startTime=0;
-			}
+			currentFrame = getFrames()[1];
 			setPosX(getPosX()-VELOCITY);
 		}
 		if(VirtualGameGUIController.up) {
-			long startTime = System.currentTimeMillis();
-			if(startTime<1000) {
-				currentFrame = getFrames()[3];
-			}
-			else {
-				currentFrame = getFrames()[4];
-				startTime=0;
-			}
+			currentFrame = getFrames()[3];
 			setPosY(getPosY()-VELOCITY);
 		}
 		if(VirtualGameGUIController.down) {
-			long startTime = System.currentTimeMillis();
-			if(startTime<1000) {
-				currentFrame = getFrames()[1];
-			}
-			else {
-				currentFrame = getFrames()[2];
-				startTime=0;
-			}
+			currentFrame = getFrames()[1];
 			setPosY(getPosY()+VELOCITY);
 		}
 		//currentFrame = getFrames()[0];
@@ -190,6 +169,14 @@ public class Player extends Entity implements Motion,Attack {
 
 	public void setCoins(int coins) {
 		this.coins = coins;
+	}
+	
+	public void setPaused(boolean pause) {
+		paused = pause;
+	}
+	
+	public boolean getPaused() {
+		return paused;
 	}
 
 }

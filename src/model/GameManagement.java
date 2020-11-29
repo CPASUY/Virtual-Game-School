@@ -8,6 +8,10 @@ import exceptions.RepeatedNicknameException;
 
 
 public class GameManagement implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1000L;
 	private Player game;
 	private User rootUsers;
 	private Log rootLogs;

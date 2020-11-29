@@ -58,9 +58,17 @@ public class VirtualGameGUIController {
 
     @FXML
     private TableColumn<User,Double> idMoodleCoins;
+<<<<<<< HEAD
+=======
     
+>>>>>>> 905675d21ffbae06d6c30c0049dbd193d2364fc9
     @FXML
 	private BorderPane basePane;
+    
+<<<<<<< HEAD
+    private AnimationTimer animationTimer;
+=======
+>>>>>>> 5d30de93e4a582c4fb1f8e8a3aeb4ad037624e87
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
 		gm=new GameManagement();
@@ -179,7 +187,7 @@ public class VirtualGameGUIController {
 	
 	public void loopGame() {
 		
-		AnimationTimer animationTimer = new AnimationTimer() {
+		animationTimer = new AnimationTimer() {
 			
 			//60 FPS
 			@Override
@@ -199,7 +207,19 @@ public class VirtualGameGUIController {
     }
 
     @FXML
-    void pauseGame(ActionEvent event) {
+    void pauseGame(ActionEvent event) throws IOException {
+    	if(player.getPaused() == false) {
+    		startPauseGame();
+    		player.setPaused(true);
+        	animationTimer.stop();
+        	
+    	}
+    	else {
+    		startPauseGame();
+    		player.setPaused(false);
+        	animationTimer.start();
+        	
+    	}
     	
     }
     
@@ -392,4 +412,13 @@ public class VirtualGameGUIController {
     void eventsManagement() {
     	
     }
+    
+    public void startPauseGame() throws IOException {
+    	basePane.setOnKeyPressed(null);
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("PauseGame.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
 }

@@ -14,7 +14,7 @@ public class Bullet {
 	private final String pathBullet = "sprites/bullet.png";
 	private Image bulletImage;
 	private String direction;
-	
+	private AnimationTimer animationTimer;
 	public Bullet(double posX,double posY) {
 		this.posX = posX;
 		this.posY = posY;
@@ -50,9 +50,10 @@ public class Bullet {
     	bulletImage = imload;
 	}
 	
-	public void draw() {
+	public void draw(boolean pause) {
 		
-		AnimationTimer animationTimer = new AnimationTimer() {
+		if(pause ==false) {
+		animationTimer = new AnimationTimer() {
 			
 			//60 FPS
 			@Override
@@ -70,9 +71,17 @@ public class Bullet {
 		};
 		animationTimer.start();
 	}
+		else {
+		animationTimer.stop();
+		}
+	}
 	
 	public void setDirection(String direction) {
 		this.direction = direction;
+	}
+	
+	public AnimationTimer getAnimation() {
+		return animationTimer;
 	}
 
 }
