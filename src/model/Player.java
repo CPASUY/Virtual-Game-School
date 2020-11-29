@@ -57,10 +57,7 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	@Override
 	public void move() {
-<<<<<<< HEAD
 
-=======
->>>>>>> 905675d21ffbae06d6c30c0049dbd193d2364fc9
 		int cont=cont(1);
 		
 		if(getPosX()<0) {

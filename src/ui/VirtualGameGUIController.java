@@ -58,20 +58,12 @@ public class VirtualGameGUIController {
 
     @FXML
     private TableColumn<User,Double> idMoodleCoins;
-<<<<<<< HEAD
-=======
-    
->>>>>>> 905675d21ffbae06d6c30c0049dbd193d2364fc9
+
     @FXML
 	private BorderPane basePane;
     
-<<<<<<< HEAD
-<<<<<<< HEAD
     private AnimationTimer animationTimer;
-=======
->>>>>>> 5d30de93e4a582c4fb1f8e8a3aeb4ad037624e87
-=======
->>>>>>> 5d30de93e4a582c4fb1f8e8a3aeb4ad037624e87
+
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
 		gm=new GameManagement();
