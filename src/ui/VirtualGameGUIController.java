@@ -200,22 +200,38 @@ public class VirtualGameGUIController {
     void buyItems(ActionEvent event) throws IOException {
     	startShop();
     }
-
+    
+    public void startPauseGame() throws IOException {
+    	basePane.setOnKeyPressed(null);
+    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("PauseGame.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
+    
     @FXML
     void pauseGame(ActionEvent event) throws IOException {
-    	if(player.getPaused() == false) {
-    		startPauseGame();
+    		startPauseGame();	
+    		animationTimer.stop();	
     		player.setPaused(true);
-        	animationTimer.stop();
-        	
-    	}
-    	else {
-    		startPauseGame();
-    		player.setPaused(false);
-        	animationTimer.start();
-        	
-    	}
+    }
+    
+    @FXML
+    void resumeGame(ActionEvent event) throws IOException{
+		player.setPaused(false);
+    	startScenary();
+    	animationTimer.start();
+    }
+    
+    @FXML
+    void saveAndExit(ActionEvent event) throws IOException{
     	
+    }
+    
+    @FXML
+    void backMenuWithoutSaving(ActionEvent event) throws IOException{
+    	startMenu();
     }
     
     public void startScores() throws IOException {
@@ -408,12 +424,5 @@ public class VirtualGameGUIController {
     	
     }
     
-    public void startPauseGame() throws IOException {
-    	basePane.setOnKeyPressed(null);
-    	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("PauseGame.fxml"));
-		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
-	}
+    
 }

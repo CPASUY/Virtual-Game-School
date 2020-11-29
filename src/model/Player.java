@@ -29,6 +29,7 @@ public class Player extends Entity implements Motion,Attack {
 		woman = false;
 		gun = new Gun(getPosX(),getPosY());
 		setCoins(0);
+		paused = false;
 	}
 
 	@Override
