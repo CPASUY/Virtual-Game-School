@@ -16,21 +16,19 @@ public class Player extends Entity implements Motion,Attack {
 	private String[] paths = new String[QUANTITY_SPRITES];
 	private String pathBoy = "sprites/BoyGunDefect/";
 	private String pathGirl = "sprites/GirlGunDefect/";
+	private int coins;
 	private LocalDate Date;
-	private double bulletPosX;
-	private double bulletPosY;
 	private boolean lose;
 	private boolean paused;
 	private boolean woman;
 	private Gun gun;
-	private final int VELOCITY = 4;
+	private final int VELOCITY = 3;
 	
 	public Player(double duration, double width, double height){
 		super(467,344,MAX_HEALTH,duration,width,height);
 		woman = false;
 		gun = new Gun(getPosX(),getPosY());
-		bulletPosX = gun.getBullet().getPosX();
-		bulletPosY = gun.getBullet().getPosY();
+		setCoins(0);
 	}
 
 	@Override
@@ -56,7 +54,10 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	@Override
 	public void move() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 905675d21ffbae06d6c30c0049dbd193d2364fc9
 		int cont=cont(1);
 		
 		if(getPosX()<0) {
@@ -95,12 +96,50 @@ public class Player extends Entity implements Motion,Attack {
 	public void setPaths() {
 		
 		if(woman) {
-			String[] girl = {pathGirl+"static.png",pathGirl+"left0.png",pathGirl+"left1.png",pathGirl+"right0.png",pathGirl+"right1.png"};
-			paths = girl;
+			
+			if(gun instanceof GunFirst) {
+				 String[] firstGun = {"sprites/GirlFirstGun/static.png","sprites/GirlFirstGun/left0.png","sprites/GirlFirstGun/left1.png",
+			  							"sprites/GirlFirstGun/right0.png","sprites/GirlFirstGun/right1.png"};
+				 paths = firstGun;
+			}
+			else if(gun instanceof GunSecond) {
+				String[] secondGun = {"sprites/GirlSecondGun/static.png","sprites/GirlSecondGun/left0.png","sprites/GirlSecondGun/left1.png",
+										"sprites/GirlSecondGun/right0.png","sprites/GirlSecondGun/right1.png"};
+				paths = secondGun;
+			}
+			else if(gun instanceof GunThird) {
+				String[] thirdGun = {"sprites/GirlThirdGun/static.png","sprites/GirlThirdGun/left0.png","sprites/GirlThirdGun/left1.png",
+										"sprites/GirlThirdGun/right0.png","sprites/GirlThirdGun/right1.png"};
+				paths = thirdGun;
+			}
+			else {
+				String[] girl = {pathGirl+"static.png",pathGirl+"left0.png",pathGirl+"left1.png",pathGirl+"right0.png",pathGirl+"right1.png"};
+				paths = girl;	
+			}
+			
+			
 		}
 		else {
-			String[] boy = {pathBoy+"static.png",pathBoy+"left0.png",pathBoy+"left1.png",pathBoy+"right0.png",pathBoy+"right1.png"};
-			paths = boy;
+			
+			if(gun instanceof GunFirst) {
+			  String[] firstGun = {"sprites/BoyFirstGun/static.png","sprites/BoyFirstGun/left0.png","sprites/BoyFirstGun/left1.png",
+					  				"sprites/BoyFirstGun/right0.png","sprites/BoyFirstGun/right1.png"};
+			  paths = firstGun;
+			}
+			else if(gun instanceof GunSecond) {
+				String[] secondGun = {"sprites/BoySecondGun/static.png","sprites/BoySecondGun/left0.png","sprites/BoySecondGun/left1.png",
+		  								"sprites/BoySecondGun/right0.png","sprites/BoySecondGun/right1.png"};
+				paths = secondGun;
+			}
+			else if(gun instanceof GunThird) {
+				String[] thirdGun = {"sprites/BoyThirdGun/static.png","sprites/BoyThirdGun/left0.png","sprites/BoyThirdGun/left1.png",
+										"sprites/BoyThirdGun/right0.png","sprites/BoyThirdGun/right1.png"};
+				paths = thirdGun;
+			}
+			else {
+				String[] boy = {pathBoy+"static.png",pathBoy+"left0.png",pathBoy+"left1.png",pathBoy+"right0.png",pathBoy+"right1.png"};
+				paths = boy;	
+			}
 		}
 		fillFrames(paths,QUANTITY_SPRITES);
 	}
@@ -119,6 +158,14 @@ public class Player extends Entity implements Motion,Attack {
 	
 	public void setGun(Gun gun) {
 		this.gun = gun;
+	}
+
+	public int getCoins() {
+		return coins;
+	}
+
+	public void setCoins(int coins) {
+		this.coins = coins;
 	}
 
 }

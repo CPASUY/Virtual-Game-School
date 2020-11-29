@@ -1,8 +1,8 @@
 package model;
 
-public class YellowRed extends Pdf {
+public class YellowPDF extends Pdf {
 
-	public YellowRed(String[] paths, int posX, int posY, double health, double duration, double width, double height,
+	public YellowPDF(String[] paths, int posX, int posY, double health, double duration, double width, double height,
 			double damage) {
 		super(paths, posX, posY, health, duration, width, height, damage);
 		// TODO Auto-generated constructor stub
