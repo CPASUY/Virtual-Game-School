@@ -344,7 +344,9 @@ public class VirtualGameGUIController {
 
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {
-    	startScenary();
+    	initScenary();
+		eventManager();
+		draw();
     }
     public void startLoadGame() throws IOException {
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadGame.fxml"));
