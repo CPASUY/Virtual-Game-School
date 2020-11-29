@@ -55,8 +55,9 @@ public class VirtualGameGUIController {
 
     @FXML
     private TableColumn<User,Double> idMoodleCoins;
-
+    @FXML
 	private BorderPane basePane;
+    
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
 		gm=new GameManagement();
