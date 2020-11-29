@@ -21,6 +21,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.GameManagement;
+import model.GunFirst;
+import model.GunSecond;
+import model.GunThird;
 import model.Player;
 import model.User;
 import javafx.scene.control.Button;
@@ -55,7 +58,8 @@ public class VirtualGameGUIController {
 
     @FXML
     private TableColumn<User,Double> idMoodleCoins;
-
+    
+    @FXML
 	private BorderPane basePane;
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
@@ -196,7 +200,7 @@ public class VirtualGameGUIController {
 
     @FXML
     void pauseGame(ActionEvent event) {
-
+    	
     }
     
     public void startScores() throws IOException {
@@ -287,17 +291,56 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
-    @FXML
-    private Button gunOne;
-
-    @FXML
-    private Button gunTwo;
-
-    @FXML
-    private Button gunThree;
-
+   
     @FXML
     private Label coinsShop;
+    
+    @FXML
+    void buyGunOne() {
+    	
+    	if(player.getCoins()>=1500) {
+    		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY());
+        	player.setGun(gf);
+        	player.setPaths();
+        	player.setCoins(player.getCoins()-1500);
+        	coinsShop.setText(String.valueOf(player.getCoins()));
+    	}
+    	else {
+    		
+    	}
+    	
+    }
+
+    @FXML
+    void buyGunTwo() {
+    	if(player.getCoins()>=3500) {
+    		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY());
+        	player.setGun(gs);
+        	player.setPaths();
+        	player.setCoins(player.getCoins()-3500);
+        	coinsShop.setText(String.valueOf(player.getCoins()));
+    	}
+    	else {
+    		
+    	}
+    }
+
+    @FXML
+    void buyGunThree() {
+    	
+    	if(player.getCoins()>=5000) {
+    		GunThird gt = new GunThird(player.getPosX(),player.getPosY());
+        	player.setGun(gt);
+        	player.setPaths();
+        	player.setCoins(player.getCoins()-5000);
+        	coinsShop.setText(String.valueOf(player.getCoins()));
+    	}
+    	else {
+    		
+    	}
+    	
+    }
+
 
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {

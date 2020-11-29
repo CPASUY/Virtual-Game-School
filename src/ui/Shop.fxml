@@ -15,7 +15,7 @@
             <Image url="@../../images/imagesUI/Backgrounds/Shop_Mesa%20de%20trabajo%201.png" />
          </image>
       </ImageView>
-      <Button fx:id="gunOne" layoutX="96.0" layoutY="471.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="88.0">
+      <Button fx:id="gunOne" layoutX="96.0" layoutY="471.0" mnemonicParsing="false" onAction="#buyGunOne" prefHeight="36.0" prefWidth="88.0">
          <graphic>
             <ImageView fitHeight="55.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3">
                <cursor>
@@ -29,7 +29,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="gunTwo" layoutX="397.0" layoutY="469.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="88.0">
+      <Button layoutX="397.0" layoutY="469.0" mnemonicParsing="false" onAction="#buyGunTwo" prefHeight="36.0" prefWidth="88.0">
          <graphic>
             <ImageView fitHeight="60.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true" scaleX="1.2" scaleY="1.2">
                <cursor>
@@ -43,7 +43,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="gunThree" layoutX="694.0" layoutY="467.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="74.0">
+      <Button layoutX="694.0" layoutY="467.0" mnemonicParsing="false" onAction="#buyGunThree" prefHeight="36.0" prefWidth="74.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true" scaleX="1.2" scaleY="1.2">
                <cursor>
