@@ -92,7 +92,6 @@ public class Player extends Entity implements Motion,Attack {
 			currentFrame = getFrames()[1];
 			setPosY(getPosY()+VELOCITY);
 		}
-		//currentFrame = getFrames()[0];
 	}
 	
 	public void setPaths() {
