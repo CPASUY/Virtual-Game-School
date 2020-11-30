@@ -188,15 +188,6 @@ public class VirtualGameGUIController {
 		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
-    	RedPDF enemy1 = new RedPDF(200, 100, 100, 0, 0, 0, 0,player);
-		RedPDF enemy2 = new RedPDF(500, 321, 100, 0, 0, 0, 0,player);
-		RedPDF enemy3 = new RedPDF(450, 400, 100, 0, 0, 0, 0,player);
-		enemies.add(enemy1);
-		enemies.add(enemy2);
-		enemies.add(enemy3);
-		for(int i = 0;i<enemies.size();i++) {
-			new PdfMovementThread(this,enemies.get(i), player).start();	
-		}	
 	}
 	
 	public void draw() {
@@ -225,6 +216,7 @@ public class VirtualGameGUIController {
 
     @FXML
     void buyItems(ActionEvent event) throws IOException {
+    	player.setPaused(true);
     	startShop();
     }
     
@@ -467,6 +459,7 @@ public class VirtualGameGUIController {
 
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {
+    	player.setPaused(false);
     	initScenary();
 		eventManager();
 		draw();
@@ -502,14 +495,28 @@ public class VirtualGameGUIController {
 
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
-    	player.setWoman(false);
+    	generateInitialEnemies();
     	startScenary();
     }
 
     @FXML
     void chooseGirl(ActionEvent event) throws IOException {
-    	player.setWoman(true);
+    	generateInitialEnemies();
     	startScenary();
+    }
+    
+    private void generateInitialEnemies() {
+    	player.setWoman(true);
+    	player.setWoman(false);
+    	RedPDF enemy1 = new RedPDF(200, 100, 100, 0, 0, 0, 0,player);
+		RedPDF enemy2 = new RedPDF(500, 321, 100, 0, 0, 0, 0,player);
+		RedPDF enemy3 = new RedPDF(450, 400, 100, 0, 0, 0, 0,player);
+		enemies.add(enemy1);
+		enemies.add(enemy2);
+		enemies.add(enemy3);
+		for(int i = 0;i<enemies.size();i++) {
+			new PdfMovementThread(this,enemies.get(i), player).start();	
+		}
     }
     
     void eventsManagement() {
