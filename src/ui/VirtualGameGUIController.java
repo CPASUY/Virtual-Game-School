@@ -1,6 +1,8 @@
 package ui;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TextField;
@@ -8,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.animation.AnimationTimer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -248,20 +252,85 @@ public class VirtualGameGUIController {
 
     @FXML
     private TextField searchPosition;
-
+    
     @FXML
     void backScoreToMenu(ActionEvent event) throws IOException {
     	startMenu();
     }
-
+    @FXML
+    void refreshTable(ActionEvent event) {
+    	ObservableList<User> user= FXCollections.observableArrayList(gm.showList());
+		tableScore.setItems(user);
+		
+		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
+    }
     @FXML
     void searchByNickname(ActionEvent event) {
-
+    	ArrayList<User> listUsers = new ArrayList<User>();
+    	String nickname = searchNickname.getText();
+		if(nickname.isEmpty()) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Empty space");
+			alert.setHeaderText("You must fill in the blank");
+			alert.setContentText("Check that you have entered the nickname correctly");
+		}else {
+			listUsers = gm.searchUser(nickname);
+			if(listUsers.size()==1) {
+				searchNickname.clear();
+				tableScore.getItems().clear();
+				ObservableList<User> user= FXCollections.observableArrayList(gm.searchUser(nickname));
+				tableScore.setItems(user);
+				
+				idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
+			}else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("User not found");
+				alert.setContentText("Check that you have entered the nickname correctly");
+			}
+		}
     }
 
     @FXML
     void searchByPosition(ActionEvent event) {
-    	
+    	ArrayList<User> listUsers = new ArrayList<User>();
+    	String position = searchPosition.getText();
+		if(position.isEmpty()) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Empty space");
+			alert.setHeaderText("You must fill in the blank");
+			alert.setContentText("Check that you have entered the position correctly");
+		}else {
+			int pos=Integer.parseInt(position);
+			listUsers = gm.searchPosition(pos);
+			if(listUsers.size()==1) {
+				searchPosition.clear();
+				tableScore.getItems().clear();
+				ObservableList<User> user= FXCollections.observableArrayList(gm.searchPosition(pos));
+				tableScore.setItems(user);
+				
+				idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
+			}else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("User not found");
+				alert.setContentText("Check that you have entered the name correctly");
+			}
+		}
+    
     }
 
     @FXML

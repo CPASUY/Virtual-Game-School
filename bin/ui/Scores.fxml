@@ -105,7 +105,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <graphic>
-            <ImageView fitHeight="32.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="idRefresh" fitHeight="32.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/imagesUI/Buttons/Scores/Refresh_Mesa%20de%20trabajo%201.png" />
                </image>
@@ -116,12 +116,12 @@
          </graphic></Button>
       <TableView fx:id="tableScore" layoutX="145.0" layoutY="257.0" prefHeight="288.0" prefWidth="633.0">
         <columns>
-            <TableColumn fx:id="idPosition" prefWidth="82.0" />
-          <TableColumn fx:id="idNickname" prefWidth="147.0" />
-          <TableColumn fx:id="idScore" prefWidth="105.0" />
-            <TableColumn fx:id="idDefeats" minWidth="0.0" prefWidth="100.0" />
-            <TableColumn fx:id="idLastStage" prefWidth="83.0" />
-            <TableColumn fx:id="idMoodleCoins" prefWidth="115.0" />
+            <TableColumn fx:id="idPosition" prefWidth="82.0" text="Position" />
+          <TableColumn fx:id="idNickname" prefWidth="147.0" text="Nickname" />
+          <TableColumn fx:id="idScore" prefWidth="105.0" text="Score" />
+            <TableColumn fx:id="idDefeats" minWidth="0.0" prefWidth="100.0" text="Defeats" />
+            <TableColumn fx:id="idLastStage" prefWidth="83.0" text="Last Stage" />
+            <TableColumn fx:id="idMoodleCoins" prefWidth="115.0" text="MoodleCoins" />
         </columns>
       </TableView>
    </children>

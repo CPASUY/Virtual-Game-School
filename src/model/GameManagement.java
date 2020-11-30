@@ -68,12 +68,25 @@ public class GameManagement implements Serializable {
 		}
 	}
 	/**
+	 * Search an user by the nickname
+	 * @param n nickname user
+	 * @return ArrayList<User> user list
+	 */
+	public ArrayList<User> searchUser(String n){
+		User u=searchUserByNickname(n);
+		ArrayList<User> listUsers = new ArrayList<User>();
+		if(u!=null) {
+		listUsers.add(u);
+		}
+		return listUsers;
+	}
+	/**
 	 * Returns a User given a username 
 	 * @param nickname user's nickname
 	 * @return User User
 	 */
-	public User searchUser(String nickname) {
-		return searchUser(nickname,rootUsers);
+	public User searchUserByNickname(String nickname) {
+		return searchUserByNickname(nickname,rootUsers);
 	}
 	/**
 	 * Returns a User recursively
@@ -81,7 +94,7 @@ public class GameManagement implements Serializable {
 	 * @param current User
 	 * @return User user
 	 */
-	public User searchUser(String n,User current) {
+	public User searchUserByNickname(String n,User current) {
 		User user = null;
 		if (current == null) {
 			user=null;
@@ -89,9 +102,9 @@ public class GameManagement implements Serializable {
 			if (n.equals(current.getNickname()) ) {
 				user = current;
 			} else if (n.compareTo(current.getNickname()) <= 0) {
-				user = searchUser(n,current.getLeft());
+				user = searchUserByNickname(n,current.getLeft());
 			} else {
-				user = searchUser(n,current.getRight());
+				user = searchUserByNickname(n,current.getRight());
 			}
 
 		}
@@ -109,7 +122,7 @@ public class GameManagement implements Serializable {
 	 * @throws RepeatedNicknameException user Already exist
 	 */
 	public void addUser(String n, double s, int p, int d, int ls, double mc) throws RepeatedNicknameException {
-		User found = searchUser(n);
+		User found = searchUserByNickname(n);
 		if (found == null) {
 			if (rootUsers == null) {
 				rootUsers = new User(n,s,p,d,ls,mc);
@@ -129,29 +142,17 @@ public class GameManagement implements Serializable {
 	 * @param newU new user
 	 */
 	private void addUser(User current,User newU) {
-
-		if (newU.getNickname().compareTo(current.getNickname()) <= 0) {
-			
-			User left = current.getLeft();
-
-			if (left == null) {
-				current.setLeft(newU);
-				current.getLeft().setParent(current);
-				contUsers++;
-			} else {
-				addUser(left,newU);
-			}
-
-		} else {
-
-			User right = current.getRight();
-
-			if (right == null) {
-				current.setRight(newU);
-				current.getRight().setParent(current);
-				contUsers++;
-			} else {
-				addUser(right,newU);
+		if(newU.getPosition()<=current.getPosition()	&&	current.getLeft()==null) {
+			current.setLeft(newU);
+			newU.setParent(current);
+		}else if(newU.getPosition()>current.getPosition( ) && current.getRight()==null) {
+			current.setRight(newU);
+			newU.setParent(current);
+		}else {
+			if(newU.getPosition()<=current.getPosition() && current.getLeft()!= null) {
+				addUser(current.getLeft(),newU);
+			}else {
+				addUser(current.getRight(),newU);
 			}
 		}
 	}
@@ -245,6 +246,61 @@ public class GameManagement implements Serializable {
 	    for (int i = 0; i < users.length; i++) {
 			listUsers.add(users[i]);
 		}
+		return listUsers;
+	}
+	/**
+	 * Returns a User given a position
+	 * @param position user's position
+	 * @return User User
+	 */
+	public User searchUserByPosition(int position) {
+		return searchUserByPosition(position,rootUsers);
+	}
+	/**
+	 * Returns a User recursively
+	 * @param p user's position
+	 * @param current User
+	 * @return User user
+	 */
+	public User searchUserByPosition(int p,User current) {
+		User user = null;
+		if (current == null) {
+			user=null;
+		} else {
+			if (p==current.getPosition()) {
+				user = current;
+			} else if (p <= current.getPosition()) {
+				user = searchUserByPosition(p,current.getLeft());
+			} else {
+				user = searchUserByPosition(p,current.getRight());
+			}
+
+		}
+
+		return user;
+	}
+	/**
+	 * Search an user by the position
+	 * @param pos position of the user
+	 * @return ArrayList<User> user list
+	 */
+	public ArrayList<User> searchPosition(int pos){
+		User u=searchUserByPosition(pos);
+		ArrayList<User> listUsers = new ArrayList<User>();
+		if(u!=null) {
+		listUsers.add(u);
+		}
+		return listUsers;
+	}
+	public ArrayList<User> showList() {
+		return showList(rootUsers);
+	}
+	public ArrayList<User> showList(User current){
+		ArrayList<User> listUsers = new ArrayList<User>();
+		showList(current.getRight());
+		listUsers.add(current);
+		showList(current.getLeft());
+		
 		return listUsers;
 	}
 }
