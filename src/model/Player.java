@@ -30,6 +30,7 @@ public class Player extends Entity implements Motion,Attack {
 		gun = new Gun(getPosX(),getPosY());
 		setCoins(0);
 		paused = false;
+		setLose(false);
 	}
 
 	@Override
@@ -175,6 +176,14 @@ public class Player extends Entity implements Motion,Attack {
 	
 	public boolean getPaused() {
 		return paused;
+	}
+
+	public boolean isLose() {
+		return lose;
+	}
+
+	public void setLose(boolean lose) {
+		this.lose = lose;
 	}
 
 }

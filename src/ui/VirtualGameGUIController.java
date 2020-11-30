@@ -28,8 +28,11 @@ import model.GameManagement;
 import model.GunFirst;
 import model.GunSecond;
 import model.GunThird;
+import model.Pdf;
 import model.Player;
+import model.RedPDF;
 import model.User;
+import thread.PdfMovementThread;
 import javafx.scene.control.Button;
 public class VirtualGameGUIController {
 	//Atributes
@@ -42,6 +45,8 @@ public class VirtualGameGUIController {
 	public static boolean left;
 	public static boolean right;
 	private GameManagement gm;
+	private boolean nextStage;
+	private ArrayList<Pdf> enemies;
 	@FXML
     private TableView<User> tableScore;
 
@@ -71,6 +76,9 @@ public class VirtualGameGUIController {
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
 		gm=new GameManagement();
+		enemies = new ArrayList<Pdf>();
+		nextStage = false;
+		
 	}
 	//Menu
 	public void startMenu() throws IOException {
@@ -162,6 +170,9 @@ public class VirtualGameGUIController {
 	
 	public void updateState() {
 		player.move();
+		
+	 //enemies.get(0).move();
+		
 	}
 	
 	public void initScenary() throws IOException {
@@ -177,11 +188,23 @@ public class VirtualGameGUIController {
 		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
+    	RedPDF enemy1 = new RedPDF(200, 100, 100, 0, 0, 0, 0,player);
+		RedPDF enemy2 = new RedPDF(500, 321, 100, 0, 0, 0, 0,player);
+		RedPDF enemy3 = new RedPDF(450, 400, 100, 0, 0, 0, 0,player);
+		enemies.add(enemy1);
+		enemies.add(enemy2);
+		enemies.add(enemy3);
+		for(int i = 0;i<enemies.size();i++) {
+			new PdfMovementThread(this,enemies.get(i), player).start();	
+		}	
 	}
 	
 	public void draw() {
 		graphics.drawImage(scenaryGame, 0, 0);
 		player.draw(graphics);
+		for(int i=0;i<enemies.size();i++) {
+				enemies.get(i).draw(graphics);
+			}
 		}
 	
 	public void loopGame() {

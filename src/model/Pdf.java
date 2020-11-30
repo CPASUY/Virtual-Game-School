@@ -1,17 +1,16 @@
 package model;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+
 
 public abstract class Pdf extends Entity implements Motion,Attack {
 	
 	private double damage;
-	private final int QUANTITY_SPRITES = 5;
+	private Player objective;
+	public static double VELOCITY = 4;
 	
-	
-	public Pdf(String[] paths,int posX, int posY, double health,double duration, double width, double height,double damage) {
+	public Pdf(int posX, int posY, double health,double duration, double width, double height,double damage,Player objective) {
 		super(posX, posY, health,duration, width, height);
 		this.damage = damage;
-		fillFrames(paths,QUANTITY_SPRITES);
+		this.objective = objective;
 	}
 
 	@Override
@@ -28,7 +27,19 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
+		
+		if(objective.getPosX()>getPosX()) {
+		setPosX((objective.getPosX()-getPosX()>VELOCITY)?getPosX()+VELOCITY:objective.getPosX());
+		}
+		if(objective.getPosX()<getPosX()) {
+		setPosX((getPosX()-objective.getPosX()>VELOCITY)?getPosX()-VELOCITY:objective.getPosX());
+		}
+		if(objective.getPosY()>getPosY()) {
+		setPosY((objective.getPosY()-getPosY()>VELOCITY)?getPosY()+VELOCITY:objective.getPosY());
+		}
+		if(objective.getPosY()<getPosY()) {
+		setPosY((getPosY()-objective.getPosY()>VELOCITY)?getPosY()-VELOCITY:objective.getPosY());
+		}
 		
 	}
 

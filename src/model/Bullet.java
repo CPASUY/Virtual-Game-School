@@ -3,7 +3,6 @@ package model;
 import java.io.File;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import ui.VirtualGameGUIController;
 
