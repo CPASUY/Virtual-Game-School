@@ -10,7 +10,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	public Pdf(int posX, int posY, double health,double duration, double width, double height,double damage,Player objective) {
 		super(posX, posY, health,duration, width, height);
 		this.damage = damage;
-		this.objective = objective;
+		this.setObjective(objective);
 	}
 
 	@Override
@@ -28,23 +28,31 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	@Override
 	public void move() {
 		
-		if(objective.getPosX()>getPosX()) {
-		setPosX((objective.getPosX()-getPosX()>VELOCITY)?getPosX()+VELOCITY:objective.getPosX());
+		if(getObjective().getPosX()>getPosX()) {
+		setPosX((getObjective().getPosX()-getPosX()>VELOCITY)?getPosX()+VELOCITY:getObjective().getPosX());
 		setCurrentFrame(getFrames()[2]);
 		}
-		if(objective.getPosX()<getPosX()) {
-		setPosX((getPosX()-objective.getPosX()>VELOCITY)?getPosX()-VELOCITY:objective.getPosX());
+		if(getObjective().getPosX()<getPosX()) {
+		setPosX((getPosX()-getObjective().getPosX()>VELOCITY)?getPosX()-VELOCITY:getObjective().getPosX());
 		setCurrentFrame(getFrames()[0]);
 		}
-		if(objective.getPosY()>getPosY()) {
-		setPosY((objective.getPosY()-getPosY()>VELOCITY)?getPosY()+VELOCITY:objective.getPosY());
+		if(getObjective().getPosY()>getPosY()) {
+		setPosY((getObjective().getPosY()-getPosY()>VELOCITY)?getPosY()+VELOCITY:getObjective().getPosY());
 		setCurrentFrame(getFrames()[2]);
 		}
-		if(objective.getPosY()<getPosY()) {
-		setPosY((getPosY()-objective.getPosY()>VELOCITY)?getPosY()-VELOCITY:objective.getPosY());
+		if(getObjective().getPosY()<getPosY()) {
+		setPosY((getPosY()-getObjective().getPosY()>VELOCITY)?getPosY()-VELOCITY:getObjective().getPosY());
 		setCurrentFrame(getFrames()[0]);
 		}
 		
+	}
+
+	public Player getObjective() {
+		return objective;
+	}
+
+	public void setObjective(Player objective) {
+		this.objective = objective;
 	}
 
 }
