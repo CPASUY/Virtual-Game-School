@@ -30,15 +30,19 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 		
 		if(objective.getPosX()>getPosX()) {
 		setPosX((objective.getPosX()-getPosX()>VELOCITY)?getPosX()+VELOCITY:objective.getPosX());
+		setCurrentFrame(getFrames()[2]);
 		}
 		if(objective.getPosX()<getPosX()) {
 		setPosX((getPosX()-objective.getPosX()>VELOCITY)?getPosX()-VELOCITY:objective.getPosX());
+		setCurrentFrame(getFrames()[0]);
 		}
 		if(objective.getPosY()>getPosY()) {
 		setPosY((objective.getPosY()-getPosY()>VELOCITY)?getPosY()+VELOCITY:objective.getPosY());
+		setCurrentFrame(getFrames()[2]);
 		}
 		if(objective.getPosY()<getPosY()) {
 		setPosY((getPosY()-objective.getPosY()>VELOCITY)?getPosY()-VELOCITY:objective.getPosY());
+		setCurrentFrame(getFrames()[0]);
 		}
 		
 	}
