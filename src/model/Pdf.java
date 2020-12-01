@@ -8,7 +8,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	public static double VELOCITY = 4;
 	
 	public Pdf(int posX, int posY, double health,double duration, double width, double height,double damage,Player objective) {
-		super(posX, posY, health,duration, width, height);
+		super(posX, posY, health);
 		this.damage = damage;
 		this.setObjective(objective);
 	}
@@ -46,6 +46,13 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 		}
 		
 	}
+	
+	public void verifyCollision(Player player) {
+		if(this.getRectangle().getBoundsInLocal().intersects(player.getRectangle().getBoundsInLocal())) {
+			player.loseHealt(0.1);
+			System.out.println(player.getHealth());
+		};
+	 }
 
 	public Player getObjective() {
 		return objective;

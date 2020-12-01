@@ -4,6 +4,8 @@ import java.io.File;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import ui.VirtualGameGUIController;
 
 public class Bullet {
@@ -61,10 +63,14 @@ public class Bullet {
 				if(direction.equals("right")) {
 				posX=(posX+5);
 				VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
+				VirtualGameGUIController.graphics.setStroke(Color.RED);
+				VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
 				}
 				else {
 					posX=(posX-5);
-					VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);	
+					VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
+					VirtualGameGUIController.graphics.setStroke(Color.RED);
+					VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
 				}
 			}
 		};
@@ -82,5 +88,16 @@ public class Bullet {
 	public AnimationTimer getAnimation() {
 		return animationTimer;
 	}
+	
+	public Rectangle getRectangle() {
+		return new Rectangle(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
+	}
+	
+	public void verifyCollision(Pdf pdf) {
+		if(this.getRectangle().getBoundsInLocal().intersects(pdf.getRectangle().getBoundsInLocal())) {
+			pdf.loseHealt(0.3);
+			System.out.println("estan colisionando");
+		};
+	 }
 
 }

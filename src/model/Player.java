@@ -21,6 +21,7 @@ public class Player extends Entity implements Motion,Attack {
 	private LocalDate Date;
 	private boolean lose;
 	private boolean paused;
+	private boolean saveExit;
 	private boolean woman;
 	private Gun gun;
 	private int cont;
@@ -28,7 +29,7 @@ public class Player extends Entity implements Motion,Attack {
 	private boolean on;
 	
 	public Player(double duration, double width, double height){
-		super(467,344,MAX_HEALTH,duration,width,height);
+		super(467,344,MAX_HEALTH);
 		woman = false;
 		gun = new Gun(getPosX(),getPosY());
 		setCoins(0);
@@ -36,6 +37,7 @@ public class Player extends Entity implements Motion,Attack {
 		setLose(false);
 		cont=0;
 		on=false;
+		setSaveExit(false);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class Player extends Entity implements Motion,Attack {
 			if(paused == false) {
 				 gun.setBullet(new Bullet(getPosX(),getPosY()));
 				
-				if(currentFrame == getFrames()[1]) {
+				if(currentFrame == getFrames()[1] || currentFrame == getFrames()[2]) {
 				 gun.getBullet().setDirection("left");	
 				}else {
 				 gun.getBullet().setDirection("right");	
@@ -206,6 +208,14 @@ public class Player extends Entity implements Motion,Attack {
 
 	public void setLose(boolean lose) {
 		this.lose = lose;
+	}
+
+	public boolean isSaveExit() {
+		return saveExit;
+	}
+
+	public void setSaveExit(boolean saveExit) {
+		this.saveExit = saveExit;
 	}
 
 }

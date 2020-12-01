@@ -1,6 +1,8 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Entity extends AnimatedImage {
 	
@@ -8,8 +10,8 @@ public class Entity extends AnimatedImage {
 	private double posY;
 	private double health;
 	
-	public Entity(double posX, double posY, double health,double duration, double width, double height) {
-		super(duration,width,height);
+	public Entity(double posX, double posY, double health) {
+		super();
 		this.posX = posX;
 		this.posY = posY;
 		this.health = health;
@@ -31,12 +33,24 @@ public class Entity extends AnimatedImage {
 		return health;
 	}
 	
+	public void loseHealt(double lose) {
+		health -= lose;
+	}
+	
 	public void setPosY(double posY) {
 		this.posY = posY;
 	}
 	
 	public void draw(GraphicsContext graphics) {
 		graphics.drawImage(currentFrame,getPosX(),getPosY());
+		graphics.setStroke(Color.RED);
+		graphics.strokeRect(posX, posY, currentFrame.getWidth(), currentFrame.getHeight());
 	}
+	
+	public Rectangle getRectangle() {
+		return new Rectangle(posX, posY, currentFrame.getWidth(), currentFrame.getHeight());
+	}
+	
+	
 	
 }

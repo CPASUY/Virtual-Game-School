@@ -7,15 +7,9 @@ import javafx.scene.image.Image;
 	public class AnimatedImage {
 	
 	Image[] frames;
-	double duration;
-	double width;
-	double height;
 	Image currentFrame;
 	
-	public AnimatedImage(double duration, double width, double height) {
-		this.duration = duration;
-		this.width = width;
-		this.height = height;
+	public AnimatedImage() {
 	}
 	
 	public Image getCurrentFrame() {
