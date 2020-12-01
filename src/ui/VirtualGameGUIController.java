@@ -33,7 +33,7 @@ import model.Player;
 import model.RedPDF;
 import model.User;
 import thread.PdfMovementThread;
-import javafx.scene.control.Button;
+
 public class VirtualGameGUIController {
 	//Atributes
 	private Stage stage;

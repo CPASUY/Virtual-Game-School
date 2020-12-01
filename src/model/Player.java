@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 import ui.VirtualGameGUIController;
 
 public class Player extends Entity implements Motion,Attack {
@@ -22,7 +23,9 @@ public class Player extends Entity implements Motion,Attack {
 	private boolean paused;
 	private boolean woman;
 	private Gun gun;
+	private int cont;
 	private final int VELOCITY = 3;
+	private boolean on;
 	
 	public Player(double duration, double width, double height){
 		super(467,344,MAX_HEALTH,duration,width,height);
@@ -31,6 +34,8 @@ public class Player extends Entity implements Motion,Attack {
 		setCoins(0);
 		paused = false;
 		setLose(false);
+		cont=0;
+		on=false;
 	}
 
 	@Override
@@ -53,15 +58,9 @@ public class Player extends Entity implements Motion,Attack {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	public int cont(int n) {
-		int cont=+n;
-		return cont;
-	}
 	@Override
 	public void move() {
-
-		int cont=cont(1);
-		
+		cont++;
 		if(getPosX()<0) {
 			setPosX(0);
 		}
@@ -78,18 +77,42 @@ public class Player extends Entity implements Motion,Attack {
 		
 		if(VirtualGameGUIController.right) {
 			currentFrame = getFrames()[3];
+			if(cont>10) {
+				currentFrame = getFrames()[4];
+				if(cont>20) {
+					cont=0;
+				}
+			}
 			setPosX(getPosX()+VELOCITY);
 		}
 		if(VirtualGameGUIController.left) {
 			currentFrame = getFrames()[1];
+			if(cont>10) {
+				currentFrame = getFrames()[2];
+				if(cont>20) {
+					cont=0;
+				}
+			}
 			setPosX(getPosX()-VELOCITY);
 		}
 		if(VirtualGameGUIController.up) {
 			currentFrame = getFrames()[3];
+			if(cont>10) {
+				currentFrame = getFrames()[4];
+				if(cont>20) {
+					cont=0;
+				}
+			}
 			setPosY(getPosY()-VELOCITY);
 		}
 		if(VirtualGameGUIController.down) {
 			currentFrame = getFrames()[1];
+			if(cont>10) {
+				currentFrame = getFrames()[2];
+				if(cont>20) {
+					cont=0;
+				}
+			}
 			setPosY(getPosY()+VELOCITY);
 		}
 		//currentFrame = getFrames()[0];
