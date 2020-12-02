@@ -6,8 +6,9 @@ public class Gun {
 	private double damage;
 	private Bullet bullet;
 	
+	
 	public Gun(double posX,double posY) {
-		bullet = new Bullet(posX,posY);
+		bullet = new Bullet(posX,posY,1);
 		damage = 5;
 	}
 	

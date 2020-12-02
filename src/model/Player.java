@@ -17,6 +17,7 @@ public class Player extends Entity implements Motion,Attack {
 	private String[] paths = new String[QUANTITY_SPRITES];
 	private String pathBoy = "sprites/BoyGunDefect/";
 	private String pathGirl = "sprites/GirlGunDefect/";
+	private final String pathBullet = "sprites/Bullets/bulletInitialGun.png";
 	private int coins;
 	private LocalDate Date;
 	private boolean lose;
@@ -48,7 +49,19 @@ public class Player extends Entity implements Motion,Attack {
 	public void attack() {
 				
 			if(paused == false) {
-				 gun.setBullet(new Bullet(getPosX(),getPosY()));
+				
+				if(gun instanceof Gun) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY(),1));	
+				}
+				else if(gun instanceof GunFirst) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY(),2));
+				}
+				else if(gun instanceof GunSecond) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY(),3));
+				}
+				else {
+				  gun.setBullet(new Bullet(getPosX(),getPosY(),4));
+				}
 				
 				if(currentFrame == getFrames()[1] || currentFrame == getFrames()[2]) {
 				 gun.getBullet().setDirection("left");	

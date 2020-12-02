@@ -4,7 +4,6 @@ import java.io.File;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import ui.VirtualGameGUIController;
 
@@ -12,17 +11,30 @@ public class Bullet {
 	
 	private double posX;
 	private double posY;
-	private final String pathBullet = "sprites/bullet.png";
+	private final String pathBullet1 = "sprites/Bullets/bulletInitialGun.png";
+	private final String pathBullet2 = "sprites/Bullets/bulletFirstGun.png";
+	private final String pathBullet3= "sprites/Bullets/bulletSecondGun.png";
+	private final String pathBullet4 = "sprites/Bullets/bulletThirdGun.png";
 	private Image bulletImage;
 	private String direction;
 	private boolean impact;
 	private AnimationTimer animationTimer;
-	public Bullet(double posX,double posY) {
+	public Bullet(double posX,double posY,int gun) {
 		this.posX = posX;
 		this.posY = posY;
-		File file = new File(pathBullet);
-    	Image imload = new Image(file.toURI().toString());
-    	bulletImage = imload;
+		
+		if(gun == 1) {
+			setImage(pathBullet1);
+		}
+		else if(gun == 2) {
+			setImage(pathBullet2);
+		}
+		else if(gun == 3) {
+			setImage(pathBullet3);
+		}
+		else {
+			setImage(pathBullet4);
+		}
 		impact = false;
 	}
 	
@@ -46,8 +58,8 @@ public class Bullet {
 		return bulletImage;
 	}
 	
-	public void newImage() {
-		File file = new File(pathBullet);
+	public void setImage(String path) {
+		File file = new File(path);
     	Image imload = new Image(file.toURI().toString());
     	bulletImage = imload;
 	}
