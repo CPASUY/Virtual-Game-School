@@ -479,8 +479,9 @@ public class VirtualGameGUIController {
     void buyGunOne() {
     	
     	if(player.getCoins()>=1500) {
-    		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY());
+    		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY(),2);
         	player.setGun(gf);
+        	player.setTypeOfGun("firstGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-1500);
         	coinsShop.setText(String.valueOf(player.getCoins()));
@@ -494,8 +495,9 @@ public class VirtualGameGUIController {
     @FXML
     void buyGunTwo() {
     	if(player.getCoins()>=3500) {
-    		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY());
+    		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY(),3);
         	player.setGun(gs);
+        	player.setTypeOfGun("secondGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-3500);
         	coinsShop.setText(String.valueOf(player.getCoins()));
@@ -509,8 +511,9 @@ public class VirtualGameGUIController {
     void buyGunThree() {
     	
     	if(player.getCoins()>=5000) {
-    		GunThird gt = new GunThird(player.getPosX(),player.getPosY());
+    		GunThird gt = new GunThird(player.getPosX(),player.getPosY(),4);
         	player.setGun(gt);
+        	player.setTypeOfGun("thirdGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-5000);
         	coinsShop.setText(String.valueOf(player.getCoins()));

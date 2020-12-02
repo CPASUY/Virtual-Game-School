@@ -17,7 +17,6 @@ public class Player extends Entity implements Motion,Attack {
 	private String[] paths = new String[QUANTITY_SPRITES];
 	private String pathBoy = "sprites/BoyGunDefect/";
 	private String pathGirl = "sprites/GirlGunDefect/";
-	private final String pathBullet = "sprites/Bullets/bulletInitialGun.png";
 	private int coins;
 	private LocalDate Date;
 	private boolean lose;
@@ -27,6 +26,7 @@ public class Player extends Entity implements Motion,Attack {
 	private int defeats;
 	private int stages;
 	private Gun gun;
+	private String typeOfGun;
 	private int cont;
 	private final int VELOCITY = 3;
 	private boolean on;
@@ -34,7 +34,7 @@ public class Player extends Entity implements Motion,Attack {
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
-		gun = new Gun(getPosX(),getPosY());
+		gun = new Gun(getPosX(),getPosY(),1);
 		setCoins(0);
 		paused = false;
 		setLose(false);
@@ -43,6 +43,7 @@ public class Player extends Entity implements Motion,Attack {
 		setSaveExit(false);
 		stages = 1;
 		defeats = 0;
+		typeOfGun = "initialGun";
 	}
 
 	@Override
@@ -50,17 +51,17 @@ public class Player extends Entity implements Motion,Attack {
 				
 			if(paused == false) {
 				
-				if(gun instanceof Gun) {
-				  gun.setBullet(new Bullet(getPosX(),getPosY(),1));	
+				if(typeOfGun.equals("initialGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,1));	
 				}
-				else if(gun instanceof GunFirst) {
-				  gun.setBullet(new Bullet(getPosX(),getPosY(),2));
+				else if(typeOfGun.equals("firstGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,2));
 				}
-				else if(gun instanceof GunSecond) {
-				  gun.setBullet(new Bullet(getPosX(),getPosY(),3));
+				else if(typeOfGun.equals("secondGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,3));
 				}
 				else {
-				  gun.setBullet(new Bullet(getPosX(),getPosY(),4));
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,4));
 				}
 				
 				if(currentFrame == getFrames()[1] || currentFrame == getFrames()[2]) {
@@ -252,7 +253,15 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	
 	public void defeat() {
-		defeats++;
+		defeats = getDefeats() + 1;
+	}
+
+	public void setTypeOfGun(String typeOfGun) {
+		this.typeOfGun = typeOfGun;
+	}
+
+	public int getDefeats() {
+		return defeats;
 	}
 
 }

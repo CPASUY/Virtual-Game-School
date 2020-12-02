@@ -81,16 +81,12 @@ public class Bullet {
 				posX=(posX+5);
 				if(bulletImage !=null) {
 				VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
-				//VirtualGameGUIController.graphics.setStroke(Color.RED);
-				//VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
 				}
 				}
 				else {
 					posX=(posX-5);
 					if(bulletImage != null) {
 					VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
-					//VirtualGameGUIController.graphics.setStroke(Color.RED);
-					//VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth()-30, bulletImage.getHeight()-20);
 					}
 				}
 			}

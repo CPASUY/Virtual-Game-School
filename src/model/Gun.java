@@ -7,8 +7,8 @@ public class Gun {
 	private Bullet bullet;
 	
 	
-	public Gun(double posX,double posY) {
-		bullet = new Bullet(posX,posY,1);
+	public Gun(double posX,double posY,int typeBullet) {
+		bullet = new Bullet(posX,posY,typeBullet);
 		damage = 5;
 	}
 	
