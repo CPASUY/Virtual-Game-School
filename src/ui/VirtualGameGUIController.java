@@ -37,11 +37,8 @@ import model.Pdf;
 import model.Player;
 import model.RedPDF;
 import model.User;
-<<<<<<< HEAD
 import thread.LoadingScreenThread;
-=======
 import model.YellowPDF;
->>>>>>> 7ace42d0486a97687db1a5e15bdc6305bc5dd428
 import thread.PdfMovementThread;
 
 public class VirtualGameGUIController {
