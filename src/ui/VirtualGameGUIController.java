@@ -603,16 +603,16 @@ public class VirtualGameGUIController {
 			}
 			else if(quantityOfEnemies>=7 && quantityOfEnemies<12) {
 				for(int i=0;i<quantityOfEnemies;i++) {
-					double posX = Math.random()*(200-300) + 300;
-					double posY = Math.random()*(200-300) + 300;
+					double posX = Math.random()*(688);
+					double posY = Math.random()*(688-250) + 250;
 					GreenPDF gn = new GreenPDF(posX,posY,player);
 					enemies.add(gn);
 					}
 			}
 			else {
 				for(int i=0;i<quantityOfEnemies;i++) {
-					double posX = Math.random()*(200-300) + 300;
-					double posY = Math.random()*(200-300) + 300;
+					double posX = Math.random()*(688);
+					double posY = Math.random()*(688-250) + 250;
 					YellowPDF gn = new YellowPDF(posX,posY,player);
 					enemies.add(gn);
 					}
