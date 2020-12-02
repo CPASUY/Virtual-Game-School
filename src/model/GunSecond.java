@@ -1,10 +1,11 @@
 package model;
 
 public class GunSecond extends Gun {
-
+	
+	private final double DAMAGE = 15;
 	public GunSecond(double posX, double posY) {
 		super(posX, posY);
-		// TODO Auto-generated constructor stub
+		setDamage(DAMAGE);
 	}
 
 }

@@ -1,14 +1,15 @@
 package model;
 
 public class YellowPDF extends Pdf {
-
+	
+	private static double DAMAGE = 0.5;
+	private static double HEALTH = 150;
 	private final int QUANTITY_SPRITES = 4;
 	private int cont;
 	private String[] paths = {"sprites/Enemies/yellowLeft0.png","sprites/Enemies/yellowLeft1.png","sprites/Enemies/yellowRight0.png",
 								"sprites/Enemies/yellowRight1.png"};
-	public YellowPDF(int posX, int posY, double health, double duration, double width, double height,
-			double damage,Player objective) {
-		super(posX, posY, health, duration, width, height, damage,objective);
+	public YellowPDF(double posX, double posY,Player objective) {
+		super(posX, posY, HEALTH,DAMAGE,objective);
 		fillFrames(paths,QUANTITY_SPRITES);
 		cont=0;
 	}

@@ -17,7 +17,7 @@ public class PdfMovementThread extends Thread {
 		
 		public void run() {
 			synchronized (enemy) {
-				while (!player.isLose() && !player.isSaveExit()) {
+				while (!player.isLose() && !player.isSaveExit() && enemy.getHealth()>0) {
 					if(!player.getPaused()) {
 						enemy.move();	
 					}

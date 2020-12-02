@@ -16,7 +16,7 @@
             <Image url="@../../images/imagesUI/Buttons/Scenary/5d396ed5-6d9c-4104-a0f6-dd45848f2f5a.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="coinsGame" alignment="CENTER" layoutX="114.0" layoutY="41.0" prefHeight="24.0" prefWidth="56.0" text="0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="coinsGame" alignment="CENTER" layoutX="86.0" layoutY="41.0" prefHeight="24.0" prefWidth="56.0" text="0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
@@ -57,5 +57,15 @@
          </image>
       </ImageView>
       <Text layoutX="510.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTROLS:            MOVE WITH ARROWS SHOOT WITH Z" wrappingWidth="122.044921875" />
+      <Label fx:id="healthLabel" layoutX="315.0" layoutY="41.0" text="100" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="34.0" fitWidth="49.0" layoutX="257.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/imagesUI/Buttons/Scenary/heart.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

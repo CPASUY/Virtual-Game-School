@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.GameManagement;
+import model.GreenPDF;
 import model.GunFirst;
 import model.GunSecond;
 import model.GunThird;
@@ -32,6 +33,7 @@ import model.Pdf;
 import model.Player;
 import model.RedPDF;
 import model.User;
+import model.YellowPDF;
 import thread.PdfMovementThread;
 
 public class VirtualGameGUIController {
@@ -45,6 +47,7 @@ public class VirtualGameGUIController {
 	public static boolean left;
 	public static boolean right;
 	private GameManagement gm;
+	private int quantityOfEnemies;
 	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
 	@FXML
@@ -78,6 +81,7 @@ public class VirtualGameGUIController {
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
 		nextStage = false;
+		quantityOfEnemies = 3;
 		
 	}
 	//Menu
@@ -101,7 +105,7 @@ public class VirtualGameGUIController {
 
 	@FXML
 	void newGame(ActionEvent event) throws IOException {
-		player = new Player(50,20,100);
+		player = new Player();
 		starChoosePlayers();
 	}
 
@@ -170,10 +174,10 @@ public class VirtualGameGUIController {
 	
 	public void updateState() {
 		player.move();
-		for(int i = 0;i<enemies.size();i++) {
-			player.getGun().getBullet().verifyCollision(enemies.get(i));
-			enemies.get(i).verifyCollision(player);
-		}	
+		healthLabel.setText(String.format("%.2f", player.getHealth()));
+		coinsGame.setText(String.valueOf(player.getCoins()));
+		verifyCollisions();
+		generateEnemies();
 	}
 	
 	public void initScenary() throws IOException {
@@ -215,6 +219,8 @@ public class VirtualGameGUIController {
 	}
 	@FXML
     private Label coinsGame;
+	@FXML
+	private Label healthLabel;
 
     @FXML
     void buyItems(ActionEvent event) throws IOException {
@@ -410,6 +416,7 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+		coinsShop.setText(String.valueOf(player.getCoins()));
 	}
    
     @FXML
@@ -514,9 +521,9 @@ public class VirtualGameGUIController {
     }
     
     private void generateInitialEnemies() {
-    	RedPDF enemy1 = new RedPDF(200, 100, 100, 0, 0, 0, 0,player);
-		RedPDF enemy2 = new RedPDF(700, 321, 100, 0, 0, 0, 0,player);
-		RedPDF enemy3 = new RedPDF(200, 400, 100, 0, 0, 0, 0,player);
+    	RedPDF enemy1 = new RedPDF(200, 100,player);
+		RedPDF enemy2 = new RedPDF(700, 321,player);
+		RedPDF enemy3 = new RedPDF(200, 400,player);
 		enemies.add(enemy1);
 		enemies.add(enemy2);
 		enemies.add(enemy3);
@@ -529,5 +536,62 @@ public class VirtualGameGUIController {
     	
     }
     
+    public void generateEnemies() {
+    	if(enemies.size() == 0) {
+    		player.nextStage();
+			quantityOfEnemies +=1;
+			if(quantityOfEnemies>3 && quantityOfEnemies<7) {
+				for(int i=0;i<quantityOfEnemies;i++) {
+				double posX = Math.random()*(688);
+				double posY = Math.random()*(688-250) + 250;
+				RedPDF gn = new RedPDF(posX,posY,player);
+				enemies.add(gn);
+				}
+			}
+			else if(quantityOfEnemies>=7 && quantityOfEnemies<12) {
+				for(int i=0;i<quantityOfEnemies;i++) {
+					double posX = Math.random()*(200-300) + 300;
+					double posY = Math.random()*(200-300) + 300;
+					GreenPDF gn = new GreenPDF(posX,posY,player);
+					enemies.add(gn);
+					}
+			}
+			else {
+				for(int i=0;i<quantityOfEnemies;i++) {
+					double posX = Math.random()*(200-300) + 300;
+					double posY = Math.random()*(200-300) + 300;
+					YellowPDF gn = new YellowPDF(posX,posY,player);
+					enemies.add(gn);
+					}
+			}
+		}
+		for(int i = 0;i<enemies.size();i++) {
+			new PdfMovementThread(this,enemies.get(i), player).start();	
+		}
+    }
     
+    public void verifyCollisions() {
+    	for(int i = 0;i<enemies.size();i++) {
+			player.getGun().getBullet().verifyCollision(enemies.get(i),player);
+			enemies.get(i).verifyCollision(player);
+			if(enemies.get(i).getHealth() <=0) {
+				if(enemies.get(i) instanceof RedPDF){
+					player.setCoins(player.getCoins()+200);
+					player.setScore(player.getScore()+100);
+					player.defeat();
+				}
+				else if(enemies.get(i) instanceof GreenPDF) {
+					player.setCoins(player.getCoins()+300);
+					player.setScore(player.getScore()+200);
+					player.defeat();
+				}
+				else if(enemies.get(i) instanceof YellowPDF) {
+					player.setCoins(player.getCoins()+500);
+					player.setScore(player.getScore()+400);
+					player.defeat();
+				}
+				enemies.remove(i);
+			}
+		}
+    }
 }
