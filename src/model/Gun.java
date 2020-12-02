@@ -8,7 +8,7 @@ public class Gun {
 	
 	public Gun(double posX,double posY) {
 		bullet = new Bullet(posX,posY);
-		setDamage(10);
+		damage = 5;
 	}
 	
 	public Bullet getBullet() {

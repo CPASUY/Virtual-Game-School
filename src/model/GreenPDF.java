@@ -2,13 +2,14 @@ package model;
 
 public class GreenPDF extends Pdf{
 
+	private static double DAMAGE = 0.3;
+	private static double HEALTH = 100;
 	private final int QUANTITY_SPRITES = 4;
 	private int cont;
 	private String[] paths = {"sprites/Enemies/greenLeft0.png","sprites/Enemies/greenLeft1.png","sprites/Enemies/greenRight0.png",
 								"sprites/Enemies/greenRight1.png"};
-	public GreenPDF(int posX, int posY, double health, double duration, double width, double height,
-			double damage, Player objective) {
-		super(posX, posY, health, duration, width, height, damage,objective);
+	public GreenPDF(double posX, double posY,Player objective) {
+		super(posX, posY, HEALTH,DAMAGE,objective);
 		fillFrames(paths,QUANTITY_SPRITES);
 		cont=0;
 	}

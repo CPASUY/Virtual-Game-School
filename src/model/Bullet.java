@@ -15,6 +15,7 @@ public class Bullet {
 	private final String pathBullet = "sprites/bullet.png";
 	private Image bulletImage;
 	private String direction;
+	private boolean impact;
 	private AnimationTimer animationTimer;
 	public Bullet(double posX,double posY) {
 		this.posX = posX;
@@ -22,7 +23,7 @@ public class Bullet {
 		File file = new File(pathBullet);
     	Image imload = new Image(file.toURI().toString());
     	bulletImage = imload;
-		
+		impact = false;
 	}
 	
 	public void setPosX(double posX) {
@@ -60,18 +61,27 @@ public class Bullet {
 			@Override
 			public void handle(long now) {
 				
+				if(impact) {
+					return;
+				}
+				else {
 				if(direction.equals("right")) {
 				posX=(posX+5);
+				if(bulletImage !=null) {
 				VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
-				VirtualGameGUIController.graphics.setStroke(Color.RED);
-				VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
+				//VirtualGameGUIController.graphics.setStroke(Color.RED);
+				//VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
+				}
 				}
 				else {
 					posX=(posX-5);
+					if(bulletImage != null) {
 					VirtualGameGUIController.graphics.drawImage(bulletImage,posX, posY);
-					VirtualGameGUIController.graphics.setStroke(Color.RED);
-					VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
+					//VirtualGameGUIController.graphics.setStroke(Color.RED);
+					//VirtualGameGUIController.graphics.strokeRect(posX, posY, bulletImage.getWidth()-30, bulletImage.getHeight()-20);
+					}
 				}
+			}
 			}
 		};
 		animationTimer.start();
@@ -93,10 +103,10 @@ public class Bullet {
 		return new Rectangle(posX, posY, bulletImage.getWidth(), bulletImage.getHeight());
 	}
 	
-	public void verifyCollision(Pdf pdf) {
-		if(this.getRectangle().getBoundsInLocal().intersects(pdf.getRectangle().getBoundsInLocal())) {
-			pdf.loseHealt(0.3);
-			System.out.println("estan colisionando");
+	public void verifyCollision(Pdf pdf,Player player) {
+		if(this.getRectangle().getBoundsInLocal().intersects(pdf.getRectangle().getBoundsInLocal()) && !impact) {
+			pdf.loseHealt(player.getGun().getDamage());
+			impact = true;
 		};
 	 }
 

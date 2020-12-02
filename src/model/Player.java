@@ -23,12 +23,14 @@ public class Player extends Entity implements Motion,Attack {
 	private boolean paused;
 	private boolean saveExit;
 	private boolean woman;
+	private int defeats;
+	private int stages;
 	private Gun gun;
 	private int cont;
 	private final int VELOCITY = 3;
 	private boolean on;
 	
-	public Player(double duration, double width, double height){
+	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
 		gun = new Gun(getPosX(),getPosY());
@@ -38,6 +40,8 @@ public class Player extends Entity implements Motion,Attack {
 		cont=0;
 		on=false;
 		setSaveExit(false);
+		stages = 1;
+		defeats = 0;
 	}
 
 	@Override
@@ -53,12 +57,6 @@ public class Player extends Entity implements Motion,Attack {
 				}
 				gun.getBullet().draw(paused);
 			}
-	}
-
-	@Override
-	public double getDamage() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	@Override
 	public void move() {
@@ -216,6 +214,32 @@ public class Player extends Entity implements Motion,Attack {
 
 	public void setSaveExit(boolean saveExit) {
 		this.saveExit = saveExit;
+	}
+
+	@Override
+	public double getDamage() {
+		// TODO Auto-generated method stub
+		return gun.getDamage();
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public void nextStage() {
+		stages ++;
+	}
+	
+	public int getStages() {
+		return stages;
+	}
+	
+	public void defeat() {
+		defeats++;
 	}
 
 }

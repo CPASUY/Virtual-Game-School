@@ -43,8 +43,11 @@ public class Entity extends AnimatedImage {
 	
 	public void draw(GraphicsContext graphics) {
 		graphics.drawImage(currentFrame,getPosX(),getPosY());
+		
+		/*
 		graphics.setStroke(Color.RED);
 		graphics.strokeRect(posX, posY, currentFrame.getWidth(), currentFrame.getHeight());
+		*/
 	}
 	
 	public Rectangle getRectangle() {

@@ -3,14 +3,14 @@ package model;
 
 public abstract class Pdf extends Entity implements Motion,Attack {
 	
-	private double damage;
+	private  double damage;
 	private Player objective;
 	public static double VELOCITY = 4;
 	
-	public Pdf(int posX, int posY, double health,double duration, double width, double height,double damage,Player objective) {
+	public Pdf(double posX, double posY, double health,double damage,Player objective) {
 		super(posX, posY, health);
 		this.damage = damage;
-		this.setObjective(objective);
+		this.objective = objective;
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	@Override
 	public double getDamage() {
 		// TODO Auto-generated method stub
-		return 0;
+		return damage;
 	}
 
 	@Override
@@ -49,8 +49,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	
 	public void verifyCollision(Player player) {
 		if(this.getRectangle().getBoundsInLocal().intersects(player.getRectangle().getBoundsInLocal())) {
-			player.loseHealt(0.1);
-			System.out.println(player.getHealth());
+			player.loseHealt(damage);
 		};
 	 }
 
