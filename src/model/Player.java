@@ -26,6 +26,7 @@ public class Player extends Entity implements Motion,Attack {
 	private int defeats;
 	private int stages;
 	private Gun gun;
+	private String typeOfGun;
 	private int cont;
 	private final int VELOCITY = 3;
 	private boolean on;
@@ -41,7 +42,6 @@ public class Player extends Entity implements Motion,Attack {
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
-		gun = new Gun(getPosX(),getPosY());
 		setCoins(0);
 		paused = false;
 		setLose(false);
@@ -50,13 +50,26 @@ public class Player extends Entity implements Motion,Attack {
 		setSaveExit(false);
 		stages = 1;
 		defeats = 0;
+		typeOfGun = "initialGun";
 	}
 
 	@Override
 	public void attack() {
 				
 			if(paused == false) {
-				 gun.setBullet(new Bullet(getPosX(),getPosY()));
+				
+				if(typeOfGun.equals("initialGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,1));	
+				}
+				else if(typeOfGun.equals("firstGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,2));
+				}
+				else if(typeOfGun.equals("secondGun")) {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,3));
+				}
+				else {
+				  gun.setBullet(new Bullet(getPosX(),getPosY()+15,4));
+				}
 				
 				if(currentFrame == getFrames()[1] || currentFrame == getFrames()[2]) {
 				 gun.getBullet().setDirection("left");	
@@ -247,7 +260,15 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	
 	public void defeat() {
-		defeats++;
+		defeats = getDefeats() + 1;
+	}
+
+	public void setTypeOfGun(String typeOfGun) {
+		this.typeOfGun = typeOfGun;
+	}
+
+	public int getDefeats() {
+		return defeats;
 	}
 
 }
