@@ -1,9 +1,7 @@
 package ui;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -18,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,11 +34,8 @@ import model.Pdf;
 import model.Player;
 import model.RedPDF;
 import model.User;
-<<<<<<< HEAD
 import thread.LoadingScreenThread;
-=======
 import model.YellowPDF;
->>>>>>> 7ace42d0486a97687db1a5e15bdc6305bc5dd428
 import thread.PdfMovementThread;
 
 public class VirtualGameGUIController {
