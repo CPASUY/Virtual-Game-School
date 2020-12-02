@@ -1,7 +1,9 @@
 package ui;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -16,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.GameManagement;
 import model.GunFirst;
@@ -32,6 +36,7 @@ import model.Pdf;
 import model.Player;
 import model.RedPDF;
 import model.User;
+import thread.LoadingScreenThread;
 import thread.PdfMovementThread;
 
 public class VirtualGameGUIController {
@@ -47,6 +52,14 @@ public class VirtualGameGUIController {
 	private GameManagement gm;
 	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
+	@FXML
+    private Circle circle1;
+
+    @FXML
+    private Circle circle2;
+
+    @FXML
+    private Circle circle3;
 	@FXML
     private TableView<User> tableScore;
 
@@ -71,6 +84,10 @@ public class VirtualGameGUIController {
     @FXML
 	private BorderPane basePane;
     
+    private boolean movement;
+    
+    private LoadingScreenThread lst;
+    
     private AnimationTimer animationTimer;
 
 	public VirtualGameGUIController(Stage s) {
@@ -80,6 +97,45 @@ public class VirtualGameGUIController {
 		nextStage = false;
 		
 	}
+	public void starLoadingScreen() throws IOException {
+		basePane.setOnKeyPressed(null);
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadingScreen.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
+	@FXML
+	void startAnimation(ActionEvent event) {
+		if (movement == false){
+	    	movement = true;
+	    	} 
+	    	lst = new LoadingScreenThread(this);
+			lst.setDaemon(true);
+			lst.start();
+	}
+	 public boolean isMovement() {
+			return movement;
+	}
+	 public void movement() throws IOException {
+		 circle1.setLayoutX(circle1.getLayoutX()+20);
+			circle2.setLayoutX(circle2.getLayoutX()+20);
+			circle3.setLayoutX(circle3.getLayoutX()+20);
+			
+			if(circle1.getLayoutX()>935+100) {
+				circle1.setLayoutX(-50);
+			}
+			if(circle2.getLayoutX()>935+100) {
+				circle2.setLayoutX(-50);
+			}
+			if(circle3.getLayoutX()>935+100) {
+				circle3.setLayoutX(-50);
+			}
+			if(circle3.getLayoutX()==310) {
+				movement = false;
+				startMenu();
+			}
+	 }
 	//Menu
 	public void startMenu() throws IOException {
 		basePane.setOnKeyPressed(null);

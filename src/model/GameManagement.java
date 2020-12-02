@@ -1,5 +1,11 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +17,12 @@ public class GameManagement implements Serializable {
 	/**
 	 * 
 	 */
+	/*The rute file of the serializable file
+	 */
+	public static final String USERS_FILE_NAME="data/Users.bbd";
+	/*The rute file of the serializable file
+	 */
+	public static final String LOGS_FILE_NAME="data/Users.bbd";
 	private static final long serialVersionUID = 1000L;
 	private Player game;
 	private User rootUsers;
@@ -302,5 +314,43 @@ public class GameManagement implements Serializable {
 		showList(current.getLeft());
 		
 		return listUsers;
+	}
+	/**saveRoot
+     * Method to save data users information
+     */
+	public void saveRootUsers() throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USERS_FILE_NAME));
+		oos.writeObject(rootUsers);
+		oos.close();
+	}
+	/**loadRoot
+     * Method to load data users information
+     */
+	public void loadRootUsers() throws IOException, ClassNotFoundException{	
+		File f=new File(USERS_FILE_NAME);
+		if(f.exists()) {
+			ObjectInputStream ois= new ObjectInputStream(new FileInputStream(f));
+			rootUsers=(User)ois.readObject();
+			ois.close();
+		}
+	}
+	/**saveRoot
+     * Method to save data logs information
+     */
+	public void saveRootLogs() throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream( LOGS_FILE_NAME));
+		oos.writeObject(rootLogs);
+		oos.close();
+	}
+	/**loadRoot
+     * Method to load data logs information
+     */
+	public void loadRootLogs() throws IOException, ClassNotFoundException{	
+		File f=new File( LOGS_FILE_NAME);
+		if(f.exists()) {
+			ObjectInputStream ois= new ObjectInputStream(new FileInputStream(f));
+			rootLogs=(Log)ois.readObject();
+			ois.close();
+		}
 	}
 }

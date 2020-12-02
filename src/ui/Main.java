@@ -21,6 +21,6 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual School Game");
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		vgc.startMenu() ;
+		vgc.starLoadingScreen() ;
 	}
 }
