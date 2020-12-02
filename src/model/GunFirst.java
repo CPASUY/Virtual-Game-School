@@ -8,5 +8,4 @@ public class GunFirst extends Gun {
 		setDamage(DAMAGE);
 		getBullet().setImage(PATHBULLET);
 	}
-
 }

@@ -27,7 +27,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.GameManagement;
 import model.GreenPDF;
+import model.Gun;
 import model.GunFirst;
+import model.GunManagement;
 import model.GunSecond;
 import model.GunThird;
 import model.Pdf;
@@ -89,6 +91,8 @@ public class VirtualGameGUIController {
     private LoadingScreenThread lst;
     
     private AnimationTimer animationTimer;
+    
+    private GunManagement gunManagement;
 
 	public VirtualGameGUIController(Stage s) {
 		stage=s;
@@ -96,6 +100,7 @@ public class VirtualGameGUIController {
 		enemies = new ArrayList<Pdf>();
 		nextStage = false;
 		quantityOfEnemies = 3;
+		gunManagement = new GunManagement();
 		
 	}
 	public void starLoadingScreen() throws IOException {
@@ -159,6 +164,14 @@ public class VirtualGameGUIController {
 	@FXML
 	void newGame(ActionEvent event) throws IOException {
 		player = new Player();
+		Gun initial = new Gun(player.getPosX(),player.getPosY(),1);
+		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY(),2);
+		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY(),3);
+		GunThird gt = new GunThird(player.getPosX(),player.getPosY(),4);
+		gunManagement.addGun(initial);
+		gunManagement.addGun(gf);
+		gunManagement.addGun(gs);
+		gunManagement.addGun(gt);
 		starChoosePlayers();
 	}
 
@@ -239,6 +252,7 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		Canvas canva  = new Canvas(935,688);
 		player.setPaths();
+		player.setGun(gunManagement.getInitialGun());
 		basePane.getChildren().clear();
 		basePane.getChildren().add(canva);
 		basePane.setCenter(root);
@@ -247,6 +261,7 @@ public class VirtualGameGUIController {
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
     	player.setSaveExit(false);
+    	
 	}
 	
 	public void draw() {
@@ -479,8 +494,7 @@ public class VirtualGameGUIController {
     void buyGunOne() {
     	
     	if(player.getCoins()>=1500) {
-    		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY(),2);
-        	player.setGun(gf);
+        	player.setGun(gunManagement.getInitialGun().getNextGun());
         	player.setTypeOfGun("firstGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-1500);
@@ -495,8 +509,8 @@ public class VirtualGameGUIController {
     @FXML
     void buyGunTwo() {
     	if(player.getCoins()>=3500) {
-    		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY(),3);
-        	player.setGun(gs);
+    		
+        	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
         	player.setTypeOfGun("secondGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-3500);
@@ -511,8 +525,7 @@ public class VirtualGameGUIController {
     void buyGunThree() {
     	
     	if(player.getCoins()>=5000) {
-    		GunThird gt = new GunThird(player.getPosX(),player.getPosY(),4);
-        	player.setGun(gt);
+        	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
         	player.setTypeOfGun("thirdGun");
         	player.setPaths();
         	player.setCoins(player.getCoins()-5000);

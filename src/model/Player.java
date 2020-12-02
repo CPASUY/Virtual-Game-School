@@ -34,7 +34,6 @@ public class Player extends Entity implements Motion,Attack {
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
-		gun = new Gun(getPosX(),getPosY(),1);
 		setCoins(0);
 		paused = false;
 		setLose(false);
