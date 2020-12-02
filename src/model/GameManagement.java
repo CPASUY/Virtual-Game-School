@@ -133,14 +133,14 @@ public class GameManagement implements Serializable {
 	 * @param mc moodleCoins of the new user
 	 * @throws RepeatedNicknameException user Already exist
 	 */
-	public void addUser(String n, double s, int p, int d, int ls, double mc) throws RepeatedNicknameException {
+	public void addUser(String n, double s, int d, int ls, double mc) throws RepeatedNicknameException {
 		User found = searchUserByNickname(n);
 		if (found == null) {
 			if (rootUsers == null) {
-				rootUsers = new User(n,s,p,d,ls,mc);
+				rootUsers = new User(n,s,d,ls,mc);
 				contUsers++;
 			} else {
-				User newU = new User(n,s,p,d,ls,mc);
+				User newU = new User(n,s,d,ls,mc);
 				addUser(rootUsers,newU);
 			}
 		} else {

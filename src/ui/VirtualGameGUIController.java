@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TextField;
@@ -225,7 +226,7 @@ public class VirtualGameGUIController {
 		});
 	}
 	
-	public void updateState() {
+	public void updateState() throws IOException {
 		player.move();
 		healthLabel.setText(String.format("%.2f", player.getHealth()));
 		coinsGame.setText(String.valueOf(player.getCoins()));
@@ -264,7 +265,12 @@ public class VirtualGameGUIController {
 			//60 FPS
 			@Override
 			public void handle(long now) {
-				updateState();
+				try {
+					updateState();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				draw();
 			}
 		};
@@ -623,7 +629,7 @@ public class VirtualGameGUIController {
 		}
     }
     
-    public void verifyCollisions() {
+    public void verifyCollisions() throws IOException {
     	for(int i = 0;i<enemies.size();i++) {
 			player.getGun().getBullet().verifyCollision(enemies.get(i),player);
 			enemies.get(i).verifyCollision(player);
@@ -646,5 +652,45 @@ public class VirtualGameGUIController {
 				enemies.remove(i);
 			}
 		}
+    	if(player.getHealth()<=0) {
+    		startGameOver();
+    	}
+    }
+    public void startGameOver() throws IOException {
+		basePane.setOnKeyPressed(null);
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
+    @FXML
+    private TextField txtNicknameGameOver;
+    
+    @FXML
+    void saveUserOver(ActionEvent event) throws RepeatedNicknameException {
+    	String n=txtNicknameGameOver.getText();
+    	if(n.isEmpty()) {
+    		Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Empty space");
+			alert.setHeaderText("You must fill in the blank");
+			alert.setContentText("Check that you have entered a nickname");
+    	}else {
+    	int c=player.getCoins();
+    	double s=player.getScore();
+    	int st=player.getStages();
+    	int d=player.getDefeats();
+    	gm.addUser(n, s, d, st,c);
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Information");
+    	alert.setHeaderText(null);
+    	alert.setContentText("It has been saved successfully!");
+
+    	alert.showAndWait();
+    	}
+    }
+    @FXML
+    void BacktoMenuOver(ActionEvent event) throws IOException {
+    	startMenu();
     }
 }
