@@ -102,6 +102,7 @@ public class VirtualGameGUIController {
 		nextStage = false;
 		quantityOfEnemies = 3;
 		gunManagement = new GunManagement();
+	
 		
 	}
 	public void starLoadingScreen() throws IOException {
@@ -345,6 +346,16 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+		
+		ObservableList<User> user= FXCollections.observableArrayList(gm.showList());
+		tableScore.setItems(user);
+		
+		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
+		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
+		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
+		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
+		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
 	}
 
     @FXML

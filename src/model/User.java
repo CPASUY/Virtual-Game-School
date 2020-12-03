@@ -54,10 +54,11 @@ public class User implements Serializable{
 	 * @param ld last stage of the User
 	 * @param mc moodleCoins of the User
 	 */
-	public User(String n, double s,int d, int ls, double mc) {
+	public User(String n, double s, int p, int d, int ls, double mc) {
 		super();
 		nickname = n;
 		score = s;
+		position = p;
 		defeats = d;
 		lastStage = ls;
 		moodleCoins = mc;
