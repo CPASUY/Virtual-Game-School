@@ -596,7 +596,7 @@ public class VirtualGameGUIController {
     }
     
     private void generateInitialEnemies() {
-    	RedPDF enemy1 = new RedPDF(200, 100,player);
+    	RedPDF enemy1 = new RedPDF(200, 500,player);
 		RedPDF enemy2 = new RedPDF(700, 321,player);
 		RedPDF enemy3 = new RedPDF(200, 400,player);
 		enemies.add(enemy1);
