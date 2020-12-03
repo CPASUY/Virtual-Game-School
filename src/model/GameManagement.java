@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import exceptions.RepeatedNicknameException;
 
 
-public class GameManagement implements Serializable {
+public class GameManagement {
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class GameManagement implements Serializable {
 	public static final String USERS_FILE_NAME="data/Users.bbd";
 	/*The rute file of the serializable file
 	 */
-	public static final String LOGS_FILE_NAME="data/Users.bbd";
+	public static final String LOGS_FILE_NAME="data/Logs.bbd";
 	private static final long serialVersionUID = 1000L;
 	private Player game;
 	private User rootUsers;
@@ -42,20 +42,18 @@ public class GameManagement implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		saveRootLogs();
-		saveRootUsers();
 	}
 	/**
 	 * Adds the log of the current session
 	 */
-	public void addLog() {
+	public void addLog(User u) {
 
 		LocalDate date = LocalDate.now();
 
 		if (rootLogs == null) {
-			rootLogs = new Log(currentUser, date);
+			rootLogs = new Log(u, date);
 		} else {
-			addLog(rootLogs, currentUser,date);
+			addLog(rootLogs, u,date);
 		}
 	}
 	/**
@@ -150,10 +148,12 @@ public class GameManagement implements Serializable {
 		if (found == null) {
 			if (rootUsers == null) {
 				rootUsers = new User(n,s,contPositionUsers,d,ls,mc);
+				addLog(rootUsers);
 				contPositionUsers++;
 				contUsers++;
 			} else {
 				User newU = new User(n,s,contPositionUsers,d,ls,mc);
+				addLog(newU);
 				addUser(rootUsers,newU);
 				contPositionUsers++;
 				contUsers++;
@@ -326,6 +326,19 @@ public class GameManagement implements Serializable {
 			showList(current.getRight(),u);
 			u.add(current);
 			showList(current.getLeft(),u);
+		}
+		return u;
+	}
+	public ArrayList<Log> showListLogs() {
+		ArrayList<Log> listLogs= new ArrayList<Log>();
+		return showListLogs(rootLogs,listLogs);
+	}
+	public ArrayList<Log> showListLogs(Log current,ArrayList<Log> u){
+		if (current != null) {
+			System.out.println("HOLA");
+			showListLogs(current.getRight(),u);
+			u.add(current);
+			showListLogs(current.getLeft(),u);
 		}
 		return u;
 	}

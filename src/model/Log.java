@@ -46,6 +46,14 @@ public class Log implements Serializable{
 		return user;
 	}
 	/**
+	 * Returns the user
+	 * @return User user 
+	 */
+	public String getNickname() {
+		String name=user.getNickname();
+		return name;
+	}
+	/**
 	 * Returns the Date
 	 * 
 	 * @return Date date
