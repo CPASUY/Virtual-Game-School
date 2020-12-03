@@ -31,9 +31,19 @@ public class GameManagement implements Serializable {
 	private int contPositionUsers;
 	private int contUsers;
 	//Method
-	public GameManagement() {
+	public GameManagement() throws IOException {
 		contPositionUsers=1;
 		contUsers=0;
+		try {
+			loadRootLogs();
+			loadRootUsers();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		saveRootLogs();
+		saveRootUsers();
 	}
 	/**
 	 * Adds the log of the current session
@@ -284,16 +294,14 @@ public class GameManagement implements Serializable {
 		if (current == null) {
 			user=null;
 		} else {
-			if (p==current.getScore()) {
+			if (p==current.getPosition()) {
 				user = current;
-			} else if (p <= current.getScore()) {
+			} else if (p <= current.getPosition()) {
 				user = searchUserByPosition(p,current.getLeft());
 			} else {
 				user = searchUserByPosition(p,current.getRight());
 			}
-
 		}
-
 		return user;
 	}
 	/**
@@ -310,15 +318,16 @@ public class GameManagement implements Serializable {
 		return listUsers;
 	}
 	public ArrayList<User> showList() {
-		return showList(rootUsers);
-	}
-	public ArrayList<User> showList(User current){
-		User[] users = generateUserArray();
 		ArrayList<User> listUsers = new ArrayList<User>();
-		  for (int i = 0; i < users.length; i++) {
-				listUsers.add(users[i]);
-			}
-		return listUsers;
+		return showList(rootUsers,listUsers);
+	}
+	public ArrayList<User> showList(User current,ArrayList<User> u){
+		if (current != null) {
+			showList(current.getRight(),u);
+			u.add(current);
+			showList(current.getLeft(),u);
+		}
+		return u;
 	}
 	/**saveRoot
      * Method to save data users information
