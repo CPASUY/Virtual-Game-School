@@ -31,14 +31,6 @@ public class Player extends Entity implements Motion,Attack {
 	private final int VELOCITY = 3;
 	private boolean on;
 	
-	public int getDefeats() {
-		return defeats;
-	}
-
-	public void setDefeats(int defeats) {
-		this.defeats = defeats;
-	}
-
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
