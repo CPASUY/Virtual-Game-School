@@ -2,10 +2,6 @@ package model;
 
 import java.time.LocalDate;
 
-import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.util.Duration;
 import ui.VirtualGameGUIController;
 
 public class Player extends Entity implements Motion,Attack {
@@ -235,7 +231,6 @@ public class Player extends Entity implements Motion,Attack {
 
 	@Override
 	public double getDamage() {
-		// TODO Auto-generated method stub
 		return gun.getDamage();
 	}
 
@@ -266,5 +261,4 @@ public class Player extends Entity implements Motion,Attack {
 	public int getDefeats() {
 		return defeats;
 	}
-
 }

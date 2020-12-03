@@ -79,5 +79,6 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button layoutX="182.0" layoutY="386.0" mnemonicParsing="false" onAction="#showLogs" prefHeight="25.0" prefWidth="55.0" text="Logs" />
    </children>
 </Pane>

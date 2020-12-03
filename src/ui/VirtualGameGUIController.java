@@ -525,11 +525,20 @@ public class VirtualGameGUIController {
         	player.setPaths();
         	player.setCoins(player.getCoins()-1500);
         	coinsShop.setText(String.valueOf(player.getCoins()));
+        	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Buy succesfully");
+			alert.setHeaderText("Your purchase has been completed successfully");
+			alert.setContentText("Enjoy defeating enemies");
+			alert.show();
     	}
     	else {
-    		
+    		Alert warning = new Alert(AlertType.WARNING);
+			warning.setTitle("Not Enough MoodleCoins");
+			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
+			warning.setContentText("Try to defeat more enemies");
+			warning.show();
+    		throw new NoEnoughCoinsException();
     	}
-    	
     }
 
     @FXML
@@ -541,9 +550,19 @@ public class VirtualGameGUIController {
         	player.setPaths();
         	player.setCoins(player.getCoins()-3500);
         	coinsShop.setText(String.valueOf(player.getCoins()));
+        	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Buy succesfully");
+			alert.setHeaderText("Your purchase has been completed successfully");
+			alert.setContentText("Enjoy defeating enemies");
+			alert.show();
     	}
     	else {
-    		
+    		Alert warning = new Alert(AlertType.WARNING);
+			warning.setTitle("Not Enough MoodleCoins");
+			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
+			warning.setContentText("Try to defeat more enemies");
+			warning.show();
+    		throw new NoEnoughCoinsException();
     	}
     }
 
@@ -556,9 +575,19 @@ public class VirtualGameGUIController {
         	player.setPaths();
         	player.setCoins(player.getCoins()-5000);
         	coinsShop.setText(String.valueOf(player.getCoins()));
+        	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Buy succesfully");
+			alert.setHeaderText("Your purchase has been completed successfully");
+			alert.setContentText("Enjoy defeating enemies");
+			alert.show();
     	}
     	else {
-    		
+    		Alert warning = new Alert(AlertType.WARNING);
+			warning.setTitle("Not Enough MoodleCoins");
+			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
+			warning.setContentText("Try to defeat more enemies");
+			warning.show();
+    		throw new NoEnoughCoinsException();
     	}
     	
     }
@@ -730,5 +759,24 @@ public class VirtualGameGUIController {
     @FXML
     void BacktoMenuOver(ActionEvent event) throws IOException {
     	startMenu();
+    }
+    
+    @FXML
+    void showLogs() throws IOException{
+    	startLogs();
+    }
+    
+    @FXML
+    void backLogToMenu() throws IOException {
+    	startMenu();
+    }
+    
+    public void startLogs() throws IOException {
+    	basePane.setOnKeyPressed(null);
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Logs.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
     }
 }
