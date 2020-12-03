@@ -96,7 +96,7 @@ public class VirtualGameGUIController {
     
     private GunManagement gunManagement;
 
-	public VirtualGameGUIController(Stage s) {
+	public VirtualGameGUIController(Stage s) throws IOException {
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
@@ -347,6 +347,7 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 		
+		tableScore.getItems().clear();
 		ObservableList<User> user= FXCollections.observableArrayList(gm.showList());
 		tableScore.setItems(user);
 		
@@ -370,6 +371,7 @@ public class VirtualGameGUIController {
     }
     @FXML
     void refreshTable(ActionEvent event) {
+    	tableScore.getItems().clear();
     	ObservableList<User> user= FXCollections.observableArrayList(gm.showList());
 		tableScore.setItems(user);
 		
@@ -382,13 +384,16 @@ public class VirtualGameGUIController {
     }
     @FXML
     void searchByNickname(ActionEvent event) {
+    	System.out.println("NETRA");
     	ArrayList<User> listUsers = new ArrayList<User>();
     	String nickname = searchNickname.getText();
 		if(nickname.isEmpty()) {
+			System.out.println("okey");
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Empty space");
 			alert.setHeaderText("You must fill in the blank");
 			alert.setContentText("Check that you have entered the nickname correctly");
+			alert.showAndWait();
 		}else {
 			listUsers = gm.searchUser(nickname);
 			if(listUsers.size()==1) {
@@ -404,9 +409,11 @@ public class VirtualGameGUIController {
 				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
 			}else {
+				System.out.println("no");
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("User not found");
 				alert.setContentText("Check that you have entered the nickname correctly");
+				alert.showAndWait();
 			}
 		}
     }
@@ -420,6 +427,7 @@ public class VirtualGameGUIController {
 			alert.setTitle("Empty space");
 			alert.setHeaderText("You must fill in the blank");
 			alert.setContentText("Check that you have entered the position correctly");
+			alert.showAndWait();
 		}else {
 			int pos=Integer.parseInt(position);
 			listUsers = gm.searchPosition(pos);
@@ -439,6 +447,7 @@ public class VirtualGameGUIController {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("User not found");
 				alert.setContentText("Check that you have entered the name correctly");
+				alert.showAndWait();
 			}
 		}
     
