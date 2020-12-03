@@ -688,7 +688,7 @@ public class VirtualGameGUIController {
     public void verifyCollisions() throws IOException {
     	for(int i = 0;i<enemies.size();i++) {
 			player.getGun().getBullet().verifyCollision(enemies.get(i),player);
-			enemies.get(i).verifyCollision(player);
+			enemies.get(i).verifyCollision();
 			if(enemies.get(i).getHealth() <=0) {
 				if(enemies.get(i) instanceof RedPDF){
 					player.setCoins(player.getCoins()+200);
