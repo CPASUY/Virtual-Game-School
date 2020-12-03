@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.NoEnoughCoinsException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -283,7 +284,6 @@ public class VirtualGameGUIController {
 				try {
 					updateState();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				draw();
@@ -497,7 +497,7 @@ public class VirtualGameGUIController {
     private Label coinsShop;
     
     @FXML
-    void buyGunOne() {
+    void buyGunOne() throws NoEnoughCoinsException {
     	
     	if(player.getCoins()>=1500) {
         	player.setGun(gunManagement.getInitialGun().getNextGun());
@@ -513,7 +513,7 @@ public class VirtualGameGUIController {
     }
 
     @FXML
-    void buyGunTwo() {
+    void buyGunTwo() throws NoEnoughCoinsException {
     	if(player.getCoins()>=3500) {
     		
         	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
@@ -528,7 +528,7 @@ public class VirtualGameGUIController {
     }
 
     @FXML
-    void buyGunThree() {
+    void buyGunThree() throws NoEnoughCoinsException {
     	
     	if(player.getCoins()>=5000) {
         	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
