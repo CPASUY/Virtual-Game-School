@@ -669,6 +669,8 @@ public class VirtualGameGUIController {
 			}
 		}
     	if(player.getHealth()<=0) {
+    		animationTimer.stop();
+    		player.setPaused(true);
     		startGameOver();
     	}
     }

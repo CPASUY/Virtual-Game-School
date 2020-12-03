@@ -30,10 +30,6 @@ public class Player extends Entity implements Motion,Attack {
 	private int cont;
 	private final int VELOCITY = 3;
 	private boolean on;
-	
-	public int getDefeats() {
-		return defeats;
-	}
 
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
