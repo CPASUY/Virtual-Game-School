@@ -34,7 +34,7 @@ public class Player extends Entity implements Motion,Attack {
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
 	}
-
+	
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
