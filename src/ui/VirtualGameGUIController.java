@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exceptions.NoEnoughCoinsException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -100,7 +101,6 @@ public class VirtualGameGUIController {
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
 		nextStage = false;
-		quantityOfEnemies = 3;
 		gunManagement = new GunManagement();
 	
 		
@@ -262,6 +262,7 @@ public class VirtualGameGUIController {
 		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
+    	quantityOfEnemies = 3;
     	player.setSaveExit(false);
     	
 	}
@@ -284,7 +285,6 @@ public class VirtualGameGUIController {
 				try {
 					updateState();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				draw();
@@ -508,7 +508,7 @@ public class VirtualGameGUIController {
     private Label coinsShop;
     
     @FXML
-    void buyGunOne() {
+    void buyGunOne() throws NoEnoughCoinsException {
     	
     	if(player.getCoins()>=1500) {
         	player.setGun(gunManagement.getInitialGun().getNextGun());
@@ -524,7 +524,7 @@ public class VirtualGameGUIController {
     }
 
     @FXML
-    void buyGunTwo() {
+    void buyGunTwo() throws NoEnoughCoinsException {
     	if(player.getCoins()>=3500) {
     		
         	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
@@ -539,7 +539,7 @@ public class VirtualGameGUIController {
     }
 
     @FXML
-    void buyGunThree() {
+    void buyGunThree() throws NoEnoughCoinsException {
     	
     	if(player.getCoins()>=5000) {
         	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
@@ -607,7 +607,7 @@ public class VirtualGameGUIController {
     }
     
     private void generateInitialEnemies() {
-    	RedPDF enemy1 = new RedPDF(200, 100,player);
+    	RedPDF enemy1 = new RedPDF(200, 500,player);
 		RedPDF enemy2 = new RedPDF(700, 321,player);
 		RedPDF enemy3 = new RedPDF(200, 400,player);
 		enemies.add(enemy1);
@@ -642,7 +642,7 @@ public class VirtualGameGUIController {
 					enemies.add(gn);
 					}
 			}
-			else {
+			else if(quantityOfEnemies>=12){
 				for(int i=0;i<quantityOfEnemies;i++) {
 					double posX = Math.random()*(688);
 					double posY = Math.random()*(688-250) + 250;
@@ -681,7 +681,8 @@ public class VirtualGameGUIController {
 		}
     	if(player.getHealth()<=0) {
     		animationTimer.stop();
-    		player.setPaused(true);
+    		enemies.clear();
+    		quantityOfEnemies = 0;
     		startGameOver();
     	}
     }
@@ -714,7 +715,6 @@ public class VirtualGameGUIController {
     	alert.setTitle("Information");
     	alert.setHeaderText(null);
     	alert.setContentText("It has been saved successfully!");
-
     	alert.showAndWait();
     	}
     }
