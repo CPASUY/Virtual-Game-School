@@ -100,7 +100,6 @@ public class VirtualGameGUIController {
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
 		nextStage = false;
-		quantityOfEnemies = 3;
 		gunManagement = new GunManagement();
 		
 	}
@@ -261,6 +260,7 @@ public class VirtualGameGUIController {
 		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
+    	quantityOfEnemies = 3;
     	player.setSaveExit(false);
     	
 	}
@@ -631,7 +631,7 @@ public class VirtualGameGUIController {
 					enemies.add(gn);
 					}
 			}
-			else {
+			else if(quantityOfEnemies>=12){
 				for(int i=0;i<quantityOfEnemies;i++) {
 					double posX = Math.random()*(688);
 					double posY = Math.random()*(688-250) + 250;
@@ -670,7 +670,8 @@ public class VirtualGameGUIController {
 		}
     	if(player.getHealth()<=0) {
     		animationTimer.stop();
-    		player.setPaused(true);
+    		enemies.clear();
+    		quantityOfEnemies = 0;
     		startGameOver();
     	}
     }
@@ -703,7 +704,6 @@ public class VirtualGameGUIController {
     	alert.setTitle("Information");
     	alert.setHeaderText(null);
     	alert.setContentText("It has been saved successfully!");
-
     	alert.showAndWait();
     	}
     }
