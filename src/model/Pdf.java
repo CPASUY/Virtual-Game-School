@@ -12,15 +12,16 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 		this.damage = damage;
 		this.objective = objective;
 	}
-	
+
 	@Override
 	public void attack() {
-	   objective.loseHealt(damage);
+		// TODO Auto-generated method stub
+		
 	}
-	
+
 	@Override
 	public double getDamage() {
-		
+		// TODO Auto-generated method stub
 		return damage;
 	}
 
@@ -46,11 +47,10 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 		
 	}
 	
-	
-	public void verifyCollision() {
-		if(this.getRectangle().getBoundsInLocal().intersects(objective.getRectangle().getBoundsInLocal())) {
-		objective.loseHealt(damage);
-		}
+	public void verifyCollision(Player player) {
+		if(this.getRectangle().getBoundsInLocal().intersects(player.getRectangle().getBoundsInLocal())) {
+			player.loseHealt(damage);
+		};
 	 }
 
 	public Player getObjective() {
