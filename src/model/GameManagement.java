@@ -24,16 +24,16 @@ public class GameManagement {
 	 */
 	public static final String LOGS_FILE_NAME="data/Logs.bbd";
 	private static final long serialVersionUID = 1000L;
-	private Player game;
 	private User rootUsers;
 	private Log rootLogs;
-	private User currentUser;
 	private int contPositionUsers;
 	private int contUsers;
+	private int contLogs;
 	//Method
 	public GameManagement() throws IOException {
 		contPositionUsers=1;
 		contUsers=0;
+		contLogs=0;
 		try {
 			loadRootLogs();
 			loadRootUsers();
@@ -49,11 +49,13 @@ public class GameManagement {
 	public void addLog(User u) {
 
 		LocalDate date = LocalDate.now();
-
 		if (rootLogs == null) {
 			rootLogs = new Log(u, date);
+			contLogs++;
+			
 		} else {
 			addLog(rootLogs, u,date);
+			contLogs++;
 		}
 	}
 	/**
@@ -71,10 +73,10 @@ public class GameManagement {
 			Log left = c.getLeft();
 
 			if (left == null) {
-				c.setLeft(new Log(currentUser,d));
+				c.setLeft(new Log(us,d));
 				c.getLeft().setParent(c);
 			} else {
-				addLog(left, currentUser,d);
+				addLog(left,us,d);
 			}
 
 		} else {
@@ -82,10 +84,10 @@ public class GameManagement {
 			Log right = c.getRight();
 
 			if (right == null) {
-				c.setRight(new Log(currentUser,d));
+				c.setRight(new Log(us,d));
 				c.getRight().setParent(c);
 			} else {
-				addLog(right, currentUser,d);
+				addLog(right,us,d);
 			}
 		}
 	}
@@ -333,12 +335,11 @@ public class GameManagement {
 		ArrayList<Log> listLogs= new ArrayList<Log>();
 		return showListLogs(rootLogs,listLogs);
 	}
-	public ArrayList<Log> showListLogs(Log current,ArrayList<Log> u){
-		if (current != null) {
-			System.out.println("HOLA");
-			showListLogs(current.getRight(),u);
-			u.add(current);
-			showListLogs(current.getLeft(),u);
+	public ArrayList<Log> showListLogs(Log c,ArrayList<Log> u){
+		if (c != null) {
+			showListLogs(c.getRight(),u);
+			u.add(c);
+			showListLogs(c.getLeft(),u);
 		}
 		return u;
 	}
@@ -380,4 +381,5 @@ public class GameManagement {
 			ois.close();
 		}
 	}
+	
 }
