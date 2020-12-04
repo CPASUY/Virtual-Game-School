@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import exceptions.RepeatedNicknameException;
 
 
-public class GameManagement {
+public class GameManagement implements Serializable {
 	/**
 	 * 
 	 */
@@ -28,12 +28,10 @@ public class GameManagement {
 	private Log rootLogs;
 	private int contPositionUsers;
 	private int contUsers;
-	private int contLogs;
 	//Method
 	public GameManagement() throws IOException {
 		contPositionUsers=1;
 		contUsers=0;
-		contLogs=0;
 		try {
 			loadRootLogs();
 			loadRootUsers();
@@ -51,11 +49,9 @@ public class GameManagement {
 		LocalDate date = LocalDate.now();
 		if (rootLogs == null) {
 			rootLogs = new Log(u, date);
-			contLogs++;
 			
 		} else {
 			addLog(rootLogs, u,date);
-			contLogs++;
 		}
 	}
 	/**
@@ -70,24 +66,20 @@ public class GameManagement {
 
 		if (d.toString().compareTo(c.getDate().toString())<0 || d.toString().compareTo(c.getDate().toString())==0  ) {
 
-			Log left = c.getLeft();
-
-			if (left == null) {
+			if (c.getLeft() == null) {
 				c.setLeft(new Log(us,d));
 				c.getLeft().setParent(c);
 			} else {
-				addLog(left,us,d);
+				addLog(c.getLeft(),us,d);
 			}
 
 		} else {
 
-			Log right = c.getRight();
-
-			if (right == null) {
+			if (c.getRight() == null) {
 				c.setRight(new Log(us,d));
 				c.getRight().setParent(c);
 			} else {
-				addLog(right,us,d);
+				addLog(c.getRight(),us,d);
 			}
 		}
 	}
