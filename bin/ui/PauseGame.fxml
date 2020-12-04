@@ -13,6 +13,10 @@
             <Image url="@../../images/imagesUI/Backgrounds/Paused-01.jpg" />
          </image>
       </ImageView>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 28a07922fc077aa7b578d5d9ea0d1040d31bd321
       <Button layoutX="367.0" layoutY="138.0" mnemonicParsing="false" onAction="#resumeGame" prefHeight="83.0" prefWidth="220.0">
          <graphic>
             <ImageView fitHeight="63.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true" scaleX="1.4" scaleY="1.4">
@@ -46,8 +50,13 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 28a07922fc077aa7b578d5d9ea0d1040d31bd321
       <Button layoutX="359.0" layoutY="108.0" mnemonicParsing="false" onAction="#resumeGame" prefHeight="102.0" prefWidth="202.0" text="RESUME GAME" />
       <Button layoutX="360.0" layoutY="251.0" mnemonicParsing="false" onAction="#saveAndExit" prefHeight="102.0" prefWidth="202.0" text="SAVE GAME AND EXIT" />
       <Button layoutX="359.0" layoutY="396.0" mnemonicParsing="false" onAction="#backMenuWithoutSaving" prefHeight="83.0" prefWidth="202.0" text="BACK MENU WITHOUT SAVING" />
+>>>>>>> dc070e3bc429e76498a8ad21ce12fa2d4c9c70c3
    </children>
 </Pane>
