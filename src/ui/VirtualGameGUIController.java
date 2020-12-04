@@ -1,6 +1,10 @@
 package ui;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exceptions.NoEnoughCoinsException;
@@ -27,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.GameManagement;
 import model.GreenPDF;
 import model.Gun;
@@ -34,6 +39,7 @@ import model.GunFirst;
 import model.GunManagement;
 import model.GunSecond;
 import model.GunThird;
+import model.Log;
 import model.Pdf;
 import model.Player;
 import model.RedPDF;
@@ -96,7 +102,8 @@ public class VirtualGameGUIController {
     
     private GunManagement gunManagement;
 
-	public VirtualGameGUIController(Stage s) throws IOException {
+	public VirtualGameGUIController(Stage s) throws IOException {              
+		
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
@@ -105,6 +112,26 @@ public class VirtualGameGUIController {
 	
 		
 	}
+	public void initialize() {
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent event) {
+				System.out.println("Closing the window!");
+				try {
+					gm.saveRootLogs();
+					gm.saveRootUsers();
+				} catch (FileNotFoundException e) {
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+
 	public void starLoadingScreen() throws IOException {
 		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadingScreen.fxml"));
@@ -154,7 +181,9 @@ public class VirtualGameGUIController {
 		basePane.setCenter(root);
 	}
 	@FXML
-	void exit(ActionEvent event) {
+	void exit(ActionEvent event) throws IOException {
+		gm.saveRootLogs();
+		gm.saveRootUsers();
 		System.exit(0);
 	}
 
@@ -335,6 +364,11 @@ public class VirtualGameGUIController {
     @FXML
     void backMenuWithoutSaving(ActionEvent event) throws IOException{
     	player.setSaveExit(true);
+    	String file_name="data/LoadGames.csv";
+    	File export=new File (file_name);
+    	PrintWriter pw =new PrintWriter(export);
+    	pw.write(player.getDefeats()+ player.getStages()+player.getTypeOfGun()+"\n");
+    	pw.close();	
     	enemies.clear();
     	startMenu();
     }
@@ -760,7 +794,13 @@ public class VirtualGameGUIController {
     void BacktoMenuOver(ActionEvent event) throws IOException {
     	startMenu();
     }
+    @FXML
+    private TableView<Log> tableLogs;
     
+    @FXML
+    private TableColumn<Log,String> idUser;
+    @FXML
+    private TableColumn<Log,LocalDate> idDate;
     @FXML
     void showLogs() throws IOException{
     	startLogs();
@@ -778,5 +818,13 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+		
+		tableLogs.getItems().clear();
+		ObservableList<Log> logs= FXCollections.observableArrayList(gm.showListLogs());
+		tableLogs.setItems(logs);
+		
+		idUser.setCellValueFactory(new PropertyValueFactory<Log,String>("Nickname"));
+		idDate.setCellValueFactory(new PropertyValueFactory<Log,LocalDate>("Date"));
+
     }
 }

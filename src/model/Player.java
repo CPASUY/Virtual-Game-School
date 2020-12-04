@@ -4,6 +4,11 @@ import java.time.LocalDate;
 
 import ui.VirtualGameGUIController;
 
+/**
+ * 
+ * Class Player
+ *
+ */
 public class Player extends Entity implements Motion,Attack {
 	
 	
@@ -130,6 +135,10 @@ public class Player extends Entity implements Motion,Attack {
 		}
 	}
 	
+	public String getTypeOfGun() {
+		return typeOfGun;
+	}
+
 	public void setPaths() {
 		
 		if(woman) {
