@@ -2,6 +2,7 @@ package ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -363,6 +364,11 @@ public class VirtualGameGUIController {
     @FXML
     void backMenuWithoutSaving(ActionEvent event) throws IOException{
     	player.setSaveExit(true);
+    	String file_name="data/LoadGames.csv";
+    	File export=new File (file_name);
+    	PrintWriter pw =new PrintWriter(export);
+    	pw.write(player.getDefeats()+ player.getStages()+player.getTypeOfGun()+"\n");
+    	pw.close();	
     	enemies.clear();
     	startMenu();
     }
