@@ -1,6 +1,8 @@
 package ui;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -42,6 +44,7 @@ import model.GunThird;
 import model.Log;
 import model.Pdf;
 import model.Player;
+import model.Product;
 import model.RedPDF;
 import model.User;
 import thread.LoadingScreenThread;
@@ -357,18 +360,15 @@ public class VirtualGameGUIController {
     
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
+    
     	player.setSaveExit(true);
     	enemies.clear();
+    	startMenu();
     }
     
     @FXML
     void backMenuWithoutSaving(ActionEvent event) throws IOException{
     	player.setSaveExit(true);
-    	String file_name="data/LoadGames.csv";
-    	File export=new File (file_name);
-    	PrintWriter pw =new PrintWriter(export);
-    	pw.write(player.getDefeats()+ player.getStages()+player.getTypeOfGun()+"\n");
-    	pw.close();	
     	enemies.clear();
     	startMenu();
     }
@@ -648,6 +648,7 @@ public class VirtualGameGUIController {
 
     @FXML
     void loadSaveGame(ActionEvent event) throws IOException {
+    	
     	startScenary();
     }
     public void starChoosePlayers() throws IOException {
