@@ -44,6 +44,7 @@ import model.GunThird;
 import model.Log;
 import model.Pdf;
 import model.Player;
+import model.Product;
 import model.RedPDF;
 import model.User;
 import thread.LoadingScreenThread;
