@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import exceptions.NoFoundPositionException;
 import exceptions.RepeatedNicknameException;
 
 
@@ -295,8 +296,9 @@ public class GameManagement implements Serializable {
 	 * Returns a User given a position
 	 * @param position user's position
 	 * @return User User
+	 * @throws NoFoundPositionException 
 	 */
-	public User searchUserByPosition(int position) {
+	public User searchUserByPosition(int position) throws NoFoundPositionException {
 		return searchUserByPosition(position,rootUsers);
 	}
 	/**
@@ -305,10 +307,10 @@ public class GameManagement implements Serializable {
 	 * @param current User
 	 * @return User user
 	 */
-	public User searchUserByPosition(int p,User current) {
+	public User searchUserByPosition(int p,User current) throws NoFoundPositionException {
 		User user = null;
 		if (current == null) {
-			user=null;
+			throw new NoFoundPositionException();
 		} else {
 			if (p==current.getPosition()) {
 				user = current;
@@ -324,8 +326,9 @@ public class GameManagement implements Serializable {
 	 * Search an user by the position
 	 * @param pos position of the user
 	 * @return  user list
+	 * @throws NoFoundPositionException 
 	 */
-	public ArrayList<User> searchPosition(int pos){
+	public ArrayList<User> searchPosition(int pos) throws NoFoundPositionException{
 		User u=searchUserByPosition(pos);
 		ArrayList<User> listUsers = new ArrayList<User>();
 		if(u!=null) {

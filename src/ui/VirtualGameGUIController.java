@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import exceptions.NoEnoughCoinsException;
+import exceptions.NoFoundPositionException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -185,12 +186,16 @@ public class VirtualGameGUIController {
 	 * Creates an instance of VirtualGameGUIController
 	 * @param Stage s
 	 */
-	public VirtualGameGUIController(Stage s) throws IOException {              
+	public VirtualGameGUIController(Stage s) {              
 		File carpeta = new File("data/saves"); 
 		File[] lista = carpeta.listFiles();
 		contSaves=lista.length;
 		stage=s;
-		gm=new GameManagement();
+		try {
+			gm=new GameManagement();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		enemies = new ArrayList<Pdf>();
 		gunManagement = new GunManagement();
 		initialPlayers = new InitialPlayerManagement();
@@ -227,13 +232,18 @@ public class VirtualGameGUIController {
 	 * starLoadingScreen
 	 * @throws IOException 
 	 */
-	public void starLoadingScreen() throws IOException {
+	public void starLoadingScreen(){
 		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadingScreen.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * startAnimation
@@ -262,7 +272,7 @@ public class VirtualGameGUIController {
 	  * Method that move the shapes
 	  * @throws IOException
 	  */
-	 public void movement() throws IOException {
+	 public void movement(){
 		 circle3.setLayoutX(circle3.getLayoutX()+20);
 		 triangle.setLayoutX(triangle.getLayoutX()+20);
 		 rectangle.setLayoutX(rectangle.getLayoutX()+20);
@@ -286,7 +296,7 @@ public class VirtualGameGUIController {
 	  * Method that move the shapes of the loading save game
 	  * @throws IOException
 	  */
-	 public void movementSave() throws IOException {
+	 public void movementSave(){
 		 save1.setLayoutX(save1.getLayoutX()+20);
 		 save2.setLayoutX(save2.getLayoutX()+20);
 		 save3.setLayoutX(save3.getLayoutX()+20);
@@ -319,13 +329,19 @@ public class VirtualGameGUIController {
 	  * Method that start the menu
 	  * @throws IOException
 	  */ 
-	public void startMenu() throws IOException {
+	public void startMenu(){
 		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameMenu.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
 	}
 	/**
 	  * backMenu
@@ -333,7 +349,7 @@ public class VirtualGameGUIController {
 	  * @throws IOException
 	  */ 
 	@FXML
-	void backMenu() throws IOException {
+	void backMenu(){
 		enemies.clear();
 		startMenu();
 	}
@@ -344,11 +360,16 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
 	@FXML
-	void exit(ActionEvent event) throws IOException {
-		gm.saveRootLogs();
-		gm.saveRootUsers();
-		System.exit(0);
-	}
+	void exit(ActionEvent event){
+		try {
+			gm.saveRootLogs();
+			gm.saveRootUsers();
+			System.exit(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
+		
 	/**
 	 * loadGame
 	 * Method that load save games
@@ -356,7 +377,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
 	@FXML
-	void loadGame(ActionEvent event) throws IOException {
+	void loadGame(ActionEvent event){
 		startLoadGame();
 	}
 	/**
@@ -366,7 +387,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
 	@FXML
-	void newGame(ActionEvent event) throws IOException {
+	void newGame(ActionEvent event){
 		player = new Player();
 		quantityOfEnemies = 0;
 		enemies.clear();
@@ -380,7 +401,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
 	@FXML
-	void showScore(ActionEvent event) throws IOException {
+	void showScore(ActionEvent event){
 		startScores();
 	}
 	/**
@@ -388,7 +409,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
 	@FXML
-	public void startScenary() throws IOException {
+	public void startScenary(){
 		initScenary();
 		eventManager();
 		draw();
@@ -449,7 +470,7 @@ public class VirtualGameGUIController {
 	 * updateState
 	 * @throws IOException
 	 */
-	public void updateState() throws IOException {
+	public void updateState() {
 		player.move();
 		healthLabel.setText(String.format("%.2f", player.getHealth()));
 		coinsGame.setText(String.valueOf(player.getCoins()));
@@ -461,10 +482,15 @@ public class VirtualGameGUIController {
 	  * Method for init all the game
 	  * @throws IOException
 	  */
-	public void initScenary() throws IOException {
+	public void initScenary(){
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameScenary.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
+		Parent root = null;
+		try {
+			root = fxmload.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Canvas canva  = new Canvas(935,688);
 		player.setPaths();
 		if(player.getGun() == null) {
@@ -506,11 +532,7 @@ public class VirtualGameGUIController {
 			//60 FPS
 			@Override
 			public void handle(long now) {
-				try {
-					updateState();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				updateState();
 				draw();
 			}
 		};
@@ -527,7 +549,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void buyItems(ActionEvent event) throws IOException {
+    void buyItems(ActionEvent event){
     	player.setPaused(true);
     	startShop();
     }
@@ -535,13 +557,19 @@ public class VirtualGameGUIController {
 	  * startPauseGame
 	  * @throws IOException
 	  */
-    public void startPauseGame() throws IOException {
+    public void startPauseGame(){
     	basePane.setOnKeyPressed(null);
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("PauseGame.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
     /**
 	 * pauseGame
@@ -550,7 +578,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void pauseGame(ActionEvent event) throws IOException {
+    void pauseGame(ActionEvent event){
     		startPauseGame();	
     		animationTimer.stop();	
     		player.setPaused(true);
@@ -562,7 +590,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void resumeGame(ActionEvent event) throws IOException{
+    void resumeGame(ActionEvent event){
 		player.setPaused(false);
     	startScenary();
     	animationTimer.start();
@@ -571,13 +599,18 @@ public class VirtualGameGUIController {
 	  * startLoadingSaveScreen
 	  * @throws IOException
 	  */
-    public void startLoadingSaveScreen() throws IOException {
+    public void startLoadingSaveScreen(){
 		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadingSaveScreen.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     /**
 	 * saveAndExit
@@ -586,7 +619,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void saveAndExit(ActionEvent event) throws IOException{
+    void saveAndExit(ActionEvent event){
     	startLoadingSaveScreen();
     	if (movementSave == false){
     		movementSave = true;
@@ -597,24 +630,33 @@ public class VirtualGameGUIController {
     	contSaves++;
     	String name="data/saves/LoadGames"+contSaves+".csv";
     	export=new File(name);
-    	PrintWriter pw =new PrintWriter(export);
-    	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+(quantityOfEnemies-1)+"\n");
-    	pw.close();
-    	player.setSaveExit(true);
-    	enemies.clear();
+    	PrintWriter pw;
+		try {
+			pw = new PrintWriter(export);
+			pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+(quantityOfEnemies-1)+"\n");
+	    	pw.close();
+	    	player.setSaveExit(true);
+	    	enemies.clear();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
     }
     /**
 	  * startScores
 	  * @throws IOException
 	  */
-    public void startScores() throws IOException {
+    public void startScores() {
     	basePane.setOnKeyPressed(null);
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Scores.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
-		
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		tableScore.getItems().clear();
 		ObservableList<User> user= FXCollections.observableArrayList(gm.showList());
 		tableScore.setItems(user);
@@ -700,7 +742,8 @@ public class VirtualGameGUIController {
 	 */
     @FXML
     void searchByPosition(ActionEvent event) {
-    	ArrayList<User> listUsers = new ArrayList<User>();
+    	try {
+    	
     	String position = searchPosition.getText();
 		if(position.isEmpty()) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -710,27 +753,26 @@ public class VirtualGameGUIController {
 			alert.showAndWait();
 		}else {
 			int pos=Integer.parseInt(position);
+			ArrayList<User> listUsers = new ArrayList<User>();
 			listUsers = gm.searchPosition(pos);
-			if(listUsers.size()==1) {
 				searchPosition.clear();
 				tableScore.getItems().clear();
-				ObservableList<User> user= FXCollections.observableArrayList(gm.searchPosition(pos));
+				ObservableList<User> user= FXCollections.observableArrayList(listUsers);
 				tableScore.setItems(user);
-				
 				idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
 				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
 				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
-			}else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("User not found");
-				alert.setContentText("Check that you have entered the name correctly");
-				alert.showAndWait();
-			}
 		}
-    
+    }
+    catch(NoFoundPositionException e) {
+    	Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("User not found");
+		alert.setContentText("This position no exists");
+		alert.showAndWait();	
+    }
     }
 
     @FXML
@@ -787,13 +829,18 @@ public class VirtualGameGUIController {
 	  * startShop
 	  * @throws IOException
 	  */
-    public void startShop() throws IOException {
+    public void startShop(){
 		basePane.setOnKeyPressed(null);
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Shop.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		coinsShop.setText(String.valueOf(player.getCoins()));
 	}
    
@@ -801,88 +848,57 @@ public class VirtualGameGUIController {
     private Label coinsShop;
     /**
 	  * buyGunOne
-	  * @throws IOException
+	  * @throws NoEnoughCoinsException
 	  */
     @FXML
-    void buyGunOne() throws NoEnoughCoinsException {
-    	
-    	if(player.getCoins()>=1500) {
-        	player.setGun(gunManagement.getInitialGun().getNextGun());
-        	player.setTypeOfGun("firstGun");
-        	player.setPaths();
-        	player.setCoins(player.getCoins()-1500);
-        	coinsShop.setText(String.valueOf(player.getCoins()));
-        	Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
+    void buyGunOne(){
+        	try {
+				player.discountCoins("firstGun");
+				player.setGun(gunManagement.getInitialGun().getNextGun());
+				coinsShop.setText(String.valueOf(player.getCoins()));
+			} catch (NoEnoughCoinsException e) {
+				Alert warning = new Alert(AlertType.WARNING);
+				warning.setTitle("Not Enough MoodleCoins");
+				warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
+				warning.setContentText("Try to defeat more enemies");
+				warning.show();
+			}
     	}
-    	else {
-    		Alert warning = new Alert(AlertType.WARNING);
-			warning.setTitle("Not Enough MoodleCoins");
-			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
-			warning.setContentText("Try to defeat more enemies");
-			warning.show();
-    		throw new NoEnoughCoinsException();
-    	}
-    }
     /**
 	  * buyGunTwo
-	  * @throws IOException
+	  * @throws NoEnoughCoinsException
 	  */
     @FXML
-    void buyGunTwo() throws NoEnoughCoinsException {
-    	if(player.getCoins()>=3500) {
-    		
-        	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
-        	player.setTypeOfGun("secondGun");
-        	player.setPaths();
-        	player.setCoins(player.getCoins()-3500);
-        	coinsShop.setText(String.valueOf(player.getCoins()));
-        	Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
-    	}
-    	else {
-    		Alert warning = new Alert(AlertType.WARNING);
+    void buyGunTwo(){
+    	try {
+    		player.discountCoins("secondGun");
+			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
+			coinsShop.setText(String.valueOf(player.getCoins()));
+		} catch (NoEnoughCoinsException e) {
+			Alert warning = new Alert(AlertType.WARNING);
 			warning.setTitle("Not Enough MoodleCoins");
 			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
 			warning.setContentText("Try to defeat more enemies");
 			warning.show();
-    		throw new NoEnoughCoinsException();
-    	}
-    }
+		}
+	}
     /**
 	  * buyGunThree
-	  * @throws IOException
+	  * @throws NoEnoughCoinsException
 	  */
     @FXML
-    void buyGunThree() throws NoEnoughCoinsException {
-    	
-    	if(player.getCoins()>=5000) {
-        	player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
-        	player.setTypeOfGun("thirdGun");
-        	player.setPaths();
-        	player.setCoins(player.getCoins()-5000);
-        	coinsShop.setText(String.valueOf(player.getCoins()));
-        	Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
-    	}
-    	else {
-    		Alert warning = new Alert(AlertType.WARNING);
+    void buyGunThree(){
+    	try {
+    		player.discountCoins("thirdGun");
+			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
+			coinsShop.setText(String.valueOf(player.getCoins()));
+		} catch (NoEnoughCoinsException e) {
+			Alert warning = new Alert(AlertType.WARNING);
 			warning.setTitle("Not Enough MoodleCoins");
 			warning.setHeaderText("You need have the enough MoodleCoins to buy this gun");
 			warning.setContentText("Try to defeat more enemies");
 			warning.show();
-    		throw new NoEnoughCoinsException();
-    	}
-    	
+		}
     }
     /**
 	 * backShopToGame
@@ -891,7 +907,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void backShopToGame(ActionEvent event) throws IOException {
+    void backShopToGame(ActionEvent event){
     	player.setPaused(false);
     	initScenary();
 		eventManager();
@@ -901,12 +917,17 @@ public class VirtualGameGUIController {
 	  * startLoadGame
 	  * @throws IOException
 	  */
-    public void startLoadGame() throws IOException {
+    public void startLoadGame(){
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadGame.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     /**
 	 * loadSave
@@ -915,7 +936,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void loadSave(ActionEvent event) throws IOException{
+    void loadSave(ActionEvent event){
     	FileChooser fc = new FileChooser();
     	fc.setInitialDirectory(new File("data/saves"));
     	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
@@ -932,36 +953,44 @@ public class VirtualGameGUIController {
 	  * @param File !=null
 	  * @throws IOException
 	  */
-    public void loadSaveGame(File f) throws IOException {
-    	BufferedReader br =new BufferedReader(new FileReader(f));
-		String line=br.readLine();
-		String [] parts=line.split(" ");
-		boolean woman=Boolean.parseBoolean(parts[0]);
-		int score=Integer.parseInt(parts[1]);
-		double health=Double.parseDouble(parts[2]);
-		int coins=Integer.parseInt(parts[3]);
-		double posY=Double.parseDouble(parts[4]);
-		double posX=Double.parseDouble(parts[5]);
-		int defeats=Integer.parseInt(parts[6]);
-		int stage=Integer.parseInt(parts[7]);
-		Player p=new Player(woman,score,health,coins,posY,posX,defeats,stage,parts[8]);
-		player=p;
-		createGunList();
-		if(parts[8].equals("initialGun")) {
-			player.setGun(gunManagement.getInitialGun());
+    public void loadSaveGame(File f){
+    	BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(f));
+			String line=br.readLine();
+			String [] parts=line.split(" ");
+			boolean woman=Boolean.parseBoolean(parts[0]);
+			int score=Integer.parseInt(parts[1]);
+			double health=Double.parseDouble(parts[2]);
+			int coins=Integer.parseInt(parts[3]);
+			double posY=Double.parseDouble(parts[4]);
+			double posX=Double.parseDouble(parts[5]);
+			int defeats=Integer.parseInt(parts[6]);
+			int stage=Integer.parseInt(parts[7]);
+			Player p=new Player(woman,score,health,coins,posY,posX,defeats,stage,parts[8]);
+			player=p;
+			createGunList();
+			if(parts[8].equals("initialGun")) {
+				player.setGun(gunManagement.getInitialGun());
+			}
+			else if(parts[8].equals("firstGun")) {
+				player.setGun(gunManagement.getInitialGun().getNextGun());
+			}
+			else if(parts[8].equals("secondGun")) {
+				player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
+			}
+			else {
+				player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
+			}
+			quantityOfEnemies=Integer.parseInt(parts[9]);
+			br.close();
+	    	startScenary();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else if(parts[8].equals("firstGun")) {
-			player.setGun(gunManagement.getInitialGun().getNextGun());
-		}
-		else if(parts[8].equals("secondGun")) {
-			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
-		}
-		else {
-			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
-		}
-		quantityOfEnemies=Integer.parseInt(parts[9]);
-		br.close();
-    	startScenary();
+		
     }
     /**
 	 * loadSaveGames
@@ -970,19 +999,24 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void loadSaveGame(ActionEvent event) throws IOException {
+    void loadSaveGame(ActionEvent event){
     	startScenary();
     }
     /**
 	  * startChoosePlayers
 	  * @throws IOException
 	  */
-    public void starChoosePlayers() throws IOException {
+    public void starChoosePlayers(){
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     /**
 	 * chooseBoy
@@ -991,7 +1025,7 @@ public class VirtualGameGUIController {
 	 * @throws IOException
 	 */
     @FXML
-    void chooseBoy(ActionEvent event) throws IOException {
+    void chooseBoy(ActionEvent event){
     	
     	player = initialPlayers.getInitialPlayer();
     	generateInitialEnemies();
@@ -1004,7 +1038,7 @@ public class VirtualGameGUIController {
    	 * @throws IOException
    	 */
     @FXML
-    void chooseGirl(ActionEvent event) throws IOException {
+    void chooseGirl(ActionEvent event){
     	player = initialPlayers.getInitialPlayer().getNextPlayer();
     	generateInitialEnemies();
     	startScenary();
@@ -1065,7 +1099,7 @@ public class VirtualGameGUIController {
 	  * verifyCollisions
 	  * @throws IOException
 	  */
-    public void verifyCollisions() throws IOException {
+    public void verifyCollisions(){
     	for(int i = 0;i<enemies.size();i++) {
 			player.getGun().getBullet().verifyCollision(enemies.get(i),player);
 			enemies.get(i).verifyCollision(player);
@@ -1099,13 +1133,18 @@ public class VirtualGameGUIController {
 	  * startGameOver
 	  * @throws IOException
 	  */
-    public void startGameOver() throws IOException {
+    public void startGameOver(){
 		basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("GameOver.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     @FXML
     private TextField txtNicknameGameOver;
@@ -1116,7 +1155,7 @@ public class VirtualGameGUIController {
    	 * @throws IOException
    	 */
     @FXML
-    void saveUserOver(ActionEvent event) throws RepeatedNicknameException {
+    void saveUserOver(ActionEvent event){
     	String n=txtNicknameGameOver.getText();
     	if(n.isEmpty()) {
     		Alert alert = new Alert(AlertType.WARNING);
@@ -1128,12 +1167,20 @@ public class VirtualGameGUIController {
     	double s=player.getScore();
     	int st=player.getStages();
     	int d=player.getDefeats();
-    	gm.addUser(n, s, d, st,c);
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Information");
-    	alert.setHeaderText(null);
-    	alert.setContentText("It has been saved successfully!");
-    	alert.showAndWait();
+    	try {
+			gm.addUser(n, s, d, st,c);
+			Alert alert = new Alert(AlertType.INFORMATION);
+	    	alert.setTitle("Information");
+	    	alert.setHeaderText(null);
+	    	alert.setContentText("It has been saved successfully!");
+	    	alert.showAndWait();
+		} catch (RepeatedNicknameException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+	    	alert.setTitle("RepeatedNickname");
+	    	alert.setHeaderText(null);
+	    	alert.setContentText("This nickname already exist, think in another!");
+	    	alert.showAndWait();
+		}
     	}
     }
     
@@ -1145,21 +1192,25 @@ public class VirtualGameGUIController {
     @FXML
     private TableColumn<Log,LocalDate> idDate;
     @FXML
-    void showLogs() throws IOException{
+    void showLogs(){
     	startLogs();
     }
     /**
 	  * startLogs
 	  * @throws IOException
 	  */
-    public void startLogs() throws IOException {
+    public void startLogs(){
     	basePane.setOnKeyPressed(null);
 		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Logs.fxml"));
 		fxmload.setController(this);
-		Parent root=fxmload.load();
-		basePane.getChildren().clear();
-		basePane.setCenter(root);
-		
+		Parent root;
+		try {
+			root = fxmload.load();
+			basePane.getChildren().clear();
+			basePane.setCenter(root);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		tableLogs.getItems().clear();
 		ObservableList<Log> logs= FXCollections.observableArrayList(gm.showListLogs());
 		tableLogs.setItems(logs);
