@@ -1,19 +1,41 @@
 package model;
 
 public class YellowPDF extends Pdf {
-	
+	/**
+	 * The yellow pdf damage
+	 */
 	private static double DAMAGE = 0.5;
+	/**
+	 * The yellow pdf healt
+	 */
 	private static double HEALTH = 150;
+	/**
+	 * The quantity sprites of yellow pdf
+	 */
 	private final int QUANTITY_SPRITES = 4;
+	/**
+	 * counter
+	 */
 	private int cont;
+	/**
+	 * The array rutes of the sprites
+	 */
 	private String[] paths = {"sprites/Enemies/yellowLeft0.png","sprites/Enemies/yellowLeft1.png","sprites/Enemies/yellowRight0.png",
 								"sprites/Enemies/yellowRight1.png"};
+	/**
+	 * Creates an instance of YellowPDF
+	 * @param posX position x of the pdf
+	 * @param posY position y of the pdf
+	 * @param obejtive objetive of the pdf
+	 */
 	public YellowPDF(double posX, double posY,Player objective) {
 		super(posX, posY, HEALTH,DAMAGE,objective);
 		fillFrames(paths,QUANTITY_SPRITES);
 		cont=0;
 	}
-
+	/**
+	 * The movement of the pdf
+	 */
 	@Override
 	public void move() {
 		cont++;
@@ -59,16 +81,18 @@ public class YellowPDF extends Pdf {
 		}
 		
 	}
-
+	/**
+	 * The attack of the pdf
+	 */
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * Returns the damage of the pdf
+	 * @return double damage
+	 */
 	@Override
 	public double getDamage() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
