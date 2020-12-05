@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import exceptions.NoEnoughCoinsException;
+import exceptions.NoFoundPositionException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
@@ -741,7 +742,8 @@ public class VirtualGameGUIController {
 	 */
     @FXML
     void searchByPosition(ActionEvent event) {
-    	ArrayList<User> listUsers = new ArrayList<User>();
+    	try {
+    	
     	String position = searchPosition.getText();
 		if(position.isEmpty()) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -751,27 +753,26 @@ public class VirtualGameGUIController {
 			alert.showAndWait();
 		}else {
 			int pos=Integer.parseInt(position);
+			ArrayList<User> listUsers = new ArrayList<User>();
 			listUsers = gm.searchPosition(pos);
-			if(listUsers.size()==1) {
 				searchPosition.clear();
 				tableScore.getItems().clear();
-				ObservableList<User> user= FXCollections.observableArrayList(gm.searchPosition(pos));
+				ObservableList<User> user= FXCollections.observableArrayList(listUsers);
 				tableScore.setItems(user);
-				
 				idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
 				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
 				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
-			}else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("User not found");
-				alert.setContentText("Check that you have entered the name correctly");
-				alert.showAndWait();
-			}
 		}
-    
+    }
+    catch(NoFoundPositionException e) {
+    	Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("User not found");
+		alert.setContentText("This position no exists");
+		alert.showAndWait();	
+    }
     }
 
     @FXML
@@ -1177,7 +1178,7 @@ public class VirtualGameGUIController {
 			Alert alert = new Alert(AlertType.ERROR);
 	    	alert.setTitle("RepeatedNickname");
 	    	alert.setHeaderText(null);
-	    	alert.setContentText("This nickname already exists,think of another!");
+	    	alert.setContentText("This nickname already exist, think in another!");
 	    	alert.showAndWait();
 		}
     	}

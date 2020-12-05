@@ -32,7 +32,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	 * The attack of the pdf
 	 */
 	@Override
-	public void attack() {	
+	public void attack() {
 	}
 	/**
 	 * Returns the damage of the pdf
