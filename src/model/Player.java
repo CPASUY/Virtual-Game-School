@@ -78,6 +78,9 @@ public class Player extends Entity implements Motion,Attack {
 	 * The player velocity
 	 */
 	private final int VELOCITY = 3;
+	/**
+	 * The next player
+	 */
 	private Player nextPlayer;
 
 	/**
@@ -415,11 +418,17 @@ public class Player extends Entity implements Motion,Attack {
 	public int getDefeats() {
 		return defeats;
 	}
-
+	/**
+	 * Returns the next player
+	 * @return PLayer nextPlayer
+	 */
 	public Player getNextPlayer() {
 		return nextPlayer;
 	}
-
+	/**
+	 * Sets the next player
+	 * @param Player nextPLayer
+	 */
 	public void setNextPlayer(Player nextPlayer) {
 		this.nextPlayer = nextPlayer;
 	}

@@ -23,9 +23,21 @@ public class GameManagement implements Serializable {
 	/*The rute file of the serializable file
 	 */
 	public static final String LOGS_FILE_NAME="data/Logs.bbd";
+	/**
+	 * Cosntan of serializable
+	 */
 	private static final long serialVersionUID = 1000L;
+	/**
+	 * The root user
+	 */
 	private User rootUsers;
+	/**
+	 * The root log
+	 */
 	private Log rootLogs;
+	/**
+	 * The counter of position user
+	 */
 	private int contPositionUsers;
 	//Method
 	public GameManagement() throws IOException {
@@ -41,6 +53,7 @@ public class GameManagement implements Serializable {
 	}
 	/**
 	 * Adds the log of the current session
+	 * @param u user 
 	 */
 	public void addLog(User u) {
 		LocalDate date = LocalDate.now();
@@ -83,7 +96,7 @@ public class GameManagement implements Serializable {
 	/**
 	 * Search an user by the nickname
 	 * @param n nickname user
-	 * @return ArrayList<User> user list
+	 * @return listUsers
 	 */
 	public ArrayList<User> searchUser(String n){
 		User u=searchUserByNickname(n);
@@ -128,7 +141,6 @@ public class GameManagement implements Serializable {
 	 * Adds a new user
 	 * @param n nickname of the new user
 	 * @param s score of the new user
-	 * @param p positon of the new user
 	 * @param d defeats of the new user
 	 * @param ls last stage of the new user
 	 * @param mc moodleCoins of the new user
@@ -172,6 +184,12 @@ public class GameManagement implements Serializable {
 			}
 		}
 	}
+	/**
+	 * contUsers
+	 * Method fot count the users int the bts
+	 * @param u root
+	 * @return int cont
+	 */
 	public int contUsers(User u) {
 		if(u==null) {
 			return 0;
@@ -211,7 +229,7 @@ public class GameManagement implements Serializable {
 	}
 	/**
 	 * Generate an arraylist of users and order with selection sort
-	 * @return ArrayList<User> user list
+	 * @return  listUsers list
 	 */
 	public ArrayList<User> selectionSortByMoodleCoins(){
 		User[] users = generateUserArray();
@@ -234,7 +252,7 @@ public class GameManagement implements Serializable {
 	}
 	/**
 	 * Generate an arraylist of users and order with bubble sort
-	 * @return ArrayList<User> user list
+	 * @return  user list
 	 */
 	public ArrayList<User> bubbleSortByLastStage(){
 		User[] users = generateUserArray();
@@ -255,7 +273,7 @@ public class GameManagement implements Serializable {
 	}
 	/**
 	 * Generate an arraylist of users and order with insertion sort
-	 * @return ArrayList<User> user list
+	 * @return user list
 	 */
 	public ArrayList<User> insertionSortByDefeats(){
 		User[] users = generateUserArray();
@@ -305,7 +323,7 @@ public class GameManagement implements Serializable {
 	/**
 	 * Search an user by the position
 	 * @param pos position of the user
-	 * @return ArrayList<User> user list
+	 * @return  user list
 	 */
 	public ArrayList<User> searchPosition(int pos){
 		User u=searchUserByPosition(pos);
@@ -315,10 +333,20 @@ public class GameManagement implements Serializable {
 		}
 		return listUsers;
 	}
+	/**
+	 * Show the list of users
+	 * @return user list
+	 */
 	public ArrayList<User> showList() {
 		ArrayList<User> listUsers = new ArrayList<User>();
 		return showList(rootUsers,listUsers);
 	}
+	/**
+	 * Show the list of users
+	 * @param current current user
+	 * @param u arraylist u
+	 * @return u
+	 */
 	public ArrayList<User> showList(User current,ArrayList<User> u){
 		if (current != null) {
 			showList(current.getRight(),u);
@@ -327,10 +355,20 @@ public class GameManagement implements Serializable {
 		}
 		return u;
 	}
+	/**
+	 * Show the list of logs
+	 * @return log list
+	 */
 	public ArrayList<Log> showListLogs() {
 		ArrayList<Log> listLogs= new ArrayList<Log>();
 		return showListLogs(rootLogs,listLogs);
 	}
+	/**
+	 * Show the list of logs
+	 * @param c current log
+	 * @param u arraylist u
+	 * @return log list
+	 */
 	public ArrayList<Log> showListLogs(Log c,ArrayList<Log> u){
 		if (c != null) {
 			showListLogs(c.getRight(),u);
@@ -341,6 +379,7 @@ public class GameManagement implements Serializable {
 	}
 	/**saveRoot
      * Method to save data users information
+     * @throws IOException io
      */
 	public void saveRootUsers() throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USERS_FILE_NAME));
@@ -349,6 +388,8 @@ public class GameManagement implements Serializable {
 	}
 	/**loadRoot
      * Method to load data users information
+     * @throws IOException io
+     * @throws ClassNotFoundException file not found 
      */
 	public void loadRootUsers() throws IOException, ClassNotFoundException{	
 		File f=new File(USERS_FILE_NAME);
@@ -360,6 +401,7 @@ public class GameManagement implements Serializable {
 	}
 	/**saveRoot
      * Method to save data logs information
+     * @throws IOException io
      */
 	public void saveRootLogs() throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream( LOGS_FILE_NAME));
@@ -368,6 +410,8 @@ public class GameManagement implements Serializable {
 	}
 	/**loadRoot
      * Method to load data logs information
+     * @throws IOException io
+     * @throws ClassNotFoundException file not found 
      */
 	public void loadRootLogs() throws IOException, ClassNotFoundException{	
 		File f=new File( LOGS_FILE_NAME);

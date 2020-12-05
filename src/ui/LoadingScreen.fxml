@@ -30,6 +30,6 @@
          </cursor>
       </Button>
       <Polygon fx:id="triangle" fill="#29e06f" layoutX="461.0" layoutY="517.0" points="-46.0, 16.0, 35.0, 16.0, -7.0, -39.0" stroke="#29e06f" strokeType="INSIDE" />
-      <Rectangle fx:id="rectangle" arcHeight="2.0" arcWidth="2.0" fill="#6e1eff" height="55.0" layoutX="568.0" layoutY="478.0" stroke="#6e1eff" strokeMiterLimit="2.0" strokeType="INSIDE" width="55.0" />
+      <Rectangle fx:id="rectangle" arcHeight="2.0" arcWidth="2.0" fill="#63c4f9" height="55.0" layoutX="568.0" layoutY="478.0" stroke="#63c4f9" strokeMiterLimit="2.0" strokeType="INSIDE" width="55.0" />
    </children>
 </Pane>
