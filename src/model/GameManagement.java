@@ -45,7 +45,6 @@ public class GameManagement implements Serializable {
 	 * Adds the log of the current session
 	 */
 	public void addLog(User u) {
-
 		LocalDate date = LocalDate.now();
 		if (rootLogs == null) {
 			rootLogs = new Log(u, date);

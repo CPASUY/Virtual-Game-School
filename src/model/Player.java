@@ -19,7 +19,6 @@ public class Player extends Entity implements Motion,Attack {
 	private String pathBoy = "sprites/BoyGunDefect/";
 	private String pathGirl = "sprites/GirlGunDefect/";
 	private int coins;
-	private LocalDate Date;
 	private boolean lose;
 	private boolean paused;
 	private boolean saveExit;
@@ -30,7 +29,6 @@ public class Player extends Entity implements Motion,Attack {
 	private String typeOfGun;
 	private int cont;
 	private final int VELOCITY = 3;
-	private boolean on;
 
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
@@ -43,11 +41,20 @@ public class Player extends Entity implements Motion,Attack {
 		paused = false;
 		setLose(false);
 		cont=0;
-		on=false;
 		setSaveExit(false);
 		stages = 1;
 		defeats = 0;
 		typeOfGun = "initialGun";
+	}
+	
+	public Player(boolean woman,int score,double health,int coins,double posY, double posX,int defeats,int stages,String typeOfGun) {
+		super(posX,posY,health);
+		this.woman = woman;
+		this.score = score;
+		this.coins  = coins;
+		this.defeats = defeats;
+		this.stages = stages;
+		this.typeOfGun = typeOfGun;
 	}
 
 	@Override

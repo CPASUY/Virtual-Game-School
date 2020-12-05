@@ -41,7 +41,7 @@
                </cursor>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="399.0" layoutY="625.0" mnemonicParsing="false" onAction="#backPlayerToMenu" prefHeight="45.0" prefWidth="147.0">
+      <Button layoutX="399.0" layoutY="625.0" mnemonicParsing="false" onAction="#backMenu" prefHeight="45.0" prefWidth="147.0">
          <graphic>
             <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
                <image>

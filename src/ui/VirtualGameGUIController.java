@@ -32,6 +32,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.GameManagement;
@@ -62,7 +64,6 @@ public class VirtualGameGUIController {
 	public static boolean right;
 	private GameManagement gm;
 	private int quantityOfEnemies;
-	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
 	public static  String FILE_NAME_SAVE="data/LoadGames.csv";
 	File export;
@@ -111,7 +112,6 @@ public class VirtualGameGUIController {
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
-		nextStage = false;
 		gunManagement = new GunManagement();
 	
 		
@@ -128,7 +128,7 @@ public class VirtualGameGUIController {
 				} catch (FileNotFoundException e) {
 					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -183,6 +183,11 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+	}
+	
+	@FXML
+	void backMenu() throws IOException {
+		startMenu();
 	}
 	@FXML
 	void exit(ActionEvent event) throws IOException {
@@ -369,13 +374,6 @@ public class VirtualGameGUIController {
     	startMenu();
     }
     
-    @FXML
-    void backMenuWithoutSaving(ActionEvent event) throws IOException{
-    	player.setSaveExit(true);
-    	enemies.clear();
-    	startMenu();
-    }
-    
     public void startScores() throws IOException {
     	basePane.setOnKeyPressed(null);
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Scores.fxml"));
@@ -401,11 +399,6 @@ public class VirtualGameGUIController {
 
     @FXML
     private TextField searchPosition;
-    
-    @FXML
-    void backScoreToMenu(ActionEvent event) throws IOException {
-    	startMenu();
-    }
     @FXML
     void refreshTable(ActionEvent event) {
     	tableScore.getItems().clear();
@@ -629,7 +622,7 @@ public class VirtualGameGUIController {
     	
     }
 
-
+    
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {
     	player.setPaused(false);
@@ -644,13 +637,24 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
+    
     @FXML
-    void backLoadToMenu(ActionEvent event) throws IOException {
-    	startMenu();
+    void loadSave(ActionEvent event) throws IOException{
+    	FileChooser fc = new FileChooser();
+    	fc.setInitialDirectory(new File("data/saves"));
+    	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
+    	File selectedFile = fc.showOpenDialog(null);
+    	if(selectedFile != null) {
+    		
+    	}
+    	else {
+    		System.out.println("File is not valid");
+    	}
     }
-
+    
     @FXML
     void loadSaveGame(ActionEvent event) throws IOException {
+<<<<<<< HEAD
     	File f=new File("LoadGames");
     	BufferedReader br =new BufferedReader(new FileReader(f));
 		String line=br.readLine();
@@ -661,6 +665,8 @@ public class VirtualGameGUIController {
 			}
 			Player p=new Player(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),parts[2]);
 		}
+=======
+>>>>>>> beab7232c043415eaf48316e25c6a0e67b3812fb
     	startScenary();
     }
     public void starChoosePlayers() throws IOException {
@@ -670,11 +676,6 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
-
-    @FXML
-    void backPlayerToMenu(ActionEvent event) throws IOException {
-    	startMenu();
-    }
 
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
@@ -803,10 +804,7 @@ public class VirtualGameGUIController {
     	alert.showAndWait();
     	}
     }
-    @FXML
-    void BacktoMenuOver(ActionEvent event) throws IOException {
-    	startMenu();
-    }
+    
     @FXML
     private TableView<Log> tableLogs;
     
@@ -817,11 +815,6 @@ public class VirtualGameGUIController {
     @FXML
     void showLogs() throws IOException{
     	startLogs();
-    }
-    
-    @FXML
-    void backLogToMenu() throws IOException {
-    	startMenu();
     }
     
     public void startLogs() throws IOException {
