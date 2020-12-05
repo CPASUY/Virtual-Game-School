@@ -367,7 +367,8 @@ public class VirtualGameGUIController {
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
     	contSaves++;
-    	String name="data/LoadGames"+contSaves+".csv";
+    	System.out.println(contSaves);
+    	String name="data/saves/LoadGames"+contSaves+".csv";
     	export=new File(name);
     	PrintWriter pw =new PrintWriter(export);
     	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+quantityOfEnemies+"\n");
