@@ -108,13 +108,13 @@ public class VirtualGameGUIController {
     private GunManagement gunManagement;
 
 	public VirtualGameGUIController(Stage s) throws IOException {              
-		contSaves=0;
+		File carpeta = new File("data/saves"); 
+		File[] lista = carpeta.listFiles();
+		contSaves=lista.length;
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
 		gunManagement = new GunManagement();
-	
-		
 	}
 	public void initialize() {
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -187,6 +187,7 @@ public class VirtualGameGUIController {
 	
 	@FXML
 	void backMenu() throws IOException {
+		enemies.clear();
 		startMenu();
 	}
 	@FXML
@@ -204,14 +205,9 @@ public class VirtualGameGUIController {
 	@FXML
 	void newGame(ActionEvent event) throws IOException {
 		player = new Player();
-		Gun initial = new Gun(player.getPosX(),player.getPosY(),1);
-		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY(),2);
-		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY(),3);
-		GunThird gt = new GunThird(player.getPosX(),player.getPosY(),4);
-		gunManagement.addGun(initial);
-		gunManagement.addGun(gf);
-		gunManagement.addGun(gs);
-		gunManagement.addGun(gt);
+		quantityOfEnemies = 0;
+		enemies.clear();
+		createGunList();
 		starChoosePlayers();
 	}
 
@@ -292,7 +288,9 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		Canvas canva  = new Canvas(935,688);
 		player.setPaths();
-		player.setGun(gunManagement.getInitialGun());
+		if(player.getGun() == null) {
+			player.setGun(gunManagement.getInitialGun());	
+		}
 		basePane.getChildren().clear();
 		basePane.getChildren().add(canva);
 		basePane.setCenter(root);
@@ -300,9 +298,12 @@ public class VirtualGameGUIController {
 		File file = new File("images/imagesUI/Backgrounds/Scenary.jpg");
     	Image imload = new Image(file.toURI().toString());
     	scenaryGame = imload;
+    	if(quantityOfEnemies == 0) {
     	quantityOfEnemies = 3;
+    	}else {
+    		generateEnemies();
+    	}
     	player.setSaveExit(false);
-    	
 	}
 	
 	public void draw() {
@@ -367,11 +368,10 @@ public class VirtualGameGUIController {
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
     	contSaves++;
-    	System.out.println(contSaves);
     	String name="data/saves/LoadGames"+contSaves+".csv";
     	export=new File(name);
     	PrintWriter pw =new PrintWriter(export);
-    	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+quantityOfEnemies+"\n");
+    	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+(quantityOfEnemies-1)+"\n");
     	pw.close();
     	player.setSaveExit(true);
     	enemies.clear();
@@ -668,20 +668,22 @@ public class VirtualGameGUIController {
 		int defeats=Integer.parseInt(parts[6]);
 		int stage=Integer.parseInt(parts[7]);
 		Player p=new Player(woman,score,health,coins,posY,posX,defeats,stage,parts[8]);
+		player=p;
+		createGunList();
 		if(parts[8].equals("initialGun")) {
-			Gun initial = new Gun(posX,posY,1);
+			player.setGun(gunManagement.getInitialGun());
 		}
 		else if(parts[8].equals("firstGun")) {
-			GunFirst gf = new GunFirst(posX,posY,2);
+			player.setGun(gunManagement.getInitialGun().getNextGun());
 		}
 		else if(parts[8].equals("secondGun")) {
-			GunSecond gs = new GunSecond(posX,posY,3);
+			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
 		}
 		else {
-			GunThird gt = new GunThird(posX,posY,4);
+			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
 		}
-		player=p;
 		quantityOfEnemies=Integer.parseInt(parts[9]);
+		br.close();
     	startScenary();
     }
     @FXML
@@ -721,10 +723,6 @@ public class VirtualGameGUIController {
 		for(int i = 0;i<enemies.size();i++) {
 			new PdfMovementThread(this,enemies.get(i), player).start();	
 		}
-    }
-    
-    void eventsManagement() {
-    	
     }
     
     public void generateEnemies() {
@@ -851,5 +849,16 @@ public class VirtualGameGUIController {
 		idUser.setCellValueFactory(new PropertyValueFactory<Log,String>("Nickname"));
 		idDate.setCellValueFactory(new PropertyValueFactory<Log,LocalDate>("Date"));
 
+    }
+    
+    public void createGunList() {
+    	Gun initial = new Gun(player.getPosX(),player.getPosY(),1);
+		GunFirst gf = new GunFirst(player.getPosX(),player.getPosY(),2);
+		GunSecond gs = new GunSecond(player.getPosX(),player.getPosY(),3);
+		GunThird gt = new GunThird(player.getPosX(),player.getPosY(),4);
+		gunManagement.addGun(initial);
+		gunManagement.addGun(gf);
+		gunManagement.addGun(gs);
+		gunManagement.addGun(gt);
     }
 }
