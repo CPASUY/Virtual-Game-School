@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import exceptions.NoEnoughCoinsException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
@@ -43,6 +42,7 @@ import model.GunFirst;
 import model.GunManagement;
 import model.GunSecond;
 import model.GunThird;
+import model.InitialPlayerManagement;
 import model.Log;
 import model.Pdf;
 import model.Player;
@@ -106,6 +106,8 @@ public class VirtualGameGUIController {
     private AnimationTimer animationTimer;
     
     private GunManagement gunManagement;
+    
+    private InitialPlayerManagement initialPlayers;
 
 	public VirtualGameGUIController(Stage s) throws IOException {              
 		File carpeta = new File("data/saves"); 
@@ -115,6 +117,12 @@ public class VirtualGameGUIController {
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
 		gunManagement = new GunManagement();
+		initialPlayers = new InitialPlayerManagement();
+		Player boy = new Player();
+		Player girl = new Player();
+		girl.setWoman(true);
+		initialPlayers.addPlayer(boy);
+		initialPlayers.addPlayer(girl);
 	}
 	public void initialize() {
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -701,14 +709,14 @@ public class VirtualGameGUIController {
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
     	
-    	player.setWoman(false);
+    	player = initialPlayers.getInitialPlayer();
     	generateInitialEnemies();
     	startScenary();
     }
 
     @FXML
     void chooseGirl(ActionEvent event) throws IOException {
-    	player.setWoman(true);
+    	player = initialPlayers.getInitialPlayer().getNextPlayer();
     	generateInitialEnemies();
     	startScenary();
     }

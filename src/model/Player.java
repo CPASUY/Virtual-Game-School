@@ -29,6 +29,7 @@ public class Player extends Entity implements Motion,Attack {
 	private String typeOfGun;
 	private int cont;
 	private final int VELOCITY = 3;
+	private Player nextPlayer;
 
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
@@ -276,5 +277,13 @@ public class Player extends Entity implements Motion,Attack {
 
 	public int getDefeats() {
 		return defeats;
+	}
+
+	public Player getNextPlayer() {
+		return nextPlayer;
+	}
+
+	public void setNextPlayer(Player nextPlayer) {
+		this.nextPlayer = nextPlayer;
 	}
 }
