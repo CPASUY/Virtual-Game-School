@@ -85,7 +85,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
 	}
-	
+	//Methods
+		/**
+		 * Creates an instance of Player
+		 */
 	public Player(){
 		super(467,344,MAX_HEALTH);
 		woman = false;
@@ -98,7 +101,18 @@ public class Player extends Entity implements Motion,Attack {
 		defeats = 0;
 		typeOfGun = "initialGun";
 	}
-	
+	/**
+	 * Creates an instance of Player
+	 * @param woman if is woman
+	 * @param score score of player
+	 * @param health of player
+	 * @param coins of player
+	 * @param posY position y of the player
+	 * @param posX position x of the player
+	 * @param defeats of the player
+	 * @param stages of player
+	 * @param typeOfGun of the player
+	 */
 	public Player(boolean woman,int score,double health,int coins,double posY, double posX,int defeats,int stages,String typeOfGun) {
 		super(posX,posY,health);
 		this.woman = woman;
@@ -108,7 +122,9 @@ public class Player extends Entity implements Motion,Attack {
 		this.stages = stages;
 		this.typeOfGun = typeOfGun;
 	}
-
+	/**
+	 * The attack of the player
+	 */
 	@Override
 	public void attack() {
 				
@@ -135,6 +151,9 @@ public class Player extends Entity implements Motion,Attack {
 				gun.getBullet().draw(paused);
 			}
 	}
+	/**
+	 * The movement of the player
+	 */
 	@Override
 	public void move() {
 		cont++;
@@ -193,7 +212,10 @@ public class Player extends Entity implements Motion,Attack {
 			setPosY(getPosY()+VELOCITY);
 		}
 	}
-	
+	/**
+	 * Returns the type of gun
+	 * @return String typeOfGun
+	 */
 	public String getTypeOfGun() {
 		return typeOfGun;
 	}
@@ -250,7 +272,10 @@ public class Player extends Entity implements Motion,Attack {
 		}
 		fillFrames(paths,QUANTITY_SPRITES);
 	}
-
+	/**
+	 * Returns the genre of the character
+	 * @return boolean woman
+	 */
 	public boolean isWoman() {
 		return woman;
 	}
@@ -261,7 +286,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void setWoman(boolean woman) {
 		this.woman = woman;
 	}
-	
+	/**
+	 * Returns the gun
+	 * @return Gun gun
+	 */
 	public Gun getGun() {
 		return gun;
 	}
@@ -272,7 +300,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void setGun(Gun gun) {
 		this.gun = gun;
 	}
-
+	/**
+	 * Returns the player coins
+	 * @return int coins
+	 */
 	public int getCoins() {
 		return coins;
 	}
@@ -290,11 +321,17 @@ public class Player extends Entity implements Motion,Attack {
 	public void setPaused(boolean pause) {
 		paused = pause;
 	}
-	
+	/**
+	 * Returns the paused game
+	 * @return boolean paused
+	 */
 	public boolean getPaused() {
 		return paused;
 	}
-
+	/**
+	 * Returns the lose
+	 * @return boolean lose
+	 */
 	public boolean isLose() {
 		return lose;
 	}
@@ -305,7 +342,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void setLose(boolean lose) {
 		this.lose = lose;
 	}
-
+	/**
+	 * Returns the is save
+	 * @return boolean saveExit
+	 */
 	public boolean isSaveExit() {
 		return saveExit;
 	}
@@ -316,12 +356,18 @@ public class Player extends Entity implements Motion,Attack {
 	public void setSaveExit(boolean saveExit) {
 		this.saveExit = saveExit;
 	}
-
+	/**
+	 * Returns the player damage
+	 * @return double damage
+	 */
 	@Override
 	public double getDamage() {
 		return gun.getDamage();
 	}
-
+	/**
+	 * Returns the player score
+	 * @return int score
+	 */
 	public int getScore() {
 		return score;
 	}
@@ -332,15 +378,24 @@ public class Player extends Entity implements Motion,Attack {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+	/**
+	 * Sum the next stage
+	 * @return int stage
+	 */
 	public void nextStage() {
 		stages ++;
 	}
-	
+	/**
+	 * Returns the player stages
+	 * @return int stages
+	 */
 	public int getStages() {
 		return stages+1;
 	}
-	
+	/**
+	 * Sum the player defeats
+	 * @return int defeats
+	 */
 	public void defeat() {
 		defeats = getDefeats() + 1;
 	}
@@ -351,7 +406,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void setTypeOfGun(String typeOfGun) {
 		this.typeOfGun = typeOfGun;
 	}
-
+	/**
+	 * Returns the player defeats
+	 * @return int defeats
+	 */
 	public int getDefeats() {
 		return defeats;
 	}

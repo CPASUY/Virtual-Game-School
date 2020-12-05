@@ -5,10 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import exceptions.NoEnoughCoinsException;
 import exceptions.RepeatedNicknameException;
 import javafx.fxml.FXML;
@@ -32,6 +30,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -68,13 +68,14 @@ public class VirtualGameGUIController {
 	private int quantityOfEnemies;
 	private ArrayList<Pdf> enemies;
 	@FXML
-    private Circle circle1;
+	private Circle circle3;
 
-    @FXML
-    private Circle circle2;
+	@FXML
+	private Polygon triangle;
 
-    @FXML
-    private Circle circle3;
+	@FXML
+	private Rectangle rectangle;
+
 	@FXML
     private TableView<User> tableScore;
 
@@ -157,23 +158,23 @@ public class VirtualGameGUIController {
 			return movement;
 	}
 	 public void movement() throws IOException {
-		 circle1.setLayoutX(circle1.getLayoutX()+20);
-			circle2.setLayoutX(circle2.getLayoutX()+20);
-			circle3.setLayoutX(circle3.getLayoutX()+20);
-			
-			if(circle1.getLayoutX()>935+100) {
-				circle1.setLayoutX(-50);
-			}
-			if(circle2.getLayoutX()>935+100) {
-				circle2.setLayoutX(-50);
-			}
-			if(circle3.getLayoutX()>935+100) {
-				circle3.setLayoutX(-50);
-			}
-			if(circle3.getLayoutX()==310) {
-				movement = false;
-				startMenu();
-			}
+		 circle3.setLayoutX(circle3.getLayoutX()+20);
+		 triangle.setLayoutX(triangle.getLayoutX()+20);
+		 rectangle.setLayoutX(rectangle.getLayoutX()+20);
+
+		 if(circle3.getLayoutX()>935+100) {
+			 circle3.setLayoutX(-50);
+		 }
+		 if(triangle.getLayoutX()>935+100) {
+			triangle.setLayoutX(-50);
+		 }
+		 if(rectangle.getLayoutX()>935+100) {
+			 rectangle.setLayoutX(-50);
+		 }
+		 if(circle3.getLayoutX()==310) {
+			 movement = false;
+			 startMenu();
+		 }
 	 }
 	//Menu
 	public void startMenu() throws IOException {

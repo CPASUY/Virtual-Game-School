@@ -27,11 +27,10 @@ public class GameManagement implements Serializable {
 	private User rootUsers;
 	private Log rootLogs;
 	private int contPositionUsers;
-	private int contUsers;
+	private int contUsers=0;
 	//Method
 	public GameManagement() throws IOException {
 		contPositionUsers=1;
-		contUsers=0;
 		try {
 			loadRootLogs();
 			loadRootUsers();
@@ -193,6 +192,7 @@ public class GameManagement implements Serializable {
 	 * @return User[] user list
 	 */
 	private User[] generateUserArray(User[] array,User current,int cont) {
+		System.out.println(array.length);
 		array[cont] = current;
 		cont++;
 		if(current.getLeft()!=null) {
