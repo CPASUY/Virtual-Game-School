@@ -32,6 +32,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.GameManagement;
@@ -54,18 +56,17 @@ public class VirtualGameGUIController {
 	//Atributes
 	private Stage stage;
 	private Player player;
-	private int contSave;
 	public static GraphicsContext graphics;
 	private Image scenaryGame;
 	public static boolean up;
 	public static boolean down;
+	private int contSaves;
+	private File export;
 	public static boolean left;
 	public static boolean right;
 	private GameManagement gm;
 	private int quantityOfEnemies;
-	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
-	File export;
 	@FXML
     private Circle circle1;
 
@@ -107,12 +108,12 @@ public class VirtualGameGUIController {
     private GunManagement gunManagement;
 
 	public VirtualGameGUIController(Stage s) throws IOException {              
+		contSaves=0;
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
-		nextStage = false;
 		gunManagement = new GunManagement();
-		contSave=0;
+	
 		
 	}
 	public void initialize() {
@@ -127,7 +128,7 @@ public class VirtualGameGUIController {
 				} catch (FileNotFoundException e) {
 					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -182,6 +183,11 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
+	}
+	
+	@FXML
+	void backMenu() throws IOException {
+		startMenu();
 	}
 	@FXML
 	void exit(ActionEvent event) throws IOException {
@@ -249,6 +255,7 @@ public class VirtualGameGUIController {
 			}
 			}
 		});
+		
 		basePane.setOnKeyReleased(new EventHandler<KeyEvent>(){
 			public void handle(KeyEvent event) {
 			switch(event.getCode().toString()) {
@@ -359,19 +366,12 @@ public class VirtualGameGUIController {
     
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
-    	contSave++;
-    	String name="data/LoadGames"+contSave+".csv";
+    	contSaves++;
+    	String name="data/LoadGames"+contSaves+".csv";
     	export=new File(name);
     	PrintWriter pw =new PrintWriter(export);
     	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+quantityOfEnemies+"\n");
     	pw.close();
-    	player.setSaveExit(true);
-    	enemies.clear();
-    	startMenu();
-    }
-    
-    @FXML
-    void backMenuWithoutSaving(ActionEvent event) throws IOException{
     	player.setSaveExit(true);
     	enemies.clear();
     	startMenu();
@@ -402,11 +402,6 @@ public class VirtualGameGUIController {
 
     @FXML
     private TextField searchPosition;
-    
-    @FXML
-    void backScoreToMenu(ActionEvent event) throws IOException {
-    	startMenu();
-    }
     @FXML
     void refreshTable(ActionEvent event) {
     	tableScore.getItems().clear();
@@ -630,7 +625,7 @@ public class VirtualGameGUIController {
     	
     }
 
-
+    
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {
     	player.setPaused(false);
@@ -645,11 +640,20 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
+    
     @FXML
-    void backLoadToMenu(ActionEvent event) throws IOException {
-    	startMenu();
+    void loadSave(ActionEvent event) throws IOException{
+    	FileChooser fc = new FileChooser();
+    	fc.setInitialDirectory(new File("data/saves"));
+    	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
+    	File selectedFile = fc.showOpenDialog(null);
+    	if(selectedFile != null) {
+    		loadSaveGame(selectedFile);
+    	}
+    	else {
+    		System.out.println("File is not valid");
+    	}
     }
-
     public void loadSaveGame(File f) throws IOException {
     	BufferedReader br =new BufferedReader(new FileReader(f));
 		String line=br.readLine();
@@ -679,7 +683,10 @@ public class VirtualGameGUIController {
 		quantityOfEnemies=Integer.parseInt(parts[9]);
     	startScenary();
     }
-    
+    @FXML
+    void loadSaveGame(ActionEvent event) throws IOException {
+    	startScenary();
+    }
     public void starChoosePlayers() throws IOException {
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
 		fxmload.setController(this);
@@ -687,11 +694,6 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
-
-    @FXML
-    void backPlayerToMenu(ActionEvent event) throws IOException {
-    	startMenu();
-    }
 
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
@@ -820,10 +822,7 @@ public class VirtualGameGUIController {
     	alert.showAndWait();
     	}
     }
-    @FXML
-    void BacktoMenuOver(ActionEvent event) throws IOException {
-    	startMenu();
-    }
+    
     @FXML
     private TableView<Log> tableLogs;
     
@@ -834,11 +833,6 @@ public class VirtualGameGUIController {
     @FXML
     void showLogs() throws IOException{
     	startLogs();
-    }
-    
-    @FXML
-    void backLogToMenu() throws IOException {
-    	startMenu();
     }
     
     public void startLogs() throws IOException {
