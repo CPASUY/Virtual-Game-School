@@ -28,7 +28,7 @@
             <Font name="System Bold" size="23.0" />
          </font>
       </Text>
-      <Button layoutX="422.0" layoutY="417.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backLogToMenu" prefHeight="39.0" prefWidth="92.0">
+      <Button layoutX="422.0" layoutY="417.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backMenu" prefHeight="39.0" prefWidth="92.0">
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
