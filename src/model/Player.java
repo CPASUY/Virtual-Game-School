@@ -338,7 +338,7 @@ public class Player extends Entity implements Motion,Attack {
 	}
 	
 	public int getStages() {
-		return stages;
+		return stages+1;
 	}
 	
 	public void defeat() {
