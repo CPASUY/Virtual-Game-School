@@ -253,7 +253,6 @@ public class VirtualGameGUIController {
 			}
 			}
 		});
-		
 		basePane.setOnKeyReleased(new EventHandler<KeyEvent>(){
 			public void handle(KeyEvent event) {
 			switch(event.getCode().toString()) {
@@ -652,6 +651,7 @@ public class VirtualGameGUIController {
     void loadSaveGame(ActionEvent event) throws IOException {
     	startScenary();
     }
+    
     public void starChoosePlayers() throws IOException {
     	FXMLLoader fxmload = new FXMLLoader(getClass().getResource("Players.fxml"));
 		fxmload.setController(this);
