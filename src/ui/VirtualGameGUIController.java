@@ -390,6 +390,11 @@ public class VirtualGameGUIController {
 	void newGame(ActionEvent event){
 		player = new Player();
 		quantityOfEnemies = 0;
+		Player boy = new Player();
+		Player girl = new Player();
+		girl.setWoman(true);
+		initialPlayers.setInitialPlayer(boy);
+		initialPlayers.getInitialPlayer().setNextPlayer(girl);
 		enemies.clear();
 		createGunList();
 		starChoosePlayers();
@@ -1028,8 +1033,8 @@ public class VirtualGameGUIController {
     void chooseBoy(ActionEvent event){
     	
     	player = initialPlayers.getInitialPlayer();
-    	generateInitialEnemies();
     	startScenary();
+    	generateInitialEnemies();
     }
     /**
    	 * chooseGirl
@@ -1040,8 +1045,8 @@ public class VirtualGameGUIController {
     @FXML
     void chooseGirl(ActionEvent event){
     	player = initialPlayers.getInitialPlayer().getNextPlayer();
-    	generateInitialEnemies();
     	startScenary();
+    	generateInitialEnemies();
     }
     /**
 	  * generateInitialEnemies
@@ -1174,6 +1179,7 @@ public class VirtualGameGUIController {
 	    	alert.setHeaderText(null);
 	    	alert.setContentText("It has been saved successfully!");
 	    	alert.showAndWait();
+	    	enemies.clear();
 		} catch (RepeatedNicknameException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 	    	alert.setTitle("RepeatedNickname");

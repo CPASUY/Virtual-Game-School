@@ -24,4 +24,8 @@ public class InitialPlayerManagement {
 	public Player getInitialPlayer() {
 		return boy;
 	}
+	
+	public void setInitialPlayer(Player player) {
+		boy = player;
+	}
 }
