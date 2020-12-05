@@ -32,8 +32,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.GameManagement;
@@ -56,6 +54,7 @@ public class VirtualGameGUIController {
 	//Atributes
 	private Stage stage;
 	private Player player;
+	private int contSave;
 	public static GraphicsContext graphics;
 	private Image scenaryGame;
 	public static boolean up;
@@ -64,8 +63,8 @@ public class VirtualGameGUIController {
 	public static boolean right;
 	private GameManagement gm;
 	private int quantityOfEnemies;
+	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
-	public static  String FILE_NAME_SAVE="data/LoadGames.csv";
 	File export;
 	@FXML
     private Circle circle1;
@@ -108,12 +107,12 @@ public class VirtualGameGUIController {
     private GunManagement gunManagement;
 
 	public VirtualGameGUIController(Stage s) throws IOException {              
-		export=new File(FILE_NAME_SAVE);
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
+		nextStage = false;
 		gunManagement = new GunManagement();
-	
+		contSave=0;
 		
 	}
 	public void initialize() {
@@ -128,7 +127,7 @@ public class VirtualGameGUIController {
 				} catch (FileNotFoundException e) {
 					
 				} catch (IOException e) {
-					
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -183,11 +182,6 @@ public class VirtualGameGUIController {
 		Parent root=fxmload.load();
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
-	}
-	
-	@FXML
-	void backMenu() throws IOException {
-		startMenu();
 	}
 	@FXML
 	void exit(ActionEvent event) throws IOException {
@@ -366,9 +360,19 @@ public class VirtualGameGUIController {
     
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
+    	contSave++;
+    	String name="data/LoadGames"+contSave+".csv";
+    	export=new File(name);
     	PrintWriter pw =new PrintWriter(export);
     	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+quantityOfEnemies+"\n");
     	pw.close();
+    	player.setSaveExit(true);
+    	enemies.clear();
+    	startMenu();
+    }
+    
+    @FXML
+    void backMenuWithoutSaving(ActionEvent event) throws IOException{
     	player.setSaveExit(true);
     	enemies.clear();
     	startMenu();
@@ -399,6 +403,11 @@ public class VirtualGameGUIController {
 
     @FXML
     private TextField searchPosition;
+    
+    @FXML
+    void backScoreToMenu(ActionEvent event) throws IOException {
+    	startMenu();
+    }
     @FXML
     void refreshTable(ActionEvent event) {
     	tableScore.getItems().clear();
@@ -622,7 +631,7 @@ public class VirtualGameGUIController {
     	
     }
 
-    
+
     @FXML
     void backShopToGame(ActionEvent event) throws IOException {
     	player.setPaused(false);
@@ -637,36 +646,38 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
-    
     @FXML
-    void loadSave(ActionEvent event) throws IOException{
-    	FileChooser fc = new FileChooser();
-    	fc.setInitialDirectory(new File("data/saves"));
-    	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
-    	File selectedFile = fc.showOpenDialog(null);
-    	if(selectedFile != null) {
-    		
-    	}
-    	else {
-    		System.out.println("File is not valid");
-    	}
+    void backLoadToMenu(ActionEvent event) throws IOException {
+    	startMenu();
     }
-    
-    @FXML
-    void loadSaveGame(ActionEvent event) throws IOException {
-<<<<<<< HEAD
-    	File f=new File("LoadGames");
+
+    public void loadSaveGame(File f) throws IOException {
     	BufferedReader br =new BufferedReader(new FileReader(f));
 		String line=br.readLine();
-		while(line!=null) {
-			String [] parts=line.split(" ");
-			if(parts[2].equals("FirstGun")) {
-				GunFirst fg=new GunFirst();	
-			}
-			Player p=new Player(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),parts[2]);
+		String [] parts=line.split(" ");
+		boolean woman=Boolean.parseBoolean(parts[0]);
+		int score=Integer.parseInt(parts[1]);
+		double health=Double.parseDouble(parts[2]);
+		int coins=Integer.parseInt(parts[3]);
+		double posY=Double.parseDouble(parts[4]);
+		double posX=Double.parseDouble(parts[5]);
+		int defeats=Integer.parseInt(parts[6]);
+		int stage=Integer.parseInt(parts[7]);
+		Player p=new Player(woman,score,health,coins,posY,posX,defeats,stage,parts[8]);
+		if(parts[8].equals("initialGun")) {
+			Gun initial = new Gun(posX,posY,1);
 		}
-=======
->>>>>>> beab7232c043415eaf48316e25c6a0e67b3812fb
+		else if(parts[8].equals("firstGun")) {
+			GunFirst gf = new GunFirst(posX,posY,2);
+		}
+		else if(parts[8].equals("secondGun")) {
+			GunSecond gs = new GunSecond(posX,posY,3);
+		}
+		else {
+			GunThird gt = new GunThird(posX,posY,4);
+		}
+		player=p;
+		quantityOfEnemies=Integer.parseInt(parts[9]);
     	startScenary();
     }
     public void starChoosePlayers() throws IOException {
@@ -676,6 +687,11 @@ public class VirtualGameGUIController {
 		basePane.getChildren().clear();
 		basePane.setCenter(root);
 	}
+
+    @FXML
+    void backPlayerToMenu(ActionEvent event) throws IOException {
+    	startMenu();
+    }
 
     @FXML
     void chooseBoy(ActionEvent event) throws IOException {
@@ -804,7 +820,10 @@ public class VirtualGameGUIController {
     	alert.showAndWait();
     	}
     }
-    
+    @FXML
+    void BacktoMenuOver(ActionEvent event) throws IOException {
+    	startMenu();
+    }
     @FXML
     private TableView<Log> tableLogs;
     
@@ -815,6 +834,11 @@ public class VirtualGameGUIController {
     @FXML
     void showLogs() throws IOException{
     	startLogs();
+    }
+    
+    @FXML
+    void backLogToMenu() throws IOException {
+    	startMenu();
     }
     
     public void startLogs() throws IOException {
