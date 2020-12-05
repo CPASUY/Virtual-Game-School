@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 
 import ui.VirtualGameGUIController;
 
@@ -11,26 +10,83 @@ import ui.VirtualGameGUIController;
  */
 public class Player extends Entity implements Motion,Attack {
 	
-	
+	/**
+	 * The player score
+	 */
 	private int score;
+	/**
+	 * The player health
+	 */
 	private final static double MAX_HEALTH = 100;
+	/**
+	 * The quantity of sprites of the player
+	 */
 	private final int QUANTITY_SPRITES = 5;
+	/**
+	 * The array of paths
+	 */
 	private String[] paths = new String[QUANTITY_SPRITES];
+	/**
+	 * The path of a boy character
+	 */
 	private String pathBoy = "sprites/BoyGunDefect/";
+	/**
+	 * The path of a girl character
+	 */
 	private String pathGirl = "sprites/GirlGunDefect/";
+	/**
+	 * The player health
+	 */
 	private int coins;
+	/**
+	 * The player lose
+	 */
 	private boolean lose;
+	/**
+	 * The player paused
+	 */
 	private boolean paused;
+	/**
+	 * The player save exit
+	 */
 	private boolean saveExit;
+	/**
+	 * If the character is woman
+	 */
 	private boolean woman;
+	/**
+	 * The player defeats
+	 */
 	private int defeats;
+	/**
+	 * The player stages
+	 */
 	private int stages;
+	/**
+	 * The player gun
+	 */
 	private Gun gun;
+	/**
+	 * The player type of gun
+	 */
 	private String typeOfGun;
+	/**
+	 * Counter
+	 */
 	private int cont;
+	/**
+	 * The player velocity
+	 */
 	private final int VELOCITY = 3;
+<<<<<<< HEAD
 	private Player nextPlayer;
 
+=======
+	/**
+	 * Sets the player defeats
+	 * @param int defeats
+	 */
+>>>>>>> 800dd4f7dd6e48d40f9a00d10b9ec4ff1b69982e
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
 	}
@@ -146,7 +202,9 @@ public class Player extends Entity implements Motion,Attack {
 	public String getTypeOfGun() {
 		return typeOfGun;
 	}
-
+	/**
+	 * Sets the paths of the character
+	 */
 	public void setPaths() {
 		
 		if(woman) {
@@ -201,7 +259,10 @@ public class Player extends Entity implements Motion,Attack {
 	public boolean isWoman() {
 		return woman;
 	}
-
+	/**
+	 * Sets the genre of the character
+	 * @param int defeats
+	 */
 	public void setWoman(boolean woman) {
 		this.woman = woman;
 	}
@@ -209,7 +270,10 @@ public class Player extends Entity implements Motion,Attack {
 	public Gun getGun() {
 		return gun;
 	}
-	
+	/**
+	 * Sets the player gun
+	 * @param Gun gun
+	 */
 	public void setGun(Gun gun) {
 		this.gun = gun;
 	}
@@ -217,11 +281,17 @@ public class Player extends Entity implements Motion,Attack {
 	public int getCoins() {
 		return coins;
 	}
-
+	/**
+	 * Sets the player coins
+	 * @param int coins
+	 */
 	public void setCoins(int coins) {
 		this.coins = coins;
 	}
-	
+	/**
+	 * Sets the player paused
+	 * @param boolean pause
+	 */
 	public void setPaused(boolean pause) {
 		paused = pause;
 	}
@@ -233,7 +303,10 @@ public class Player extends Entity implements Motion,Attack {
 	public boolean isLose() {
 		return lose;
 	}
-
+	/**
+	 * Sets the player lose
+	 * @param boolean lose
+	 */
 	public void setLose(boolean lose) {
 		this.lose = lose;
 	}
@@ -241,7 +314,10 @@ public class Player extends Entity implements Motion,Attack {
 	public boolean isSaveExit() {
 		return saveExit;
 	}
-
+	/**
+	 * Sets the player save and exit
+	 * @param boolean saveExit
+	 */
 	public void setSaveExit(boolean saveExit) {
 		this.saveExit = saveExit;
 	}
@@ -254,7 +330,10 @@ public class Player extends Entity implements Motion,Attack {
 	public int getScore() {
 		return score;
 	}
-
+	/**
+	 * Sets the player score
+	 * @param int score
+	 */
 	public void setScore(int score) {
 		this.score = score;
 	}
@@ -270,7 +349,10 @@ public class Player extends Entity implements Motion,Attack {
 	public void defeat() {
 		defeats = getDefeats() + 1;
 	}
-
+	/**
+	 * Sets the player type of gun
+	 * @param String typeOfGun
+	 */
 	public void setTypeOfGun(String typeOfGun) {
 		this.typeOfGun = typeOfGun;
 	}

@@ -1,11 +1,20 @@
 package model;
 
 public class GunManagement {
-	
+	/**
+	 * The gun intial
+	 */
 	private Gun initialGun;
+	//Methods
+	/**
+	 * Creates an instance of GunManagement
+	 */
 	public GunManagement() {
-		
 	}
+	/** addGun
+     * Method used to add restaurant
+     * @param newGun!=null
+     */
 	public void addGun(Gun newGun) {
 
 		if(initialGun==null) {
@@ -19,7 +28,10 @@ public class GunManagement {
 			newGun.setPrevGun(current);
 		}
 	}
-	
+	/**
+	 * Returns the Gun initial
+	 * @return Gun gun
+	 */
 	public Gun getInitialGun() {
 		return initialGun;
 	}

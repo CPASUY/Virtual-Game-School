@@ -2,29 +2,49 @@ package model;
 
 
 public abstract class Pdf extends Entity implements Motion,Attack {
-	
+	/**
+	 * The pdf damage
+	 */
 	private  double damage;
+	/**
+	 * The objetive of the pdf
+	 */
 	private Player objective;
+	/**
+	 * The pdf velocity
+	 */
 	public static double VELOCITY = 4;
-	
+	//Methods
+	/**
+	 * Creates an instance of Pdf
+	 * @param posX position x of the pdf
+	 * @param posY position y of the pdf
+	 * @param health health of the pdf
+	 * @param damage damage of the pdf
+	 * @param objetive the objetive of the pdf
+	 */
 	public Pdf(double posX, double posY, double health,double damage,Player objective) {
 		super(posX, posY, health);
 		this.damage = damage;
 		this.objective = objective;
 	}
-
+	/**
+	 * The attack of the pdf
+	 */
 	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
+	public void attack() {	
 	}
-
+	/**
+	 * Returns the damage of the pdf
+	 * @return double damage
+	 */
 	@Override
 	public double getDamage() {
-		// TODO Auto-generated method stub
 		return damage;
 	}
-
+	/**
+	 * The movement of the pdf
+	 */
 	@Override
 	public void move() {
 		
@@ -46,17 +66,25 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 		}
 		
 	}
-	
+	/**
+	 * Method that verify the colision between the pdf and the objetive
+	 */
 	public void verifyCollision(Player player) {
 		if(this.getRectangle().getBoundsInLocal().intersects(player.getRectangle().getBoundsInLocal())) {
 			player.loseHealt(damage);
 		};
 	 }
-
+	/**
+	 * Returns the objetive
+	 * @return Player objetive
+	 */
 	public Player getObjective() {
 		return objective;
 	}
-
+	/**
+	 * Sets the objetive
+	 * @param Player objetive
+	 */
 	public void setObjective(Player objective) {
 		this.objective = objective;
 	}
