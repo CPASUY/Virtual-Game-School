@@ -33,6 +33,7 @@ public abstract class Pdf extends Entity implements Motion,Attack {
 	 */
 	@Override
 	public void attack() {	
+		objective.loseHealt(damage);
 	}
 	/**
 	 * Returns the damage of the pdf
