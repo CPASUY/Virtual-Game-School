@@ -78,15 +78,12 @@ public class Player extends Entity implements Motion,Attack {
 	 * The player velocity
 	 */
 	private final int VELOCITY = 3;
-<<<<<<< HEAD
 	private Player nextPlayer;
 
-=======
 	/**
 	 * Sets the player defeats
 	 * @param int defeats
 	 */
->>>>>>> 800dd4f7dd6e48d40f9a00d10b9ec4ff1b69982e
 	public void setDefeats(int defeats) {
 		this.defeats = defeats;
 	}

@@ -27,7 +27,6 @@ public class GameManagement implements Serializable {
 	private User rootUsers;
 	private Log rootLogs;
 	private int contPositionUsers;
-	private int contUsers=0;
 	//Method
 	public GameManagement() throws IOException {
 		contPositionUsers=1;
@@ -142,13 +141,11 @@ public class GameManagement implements Serializable {
 				rootUsers = new User(n,s,contPositionUsers,d,ls,mc);
 				addLog(rootUsers);
 				contPositionUsers++;
-				contUsers++;
 			} else {
 				User newU = new User(n,s,contPositionUsers,d,ls,mc);
 				addLog(newU);
 				addUser(rootUsers,newU);
 				contPositionUsers++;
-				contUsers++;
 			}
 		} else {
 			throw new RepeatedNicknameException();
@@ -175,13 +172,22 @@ public class GameManagement implements Serializable {
 			}
 		}
 	}
+	public int contUsers(User u) {
+		if(u==null) {
+			return 0;
+		}
+		else {
+			return 1+contUsers(u.getLeft())+contUsers(u.getRight());
+		}
+	}
 	/**
 	 * Generate an array of users
 	 * @return User[] user list
 	 */
 	private User[] generateUserArray() {
-		int cont = 0;
-		User[] array= new User[contUsers];
+		int cont=0;
+		int contU = contUsers(rootUsers);
+		User[] array= new User[contU-1];
 		if(rootUsers!=null) {
 			array = generateUserArray(array,rootUsers,cont);
 		}
@@ -192,7 +198,6 @@ public class GameManagement implements Serializable {
 	 * @return User[] user list
 	 */
 	private User[] generateUserArray(User[] array,User current,int cont) {
-		System.out.println(array.length);
 		array[cont] = current;
 		cont++;
 		if(current.getLeft()!=null) {

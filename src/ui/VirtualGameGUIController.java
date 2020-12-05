@@ -49,6 +49,7 @@ import model.Pdf;
 import model.Player;
 import model.RedPDF;
 import model.User;
+import thread.LoadingSaveScreenThread;
 import thread.LoadingScreenThread;
 import model.YellowPDF;
 import thread.PdfMovementThread;
@@ -68,6 +69,18 @@ public class VirtualGameGUIController {
 	private GameManagement gm;
 	private int quantityOfEnemies;
 	private ArrayList<Pdf> enemies;
+    @FXML
+    private Circle save1;
+
+    @FXML
+    private Circle save2;
+
+    @FXML
+    private Circle save3;
+
+    @FXML
+    private Circle save4;
+    
 	@FXML
 	private Circle circle3;
 
@@ -103,7 +116,12 @@ public class VirtualGameGUIController {
     
     private boolean movement;
     
+    private boolean movementSave;
+    
     private LoadingScreenThread lst;
+    
+    private LoadingSaveScreenThread lsst;
+    
     
     private AnimationTimer animationTimer;
     
@@ -185,6 +203,30 @@ public class VirtualGameGUIController {
 			 startMenu();
 		 }
 	 }
+	 public void movementSave() throws IOException {
+		 save1.setLayoutX(save1.getLayoutX()+20);
+		 save2.setLayoutX(save2.getLayoutX()+20);
+		 save3.setLayoutX(save3.getLayoutX()+20);
+		 save4.setLayoutX(save4.getLayoutX()+20);
+
+		 if(save1.getLayoutX()>935+100) {
+			 save1.setLayoutX(-50);
+		 }
+		 if(save2.getLayoutX()>935+100) {
+			 save2.setLayoutX(-50);
+		 } if(save3.getLayoutX()>935+100) {
+			 save3.setLayoutX(-50);
+		 } if(save4.getLayoutX()>935+100) {
+			 save4.setLayoutX(-50);
+		 }
+		 if(save1.getLayoutX()==130) {
+			 movement = false;
+			 startMenu();
+		 }
+	 }
+	 public boolean isMovementSave() {
+			return movementSave;
+	}
 	//Menu
 	public void startMenu() throws IOException {
 		basePane.setOnKeyPressed(null);
@@ -374,9 +416,23 @@ public class VirtualGameGUIController {
     	startScenary();
     	animationTimer.start();
     }
-    
+    public void startLoadingSaveScreen() throws IOException {
+		basePane.setOnKeyPressed(null);
+		FXMLLoader fxmload = new FXMLLoader(getClass().getResource("LoadingSaveScreen.fxml"));
+		fxmload.setController(this);
+		Parent root=fxmload.load();
+		basePane.getChildren().clear();
+		basePane.setCenter(root);
+	}
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
+    	startLoadingSaveScreen();
+    	if (movementSave == false){
+    		movementSave = true;
+    	} 
+    	lsst = new LoadingSaveScreenThread(this);
+    	lsst.setDaemon(true);
+    	lsst.start();
     	contSaves++;
     	String name="data/saves/LoadGames"+contSaves+".csv";
     	export=new File(name);
@@ -385,7 +441,6 @@ public class VirtualGameGUIController {
     	pw.close();
     	player.setSaveExit(true);
     	enemies.clear();
-    	startMenu();
     }
     
     public void startScores() throws IOException {
