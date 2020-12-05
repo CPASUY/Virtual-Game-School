@@ -64,6 +64,8 @@ public class VirtualGameGUIController {
 	private int quantityOfEnemies;
 	private boolean nextStage;
 	private ArrayList<Pdf> enemies;
+	public static  String FILE_NAME_SAVE="data/LoadGames.csv";
+	File export;
 	@FXML
     private Circle circle1;
 
@@ -105,7 +107,7 @@ public class VirtualGameGUIController {
     private GunManagement gunManagement;
 
 	public VirtualGameGUIController(Stage s) throws IOException {              
-		
+		export=new File(FILE_NAME_SAVE);
 		stage=s;
 		gm=new GameManagement();
 		enemies = new ArrayList<Pdf>();
@@ -359,7 +361,9 @@ public class VirtualGameGUIController {
     
     @FXML
     void saveAndExit(ActionEvent event) throws IOException{
-    
+    	PrintWriter pw =new PrintWriter(export);
+    	pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+quantityOfEnemies+"\n");
+    	pw.close();
     	player.setSaveExit(true);
     	enemies.clear();
     	startMenu();
@@ -647,7 +651,16 @@ public class VirtualGameGUIController {
 
     @FXML
     void loadSaveGame(ActionEvent event) throws IOException {
-    	
+    	File f=new File("LoadGames");
+    	BufferedReader br =new BufferedReader(new FileReader(f));
+		String line=br.readLine();
+		while(line!=null) {
+			String [] parts=line.split(" ");
+			if(parts[2].equals("FirstGun")) {
+				GunFirst fg=new GunFirst();	
+			}
+			Player p=new Player(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),parts[2]);
+		}
     	startScenary();
     }
     public void starChoosePlayers() throws IOException {
