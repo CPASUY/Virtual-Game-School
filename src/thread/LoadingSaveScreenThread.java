@@ -1,7 +1,4 @@
 package thread;
-
-import java.io.IOException;
-
 import javafx.application.Platform;
 import ui.VirtualGameGUIController;
 
@@ -24,11 +21,7 @@ public class LoadingSaveScreenThread extends Thread {
 		while (vsg.isMovementSave()) {
 			Platform.runLater(new Thread() {
 				public void run() {
-					try {
-						vsg.movementSave();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					vsg.movementSave();
 				}
 			});
 

@@ -1,7 +1,4 @@
 package thread;
-
-import java.io.IOException;
-
 import javafx.application.Platform;
 import ui.VirtualGameGUIController;
 
@@ -24,11 +21,7 @@ public class LoadingScreenThread  extends Thread{
 		while (vsg.isMovement()) {
 			Platform.runLater(new Thread() {
 				public void run() {
-					try {
-						vsg.movement();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					vsg.movement();
 				}
 			});
 
