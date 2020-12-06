@@ -24,7 +24,7 @@ class LogTest {
 		stage=1;
 		coins=600;
 		ld = LocalDate.now();
-		u=new User(nickname,score,position,defeats,stage,coins);
+		u=new User(nickname,score,defeats,stage,coins);
 		l=new Log(u,ld);
 	}
 	@Test
@@ -35,7 +35,7 @@ class LogTest {
 		assertEquals(score,u.getScore(),"The user score is wrong");
 		assertEquals(position,u.getPosition(),"The user position is wrong");
 		assertEquals(defeats,u.getDefeats(),"The user defeats is wrong");
-		assertEquals(stage,u.getLastStage(),"The user last stage wrong");
+		assertEquals(stage,u.getStages(),"The user last stage wrong");
 		assertEquals(coins,u.getMoodleCoins(),"The user coins is wrong");
 		
 		assertEquals(ld,l.getDate(),"The log date wrong");

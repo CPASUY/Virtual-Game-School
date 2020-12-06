@@ -95,7 +95,7 @@ public class Player extends Entity implements Motion,Attack {
 		setLose(false);
 		cont=0;
 		setSaveExit(false);
-		stages = 1;
+		stages = -2;
 		defeats = 0;
 		typeOfGun = "initialGun";
 	}
@@ -383,11 +383,14 @@ public class Player extends Entity implements Motion,Attack {
 	public void nextStage() {
 		stages ++;
 	}
+	public void setStages(int stages) {
+		this.stages = stages;
+	}
 	/**
 	 * Returns the player stages
 	 * @return int stages
 	 */
-	public int getStages() {
+	public int getStagesDefault() {
 		return stages+1;
 	}
 	/**

@@ -39,10 +39,11 @@ public class GameManagement implements Serializable {
 	/**
 	 * The counter of position user
 	 */
-	private int contPositionUsers;
+	private int contPositionUser;
+	private int cont;
 	//Method
 	public GameManagement() throws IOException {
-		contPositionUsers=1;
+		contPositionUser=0;
 		try {
 			loadRootLogs();
 			loadRootUsers();
@@ -123,20 +124,25 @@ public class GameManagement implements Serializable {
 	 */
 	public User searchUserByNickname(String n,User current) {
 		User user = null;
-		if (current == null) {
-			user=null;
-		} else {
-			if (n.equals(current.getNickname()) ) {
-				user = current;
-			} else if (n.compareTo(current.getNickname()) <= 0) {
-				user = searchUserByNickname(n,current.getLeft());
+		User found=null;
+		User[] users =userBubbleSortbyNickname();
+		int start = 0;
+		int end = users.length- 1;
+		int position = 0;
+		boolean encontre = false;
+		while (start <= end && !encontre) {
+			position = (start + end) / 2;
+			user= users[position];
+			if ((user.getNickname()).equalsIgnoreCase(n)) {
+				encontre = true;
+				found=users[position];
+			} else if (user.getNickname().compareTo(n) > 0) {
+				end = position - 1;
 			} else {
-				user = searchUserByNickname(n,current.getRight());
+				start = position + 1;
 			}
-
 		}
-
-		return user;
+		return found;
 	}
 	/**
 	 * Adds a new user
@@ -151,39 +157,53 @@ public class GameManagement implements Serializable {
 		User found = searchUserByNickname(n);
 		if (found == null) {
 			if (rootUsers == null) {
-				rootUsers = new User(n,s,contPositionUsers,d,ls,mc);
+				rootUsers = new User(n,s,d,ls,mc);
 				addLog(rootUsers);
-				contPositionUsers++;
 			} else {
-				User newU = new User(n,s,contPositionUsers,d,ls,mc);
+				User newU = new User(n,s,d,ls,mc);
 				addLog(newU);
 				addUser(rootUsers,newU);
-				contPositionUsers++;
 			}
 		} else {
 			throw new RepeatedNicknameException();
 		}
 	}
-	
+	public User[] userBubbleSortbyNickname(){
+		User[] users = generateUserArray();
+		for (int i = users.length; i >0; i--) {
+			for (int j = 0; j < i-1; j++) {
+				int compare =users[j].getNickname().compareTo(users[j+1].getNickname());
+				if(compare>0) {
+					User temp = users[j];
+					users[j] = users[j+1];
+					users[j+1]=temp;
+				}
+			}
+		}
+		return users;
+	}
 	/**
 	 * Adds a new user recursively
 	 * @param current username current of the binary three
 	 * @param newU new user
 	 */
 	private void addUser(User current,User newU) {
-		if(newU.getScore()<=current.getScore()	&&	current.getLeft()==null) {
-			current.setLeft(newU);
-			newU.setParent(current);
-		}else if(newU.getScore()>current.getScore( ) && current.getRight()==null) {
-			current.setRight(newU);
-			newU.setParent(current);
-		}else {
-			if(newU.getScore()<=current.getScore() && current.getLeft()!= null) {
+		if (current.getScore() >= newU.getScore()) {
+			if (current.getLeft() == null) {
+				current.setLeft(newU);
+				newU.setParent(current);
+			} else {
 				addUser(current.getLeft(),newU);
-			}else {
+			}
+		} else {
+			if (current.getRight() == null) {
+				current.setRight(newU);
+				newU.setParent(current);
+			} else {
 				addUser(current.getRight(),newU);
 			}
 		}
+
 	}
 	/**
 	 * contUsers
@@ -204,11 +224,11 @@ public class GameManagement implements Serializable {
 	 * @return User[] user list
 	 */
 	private User[] generateUserArray() {
-		int cont=0;
+		cont=0;
 		int contU = contUsers(rootUsers);
 		User[] array= new User[contU];
 		if(rootUsers!=null) {
-			array = generateUserArray(array,rootUsers,cont);
+			array = generateUserArray(array,rootUsers);
 		}
 		return array;
 	}
@@ -216,15 +236,14 @@ public class GameManagement implements Serializable {
 	 * Generate an array of users
 	 * @return User[] user list
 	 */
-	private User[] generateUserArray(User[] array,User current,int cont) {
+	private User[] generateUserArray(User[] array,User current) {
 		array[cont] = current;
 		cont++;
 		if(current.getLeft()!=null) {
-			array = generateUserArray(array,current.getLeft(),cont);
+			array = generateUserArray(array,current.getLeft());
 		}
-
 		if(current.getRight()!=null){
-			array = generateUserArray(array,current.getRight(),cont);
+			array = generateUserArray(array,current.getRight());
 		}
 		return array;
 	}
@@ -260,7 +279,7 @@ public class GameManagement implements Serializable {
 		ArrayList<User> listUsers = new ArrayList<User>();
 		 for(int s=0; s<users.length; s++){
 		      for(int m=0; m<users.length-1; m++){
-		        if(users[m].getLastStage()>users[m+1].getLastStage()){
+		        if(users[m].getStages()<users[m+1].getStages()){
 		          User temp=users[m+1];
 		          users[m+1]=users[m];
 		          users[m]=temp;
@@ -315,9 +334,9 @@ public class GameManagement implements Serializable {
 			if (p==current.getPosition()) {
 				user = current;
 			} else if (p <= current.getPosition()) {
-				user = searchUserByPosition(p,current.getLeft());
-			} else {
 				user = searchUserByPosition(p,current.getRight());
+			} else {
+				user = searchUserByPosition(p,current.getLeft());
 			}
 		}
 		return user;
@@ -341,6 +360,7 @@ public class GameManagement implements Serializable {
 	 * @return user list
 	 */
 	public ArrayList<User> showList() {
+		contPositionUser=0;
 		ArrayList<User> listUsers = new ArrayList<User>();
 		return showList(rootUsers,listUsers);
 	}
@@ -353,6 +373,8 @@ public class GameManagement implements Serializable {
 	public ArrayList<User> showList(User current,ArrayList<User> u){
 		if (current != null) {
 			showList(current.getRight(),u);
+			contPositionUser++;
+			current.setPosition(contPositionUser);
 			u.add(current);
 			showList(current.getLeft(),u);
 		}
