@@ -2,8 +2,6 @@ package model;
 
 
 import exceptions.NoEnoughCoinsException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import ui.VirtualGameGUIController;
 
 /**
@@ -85,14 +83,6 @@ public class Player extends Entity implements Motion,Attack {
 	 * The next player
 	 */
 	private Player nextPlayer;
-
-	/**
-	 * Sets the player defeats
-	 * @param int defeats
-	 */
-	public void setDefeats(int defeats) {
-		this.defeats = defeats;
-	}
 	//Methods
 		/**
 		 * Creates an instance of Player
@@ -446,34 +436,27 @@ public class Player extends Entity implements Motion,Attack {
 			coins = coins-1500;
 			this.typeOfGun = "firstGun";
 			setPaths();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
 		}
 		else if(typeOfGun.equals("secondGun") && coins>=3500){
 			coins = coins-3500;
 			this.typeOfGun = "secondGun";
 			setPaths();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
 		}
 		else if(typeOfGun.equals("secondGun") && coins>=5000){
 			coins = coins-5000;
 			this.typeOfGun = "thirdGun";
 			setPaths();
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Buy succesfully");
-			alert.setHeaderText("Your purchase has been completed successfully");
-			alert.setContentText("Enjoy defeating enemies");
-			alert.show();
 		}
 		else {
 			throw new NoEnoughCoinsException();
 		}
+	}
+	
+	/**
+	 * Sets the player defeats
+	 * @param int defeats
+	 */
+	public void setDefeats(int defeats) {
+		this.defeats = defeats;
 	}
 }

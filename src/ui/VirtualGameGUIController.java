@@ -60,7 +60,7 @@ public class VirtualGameGUIController {
 	/**
 	 * Stage of GUI
 	 */
-	private Stage stage;
+	private Stage sg;
 	/**
 	 * Player of game
 	 */
@@ -190,7 +190,7 @@ public class VirtualGameGUIController {
 		File carpeta = new File("data/saves"); 
 		File[] lista = carpeta.listFiles();
 		contSaves=lista.length;
-		stage=s;
+		sg=s;
 		try {
 			gm=new GameManagement();
 		} catch (IOException e) {
@@ -210,7 +210,7 @@ public class VirtualGameGUIController {
 	 * Method for serialize the users and log when a player close the windoe
 	 */
 	public void initialize() {
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		sg.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			
 			@Override
 			public void handle(WindowEvent event) {
@@ -788,7 +788,6 @@ public class VirtualGameGUIController {
     void sortByDefeats(ActionEvent event) {
     	ObservableList<User> user= FXCollections.observableArrayList(gm.insertionSortByDefeats());
 		tableScore.setItems(user);
-		
 		idPosition.setCellValueFactory(new PropertyValueFactory<User, Integer>("Position"));
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
@@ -861,6 +860,11 @@ public class VirtualGameGUIController {
 				player.discountCoins("firstGun");
 				player.setGun(gunManagement.getInitialGun().getNextGun());
 				coinsShop.setText(String.valueOf(player.getCoins()));
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Buy succesfully");
+				alert.setHeaderText("Your purchase has been completed successfully");
+				alert.setContentText("Enjoy defeating enemies");
+				alert.show();
 			} catch (NoEnoughCoinsException e) {
 				Alert warning = new Alert(AlertType.WARNING);
 				warning.setTitle("Not Enough MoodleCoins");
@@ -879,6 +883,11 @@ public class VirtualGameGUIController {
     		player.discountCoins("secondGun");
 			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun());
 			coinsShop.setText(String.valueOf(player.getCoins()));
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Buy succesfully");
+			alert.setHeaderText("Your purchase has been completed successfully");
+			alert.setContentText("Enjoy defeating enemies");
+			alert.show();
 		} catch (NoEnoughCoinsException e) {
 			Alert warning = new Alert(AlertType.WARNING);
 			warning.setTitle("Not Enough MoodleCoins");
@@ -897,6 +906,11 @@ public class VirtualGameGUIController {
     		player.discountCoins("thirdGun");
 			player.setGun(gunManagement.getInitialGun().getNextGun().getNextGun().getNextGun());
 			coinsShop.setText(String.valueOf(player.getCoins()));
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Buy succesfully");
+			alert.setHeaderText("Your purchase has been completed successfully");
+			alert.setContentText("Enjoy defeating enemies");
+			alert.show();
 		} catch (NoEnoughCoinsException e) {
 			Alert warning = new Alert(AlertType.WARNING);
 			warning.setTitle("Not Enough MoodleCoins");

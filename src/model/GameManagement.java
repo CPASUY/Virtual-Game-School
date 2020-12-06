@@ -206,7 +206,7 @@ public class GameManagement implements Serializable {
 	private User[] generateUserArray() {
 		int cont=0;
 		int contU = contUsers(rootUsers);
-		User[] array= new User[contU-1];
+		User[] array= new User[contU];
 		if(rootUsers!=null) {
 			array = generateUserArray(array,rootUsers,cont);
 		}
