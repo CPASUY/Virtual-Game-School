@@ -25,7 +25,7 @@ public class User implements Serializable{
 	/**
 	 * The user's las stage
 	 */
-	private int lastStage;
+	private int stages;
 	/**
 	 * The user's moodleCoins
 	 */
@@ -54,14 +54,17 @@ public class User implements Serializable{
 	 * @param ld last stage of the User
 	 * @param mc moodleCoins of the User
 	 */
-	public User(String n, double s, int p, int d, int ls, double mc) {
+	public User(String n, double s, int d, int ls, double mc) {
 		super();
 		nickname = n;
 		score = s;
-		position = p;
+		position = 0;
 		defeats = d;
-		lastStage = ls;
+		stages = ls;
 		moodleCoins = mc;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	/**
 	 * Returns the user's nickname
@@ -95,8 +98,8 @@ public class User implements Serializable{
 	 * Returns the user's last stage
 	 * @return int last stage
 	 */
-	public int getLastStage() {
-		return lastStage;
+	public int getStages() {
+		return stages;
 	}
 	/**
 	 * Returns the user's moodleCoins

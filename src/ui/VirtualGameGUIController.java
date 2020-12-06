@@ -146,7 +146,7 @@ public class VirtualGameGUIController {
     private TableColumn<User,Integer> idDefeats;
 
     @FXML
-    private TableColumn<User,Integer> idLastStage;
+    private TableColumn<User,Integer> idStages;
 
     @FXML
     private TableColumn<User,Double> idMoodleCoins;
@@ -313,7 +313,7 @@ public class VirtualGameGUIController {
 			 save4.setLayoutX(-50);
 		 }
 		 if(save1.getLayoutX()==130) {
-			 movement = false;
+			 movementSave = false;
 			 startMenu();
 		 }
 	 }
@@ -626,19 +626,19 @@ public class VirtualGameGUIController {
     @FXML
     void saveAndExit(ActionEvent event){
     	startLoadingSaveScreen();
-    	if (movementSave == false){
-    		movementSave = true;
-    	} 
-    	lsst = new LoadingSaveScreenThread(this);
-    	lsst.setDaemon(true);
-    	lsst.start();
     	contSaves++;
     	String name="data/saves/LoadGames"+contSaves+".csv";
     	export=new File(name);
     	PrintWriter pw;
 		try {
+			if (movementSave == false){
+	    		movementSave = true;
+	    	} 
+	    	lsst = new LoadingSaveScreenThread(this);
+	    	lsst.setDaemon(true);
+	    	lsst.start();
 			pw = new PrintWriter(export);
-			pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStages()+" "+player.getTypeOfGun()+" "+(quantityOfEnemies-1)+"\n");
+			pw.write(player.isWoman()+" "+player.getScore()+" "+player.getHealth()+" "+player.getCoins()+" "+player.getPosY()+" "+player.getPosX()+" "+player.getDefeats()+" "+player.getStagesDefault()+" "+player.getTypeOfGun()+" "+(quantityOfEnemies-1)+"\n");
 	    	pw.close();
 	    	player.setSaveExit(true);
 	    	enemies.clear();
@@ -670,8 +670,8 @@ public class VirtualGameGUIController {
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
 		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
+		idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 	}
 
     @FXML
@@ -695,7 +695,7 @@ public class VirtualGameGUIController {
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
     /**
@@ -706,7 +706,6 @@ public class VirtualGameGUIController {
 	 */
     @FXML
     void searchByNickname(ActionEvent event) {
-    	System.out.println("NETRA");
     	ArrayList<User> listUsers = new ArrayList<User>();
     	String nickname = searchNickname.getText();
 		if(nickname.isEmpty()) {
@@ -728,7 +727,7 @@ public class VirtualGameGUIController {
 				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+				idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
 			}else {
 				System.out.println("no");
@@ -768,7 +767,7 @@ public class VirtualGameGUIController {
 				idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 				idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 				idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-				idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+				idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
 		}
     }
@@ -793,7 +792,7 @@ public class VirtualGameGUIController {
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
 
@@ -810,7 +809,7 @@ public class VirtualGameGUIController {
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
 
@@ -827,7 +826,7 @@ public class VirtualGameGUIController {
 		idNickname.setCellValueFactory(new PropertyValueFactory<User, String>("Nickname"));
 		idScore.setCellValueFactory(new PropertyValueFactory<User, Double>("Score"));
 		idDefeats.setCellValueFactory(new PropertyValueFactory<User, Integer>("Defeats"));
-		idLastStage.setCellValueFactory(new PropertyValueFactory<User, Integer>("Last Stage"));
+		idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 		idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
     }
     /**
@@ -1170,10 +1169,10 @@ public class VirtualGameGUIController {
     	}else {
     	int c=player.getCoins();
     	double s=player.getScore();
-    	int st=player.getStages();
+    	int st=player.getStagesDefault();
     	int d=player.getDefeats();
     	try {
-			gm.addUser(n, s, d, st,c);
+			gm.addUser(n, s, d, st-2,c);
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Information");
 	    	alert.setHeaderText(null);

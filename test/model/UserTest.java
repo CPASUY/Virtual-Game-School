@@ -20,7 +20,7 @@ class UserTest {
 		defeats=4;
 		stage=2;
 		coins=900;
-		u=new User(nickname,score,position,defeats,stage,coins);
+		u=new User(nickname,score,defeats,stage,coins);
 	}
 	@Test
 	void testUser() {
@@ -30,7 +30,7 @@ class UserTest {
 		assertEquals(score,u.getScore(),"The user score is wrong");
 		assertEquals(position,u.getPosition(),"The user position is wrong");
 		assertEquals(defeats,u.getDefeats(),"The user defeats is wrong");
-		assertEquals(stage,u.getLastStage(),"The user last stage wrong");
+		assertEquals(stage,u.getStages(),"The user last stage wrong");
 		assertEquals(coins,u.getMoodleCoins(),"The user coins is wrong");
 	}
 

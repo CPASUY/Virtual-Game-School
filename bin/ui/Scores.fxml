@@ -120,8 +120,8 @@
           <TableColumn fx:id="idNickname" prefWidth="147.0" text="Nickname" />
           <TableColumn fx:id="idScore" prefWidth="105.0" text="Score" />
             <TableColumn fx:id="idDefeats" minWidth="0.0" prefWidth="100.0" text="Defeats" />
-            <TableColumn fx:id="idLastStage" prefWidth="83.0" text="Last Stage" />
             <TableColumn fx:id="idMoodleCoins" prefWidth="115.0" text="MoodleCoins" />
+            <TableColumn fx:id="idStages" prefWidth="83.0" sortable="false" text="Stages" />
         </columns>
       </TableView>
    </children>
