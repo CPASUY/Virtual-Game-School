@@ -709,7 +709,6 @@ public class VirtualGameGUIController {
     	ArrayList<User> listUsers = new ArrayList<User>();
     	String nickname = searchNickname.getText();
 		if(nickname.isEmpty()) {
-			System.out.println("okey");
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Empty space");
 			alert.setHeaderText("You must fill in the blank");
@@ -730,7 +729,6 @@ public class VirtualGameGUIController {
 				idStages.setCellValueFactory(new PropertyValueFactory<User, Integer>("Stages"));
 				idMoodleCoins.setCellValueFactory(new PropertyValueFactory<User, Double>("MoodleCoins"));
 			}else {
-				System.out.println("no");
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("User not found");
 				alert.setContentText("Check that you have entered the nickname correctly");
