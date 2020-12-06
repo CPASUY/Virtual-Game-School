@@ -151,7 +151,6 @@ public class GameManagement implements Serializable {
 	 * @param d defeats of the new user
 	 * @param ls last stage of the new user
 	 * @param mc moodleCoins of the new user
-	 * @throws RepeatedNicknameException user Already exist
 	 */
 	public void addUser(String n, double s, int d, int ls, double mc) throws RepeatedNicknameException {
 		User found = searchUserByNickname(n);

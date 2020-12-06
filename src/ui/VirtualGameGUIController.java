@@ -983,7 +983,8 @@ public class VirtualGameGUIController {
 			double posX=Double.parseDouble(parts[5]);
 			int defeats=Integer.parseInt(parts[6]);
 			int stage=Integer.parseInt(parts[7]);
-			Player p=new Player(woman,score,health,coins,posY,posX,defeats,stage,parts[8]);
+			int sta=stage-2;
+			Player p=new Player(woman,score,health,coins,posY,posX,defeats,sta,parts[8]);
 			player=p;
 			createGunList();
 			if(parts[8].equals("initialGun")) {
@@ -1184,7 +1185,7 @@ public class VirtualGameGUIController {
     	int st=player.getStagesDefault();
     	int d=player.getDefeats();
     	try {
-			gm.addUser(n, s, d, st-2,c);
+			gm.addUser(n, s, d, st,c);
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Information");
 	    	alert.setHeaderText(null);
